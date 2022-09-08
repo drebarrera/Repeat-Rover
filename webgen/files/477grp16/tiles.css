@@ -1,0 +1,62 @@
+.tile_slide {
+	height: var(--slide-height);
+	width: var(--slide-width);
+	display: flex;
+	flex-direction: column;
+}
+
+.tile_row {
+	margin-left: var(--row-offset);
+}
+
+.tile {
+	height: calc(var(--tile-height) * 3 / 5);
+	width: var(--tile-height);
+	position: absolute;
+	border-radius: var(--tile-radius);
+	transform: skew(30deg);
+}
+
+.tile_bottom {
+	z-index: 1;
+	margin-top: 0;
+	cursor: pointer;
+}
+
+.tile_middle {
+	z-index: 2;
+	margin-top: 0;
+	cursor: pointer;
+}
+
+.tile_top {
+	z-index: 3;
+	margin-top: 0;
+	cursor: pointer;
+	background-size: 100% 100%;
+}
+
+.tile_stack {
+	height: calc(var(--tile-height) * 3 / 5);
+	width: var(--tile-height);
+	position: relative;
+	display: block;
+}
+
+.dummy_tile_stack {
+	height: calc(var(--tile-height) * 3 / 5);
+	width: var(--tile-height);
+	position: relative;
+	display: block;
+}
+
+.tile_stack:hover .tile_top {
+	margin-top: calc(var(--tile-height) * -2 / 5);
+	z-index: 5;
+	filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.5));
+}
+
+.tile_stack:hover .tile_middle {
+	margin-top: calc(var(--tile-height) * -1 / 5);
+	z-index: 4;
+}
