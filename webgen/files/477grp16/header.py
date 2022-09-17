@@ -201,3 +201,24 @@ class Header(header_obj):
 
     def c(self, inadmissible, dynamic):
         return self.Header.c(inadmissible, dynamic)
+
+
+### HEADER ###
+buttons = list()
+button_names = ['Home','About','Team','Documentation','GitHub','Contact']
+button_actions = ["redirect('https://www.drebarrera.com/');", "redirect('https://www.drebarrera.com/');", "redirect('https://www.drebarrera.com/');", "redirect('https://www.drebarrera.com/');", "redirect('https://www.drebarrera.com/');", "redirect('https://www.drebarrera.com/');"]
+for x in range(len(button_names)):
+    buttons.append(('func',button_names[x],button_actions[x]))
+header = Header(branding='left',menubar='right')
+header.logo_name='repeat_rover.png'
+header.site_name='  '
+header.logo_height='75px'
+header.buttons=buttons
+header.primary_color='rgb(250,250,250)'
+header.accent_color='#fe8e03'
+header.button_style='rounded inverse'
+header.button_colors='#fe8e03 rgb(250,250,250)'
+header.button_width='auto 50px'
+header.button_padding='10px'
+header.nav_switch='750'
+header.build()

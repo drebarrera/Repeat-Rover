@@ -2,7 +2,7 @@ import modules as mx
 import sys
 import os
 import importlib
-homedir = os.getcwd() + r'/files/library/'
+homedir = os.getcwd() + r'/files/477grp16/'
 sys.path.append(homedir)
 data = mx.Data()
 body = mx.Body()
@@ -13,38 +13,38 @@ importlib.reload(sys.modules['content'])
 from tiles import *
 importlib.reload(sys.modules['tiles'])
 
-data.title = "Designed By Dre"
+data.title = "Repeat Rover"
 
 ### OBJECTS
+base = mx.X()
 page = Page()
 slide = Slide()
 tileSlide = Tile_Slide()
 tileStatic = Tile()
 tileAbout = Tile()
-tileWeb = Tile()
-tileMine = Tile()
-tileAudio = Tile()
-tileOther = Tile()
 tileContact = Tile()
+tileDocuments = Tile()
+tileGitHub = Tile()
+tileTeam = Tile()
+tile477 = Tile()
 overlay = mx.C()
 title = mx.T()
 subtitle = mx.T()
-songContainer = mx.C()
-songAudio = mx.T()
-songTitle = mx.T()
+roverDomain = mx.C()
+rover = mx.Image()
 
 ### CONTENT
-body.content = [page]
-page.content = [slide, title, subtitle, songContainer]
+base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
+body.content = [page, subtitle, title, roverDomain]
+page.content = [slide]
 slide.content = [[[tileSlide,overlay]]]
-title.content = 'Designed By Dre'
+title.content = 'Repeat Rover'
 subtitle.content = 'Welcome. Click on a blue tile to begin.'
-songContainer.content = [songAudio, songTitle]
-songAudio.content = '<iframe frameborder="0" id="iframe"></iframe>'
-songTitle.content = 'Song: <i>Somewhere out there...</i> by Dre Barrera'
+roverDomain.content = [rover]
+rover.src = 'images/rover.png'
 
 # SLIDE 2
-tileSlide.content = [[tileStatic,tileStatic,tileStatic,None,tileStatic,None,tileStatic,tileStatic,tileStatic,None,tileStatic],[None,tileStatic,tileStatic,tileStatic,None,tileStatic,tileStatic,tileStatic,tileStatic],[None,None,tileStatic,tileStatic,tileAbout,None,tileStatic,None,tileStatic],[None,None,tileStatic,tileStatic,tileStatic,tileAudio,tileStatic],[None,None,tileStatic,tileMine,None,tileStatic,None,tileStatic],[None,None,None,tileStatic,tileWeb,tileStatic,tileStatic,None],[None,None,None,None,tileOther,tileStatic],[None,None,None,tileContact]]
+tileSlide.content = [[None,None,tileStatic,None],[None,None,tileStatic,None],[None,None,tileStatic,tileStatic,tile477,None],[None,None,tileGitHub,tileStatic,tileStatic,None],[None,None,tileDocuments,tileTeam,tileStatic,None],[None,None,None,tileAbout,tileStatic,None],[None,None,None,tileStatic,tileStatic,None],[None,None,None,tileStatic,tileContact,None],[None,None,None,tileStatic,None],[None,None,None,tileStatic,None]]
 
 # SLIDE 2
 slide.height = 'auto'
@@ -57,59 +57,57 @@ tileAbout.color3 = '#36687d'
 tileAbout.static = False
 tileAbout.id = 'about-tile'
 tileAbout.icon = "url('images/vector_about.png')"
-tileAbout.link = "https://www.designedbydre.com/about"
-tileMine.color1 = '#002233'
-tileMine.color2 = '#005580'
-tileMine.color3 = '#36687d'
-tileMine.static = False
-tileMine.id = 'mine-tile'
-tileMine.icon = "url('images/vector_mine.png')"
-tileMine.link = "https://www.designedbydre.com/datamine"
-tileWeb.color1 = '#002233'
-tileWeb.color2 = '#005580'
-tileWeb.color3 = '#36687d'
-tileWeb.static = False
-tileWeb.id = 'web-tile'
-tileWeb.icon = "url('images/vector_web.png')"
-tileWeb.link = "https://www.designedbydre.com/webdesign"
-tileAudio.color1 = '#002233'
-tileAudio.color2 = '#005580'
-tileAudio.color3 = '#36687d'
-tileAudio.static = False
-tileAudio.id = 'audio-tile'
-tileAudio.icon = "url('images/vector_audio.png')"
-tileAudio.link = "https://www.designedbydre.com/audio"
-tileOther.color1 = '#002233'
-tileOther.color2 = '#005580'
-tileOther.color3 = '#36687d'
-tileOther.static = False
-tileOther.id = 'other-tile'
-tileOther.icon = "url('images/vector_other.png')"
-tileOther.link = "https://www.designedbydre.com/design"
+tileAbout.link = "https://engineering.purdue.edu/477grp16/about.html"
+tileGitHub.color1 = '#002233'
+tileGitHub.color2 = '#005580'
+tileGitHub.color3 = '#36687d'
+tileGitHub.static = False
+tileGitHub.id = 'github-tile'
+tileGitHub.icon = "url('images/vector_github.png')"
+tileGitHub.link = "https://github.com/drebarrera/Repeat-Rover.git"
+tileDocuments.color1 = '#002233'
+tileDocuments.color2 = '#005580'
+tileDocuments.color3 = '#36687d'
+tileDocuments.static = False
+tileDocuments.id = 'documents-tile'
+tileDocuments.icon = "url('images/vector_documents.png')"
+tileDocuments.link = "https://engineering.purdue.edu/477grp16/Files/documents.html"
+tileTeam.color1 = '#002233'
+tileTeam.color2 = '#005580'
+tileTeam.color3 = '#36687d'
+tileTeam.static = False
+tileTeam.id = 'team-tile'
+tileTeam.icon = "url('images/vector_team.png')"
+tileTeam.link = "https://engineering.purdue.edu/477grp16/Team/team.html"
+tile477.color1 = '#002233'
+tile477.color2 = '#005580'
+tile477.color3 = '#36687d'
+tile477.static = False
+tile477.id = '477-tile'
+tile477.icon = "url('images/vector_477.png')"
+tile477.link = "https://engineering.purdue.edu/ece477/"
 tileContact.color1 = '#002233'
 tileContact.color2 = '#005580'
 tileContact.color3 = '#36687d'
 tileContact.static = False
 tileContact.id = 'contact-tile'
 tileContact.icon = "url('images/vector_contact.png')"
-tileContact.link = "https://www.designedbydre.com/contact"
-overlay.background = 'linear-gradient(rgba(21,41,49,1) 0%,rgba(255,255,255,0) 30%)'
+tileContact.link = "https://engineering.purdue.edu/477grp16/Team/contact.php"
+overlay.background = 'linear-gradient(rgba(21,41,49,1) 0%,rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255, 255, 255, 1) 100%)'
 overlay.background_size = '100% 100%'
 overlay.cl = 'tile_slide_overlay'
 title.id = 'title'
+title.position = 'fixed'
 title.type = 'h1'
-title.font_family = 'Courier New'
 subtitle.id = 'subtitle'
+subtitle.position = 'fixed'
 subtitle.type = 'h2'
-subtitle.font_family = 'Courier New'
 subtitle.font_weight = '300'
-songContainer.id = 'song-container'
-songContainer.display = 'flex'
-songContainer.flex_flow = 'row wrap'
-songContainer.align_items = 'center'
-songTitle.display = 'inline-block'
-songTitle.position = 'relative'
-songTitle.font_family = 'Courier New'
+roverDomain.id = 'rover_domain'
+roverDomain.position = 'fixed'
+roverDomain.display = 'flex'
+roverDomain.justify_content = 'center'
+rover.id = 'rover'
 
 ### BUILD
 slide.build()

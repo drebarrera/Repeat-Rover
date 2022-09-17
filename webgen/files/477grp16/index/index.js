@@ -8,60 +8,60 @@ function drop(tile, ind) {
 	setTimeout(function(){
 		$('.tile_stack').eq(tile).animate({
 			top: '0px'
-		}, 75);
-	}, 75 * ind);
+		}, 100);
+	}, 100 * ind);
 }
 
 $(document).ready(function(){
-	var doc = document.getElementById('iframe').contentWindow.document;
-	doc.open();
-	doc.write('<!DOCTYPE html><html><head></head><body contenteditable="false"><audio controls autoplay style="display:inline-block; position: relative;"><source src="images/Somewhere out there.ogg" type="audio/ogg"><source src="images/Somewhere out there.mp3" type="audio/mp3"></audio></body></html>');
-	doc.close();
-
 	$('#page').fadeIn(1000);
 	$('.tile_stack').css('top','-1000px');
 	var numTiles = $('.tile_stack').length;
 	var tileStack = [...Array(numTiles).keys()];
 	for(var ind = numTiles; ind > 0; ind--){
-		var tileSelect = Math.floor(Math.random() * ind);
+		var tileSelect = ind - 1; //Math.floor(Math.random() * ind);
 		var tile = tileStack[tileSelect];
   		tileStack.splice(tileSelect, 1);
-		drop(tile, ind);
+		drop(tile, numTiles - ind);
 	}
 
-	$('.tile_stack').not('#about-tile').not('#audio-tile').not('#mine-tile').not('#web-tile').not('#other-tile').hover(function(){
-		$('#title').text('Designed By Dre');
+	$('.tile_stack, .tile_slide, .dummy_tile_stack').not('#about-tile').not('#github-tile').not('#team-tile').not('#contact-tile').not('#documents-tile').not('#477-tile').hover(function(){
+		$('#title').text('Repeat Rover');
 		$('#subtitle').text('Welcome. Click on a blue tile to begin.');
 	});
 
 	$('#about-tile').hover(function(){
-		$('#title').text('About Designed By Dre');
-		$('#subtitle').text('Click to learn more about the designer.');
+		$('#title').text('About Repeat Rover');
+		$('#subtitle').text('Click to learn more about the Repeat Rover project.');
 	});
 
-	$('#audio-tile').hover(function(){
-		$('#title').text('Audio Production');
-		$('#subtitle').text('Click for sound design, mixing, and mastering.');
+	$('#github-tile').hover(function(){
+		$('#title').text('Project Repository');
+		$('#subtitle').text('Click for the Repeat Rover project GitHub repository.');
 	});
 
-	$('#mine-tile').hover(function(){
-		$('#title').text('Data Mining');
-		$('#subtitle').text('Click for AI data mining, web scraping, and trend analysis.');
+	$('#team-tile').hover(function(){
+		$('#title').text('Team Members');
+		$('#subtitle').text('Click to learn about the Repeat Rover team.');
 	});
 
-	$('#web-tile').hover(function(){
-		$('#title').text('Website Design');
-		$('#subtitle').text('Click for website and UI/UX design.');
+	$('#documents-tile').hover(function(){
+		$('#title').text('Project Documents');
+		$('#subtitle').text('Click for Repeat Rover project documentation.');
 	});
 
-	$('#other-tile').hover(function(){
-		$('#title').text('Other Design Services');
-		$('#subtitle').text('Click for graphic design, video production, CAD, and more.');
+	$('#477-tile').hover(function(){
+		$('#title').text('Purdue University ECE 477');
+		$('#subtitle').text('Click to visit the Purdue Univeristy Digital Systems Senior Design website.');
 	});
 
 	$('#contact-tile').hover(function(){
 		$('#title').text('Contact and Inquiry');
-		$('#subtitle').text('Click to contact the designer.');
+		$('#subtitle').text('Click to contact the Repeat Rover team.');
 	});
+
+	$('#rover').animate({
+		bottom: "135px",
+		marginLeft: "375px"
+	}, 1500);
 });
 
