@@ -58,10 +58,11 @@ $(document).ready(function(){
 		$('#title').text('Contact and Inquiry');
 		$('#subtitle').text('Click to contact the Repeat Rover team.');
 	});
-
-	$('#rover').animate({
-		bottom: "135px",
-		marginLeft: "375px"
-	}, 1500);
+	setTimeout(function() {
+		$('#rover').animate({
+			bottom: "135px",
+			marginLeft: "375px"
+		}, 1500);
+	}, 800);
 });
 
