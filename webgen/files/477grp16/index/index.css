@@ -3,6 +3,37 @@ p, h1, h2 {
 	margin-block-end: 0px;
 }
 
+#header {
+	--nav-display-5000: none !important;
+	--nav-display-1250: none !important;
+	--nav-display-1000: none !important;
+	--nav-display-750: none !important;
+	--menu-display-5000: flex !important;
+	--menu-display-1250: flex !important;
+	--menu-display-1000: flex !important;
+	--menu-display-750: flex !important;
+	position: absolute !important;
+}
+
+#nav {
+	background-color: rgba(0,0,0,0) !important;
+	justify-content: right;
+	margin-right: 50px;
+	margin-top: 25px;
+}
+
+.navlogo {
+	display: none !important;
+}
+
+#navmenuicon rect {
+	fill: white !important;
+}
+
+#navemenuicon {
+	float: right;
+}
+
 #title {
 	font-size: 50px;
 	bottom: 30px;

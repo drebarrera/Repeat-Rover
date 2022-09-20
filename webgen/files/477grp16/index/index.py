@@ -6,6 +6,8 @@ homedir = os.getcwd() + r'/files/477grp16/'
 sys.path.append(homedir)
 data = mx.Data()
 body = mx.Body()
+from header import *
+importlib.reload(sys.modules['header'])
 from buttons import *
 importlib.reload(sys.modules['buttons'])
 from content import *
@@ -33,9 +35,11 @@ subtitle = mx.T()
 roverDomain = mx.C()
 rover = mx.Image()
 
+header.logo_name = None
+
 ### CONTENT
 base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
-body.content = [page, subtitle, title, roverDomain]
+body.content = [header, page, subtitle, title, roverDomain]
 page.content = [slide]
 slide.content = [[[tileSlide,overlay]]]
 title.content = 'Repeat Rover'

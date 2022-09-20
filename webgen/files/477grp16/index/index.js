@@ -30,7 +30,7 @@ $(document).ready(function(){
 	});
 
 	$('#about-tile').hover(function(){
-		$('#title').text('About Repeat Rover');
+		$('#title').text('About the Project');
 		$('#subtitle').text('Click to learn more about the Repeat Rover project.');
 	});
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	});
 
 	$('#477-tile').hover(function(){
-		$('#title').text('Purdue University ECE 477');
+		$('#title').text('ECE 477 Webpage');
 		$('#subtitle').text('Click to visit the Purdue Univeristy Digital Systems Senior Design website.');
 	});
 

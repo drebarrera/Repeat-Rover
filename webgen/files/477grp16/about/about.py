@@ -12,8 +12,6 @@ from header import *
 importlib.reload(sys.modules['header'])
 from content import *
 importlib.reload(sys.modules['content'])
-from tiles import *
-importlib.reload(sys.modules['tiles'])
 
 data.title = 'Repeat Rover | About'
 
@@ -23,7 +21,6 @@ slide1 = Slide()
 slide1title = mx.T()
 slide1caption = mx.T()
 slide1logo = mx.Image()
-slide1description = mx.T()
 slide1diagramC = mx.C()
 slide1diagram = mx.Image()
 slide1diagramWSSB = mx.C()
@@ -33,8 +30,11 @@ slide1diagramMOTB = mx.C()
 slide1diagramMCUB = mx.C()
 slide1diagramPWRB = mx.C()
 slide1diagramSTOB = mx.C()
+
 slide1button = Button('link','Portfolio',link_url="https://www.drebarrera.com",radius='rounded')
 slide2 = Slide()
+
+### BUTTON BAR ###
 buttons = list()
 button_names = ['Home','Team','Documentation','GitHub','Contact']
 button_actions = ["window.open('https://engineering.purdue.edu/477grp16/','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/team.html','_self');", "window.open('https://engineering.purdue.edu/477grp16/Files/documents.html','_self');", "window.open('https://github.com/drebarrera/Repeat-Rover','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/contact.php','_self');"]
@@ -53,6 +53,8 @@ button_bar.nav_switch='0'
 button_bar.id = 'button_bar'
 button_bar.build()
 
+slide2description = mx.X()
+
 ### CONTENT ###
 body.content = [header, page]
 page.content = [slide1,slide2]
@@ -64,8 +66,10 @@ slide1caption.content = "Repeat Rover is a remote-programmable automated R/C veh
 slide1diagramC.content = [slide1diagramWSSB,slide1diagramMAGB,slide1diagramBLEB,slide1diagramMOTB,slide1diagramMCUB,slide1diagramPWRB,slide1diagramSTOB,slide1diagram]
 slide1diagram.src = 'images/component_diagram.png'
 slide1logo.src = 'images/logo.png'
-slide2.content = [[[slide1description]]]
-slide1description.content = "Repeat Rover is an automated domestic item delivery system which can remember a user driven path. This will be useful when paired with an automatic item reloader at its home dock that loads items to be delivered onto the car, and a remote device which signals to the car when it is being called. Upon first setup, the user will drive the rover using a bluetooth transceiver app on a phone transferring the desired path using bluetooth while the microcontrollers record the speed and direction of the rover using wheel mounted hall effect sensors and onboard magnetometers respectively. With this data stored in the onboard SD card, the rover will be able to deliver things from its home dock to the end of the user generated path. When called by the user's remote summoning device, the microcontroller on Repeat Rover will start up and translate the stored data into movement of the wheels and steering direction. Once delivery is complete, the rover will turn around 180 degrees and do the inverse of the actions it just completed to accurately return back to its loading station. The Repeat Rover would be reset with user need in order to change the desired path."
+
+# SLIDE 2
+slide2.content = [[[slide2description]]]
+slide2description.content = "<div id='slide2description'><em><p>Click on a component of the graphic above to learn more about the project.</p></em><br><br><h3>Project Description</h4><br><p>Repeat Rover is an automated domestic item delivery system which can remember a user driven path. This will be useful when paired with an automatic item reloader at its home dock that loads items to be delivered onto the car, and a remote device which signals to the car when it is being called. Upon first setup, the user will drive the rover using a bluetooth transceiver app on a phone transferring the desired path using bluetooth while the microcontrollers record the speed and direction of the rover using wheel mounted hall effect sensors and onboard magnetometers respectively. With this data stored in the onboard SD card, the rover will be able to deliver things from its home dock to the end of the user generated path. When called by the user's remote summoning device, the microcontroller on Repeat Rover will start up and translate the stored data into movement of the wheels and steering direction. Once delivery is complete, the rover will turn around 180 degrees and do the inverse of the actions it just completed to accurately return back to its loading station. The Repeat Rover would be reset with user need in order to change the desired path.</p><br><br><h3>Project Specific Success Criteria</h3><ol><li>PSSC #1 (Hardware): An ability to interface the microcontroller with the RC car's motors and control ICs.</li><li>PSSC #2 (Hardware): An ability to store and retrieve wheel speed and direction data for 100 movement instructions in an SD card using SPI.</li><li>PSSC #3 (Hardware): An ability to track the distance traversed by measuring wheel speed using a hall effect sensor interfaced with the microcontroller using GPIO.</li><li>PSSC #4 (Hardware): An ability to track the direction of the vehicle with a magnetometer communicating through I2C during a user's control session.</li><li>PSSC #5 (Software): An ability to calculate and accurately drive the car using a planned path constructed from wheel and direction data.</li></ol></div>"
 
 
 ### PROPERTIES ###
@@ -89,11 +93,18 @@ slide1diagramMOTB.cl = 'slide1diagramB'
 slide1diagramMCUB.cl = 'slide1diagramB'
 slide1diagramPWRB.cl = 'slide1diagramB'
 slide1diagramSTOB.cl = 'slide1diagramB'
-slide1description.id = 'slide1description'
+slide1diagramWSSB.onclick = 'slide1diagramWSSB()'
+slide1diagramMAGB.onclick = 'slide1diagramMAGB()'
+slide1diagramBLEB.onclick = 'slide1diagramBLEB()'
+slide1diagramMOTB.onclick = 'slide1diagramMOTB()'
+slide1diagramMCUB.onclick = 'slide1diagramMCUB()'
+slide1diagramPWRB.onclick = 'slide1diagramPWRB()'
+slide1diagramSTOB.onclick = 'slide1diagramSTOB()'
 slide1logo.id = 'slide1logo'
 slide1button.id = 'slide1button'
 slide1button.primary = '#F35046'
 slide1button.accent = 'white'
 slide1.build()
-slide2.height = "500px"
+slide2.height = "300px"
+slide2.id = 'slide2'
 slide2.build()

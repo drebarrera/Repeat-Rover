@@ -63,9 +63,10 @@
 	width: 121px;
 }
 
-#slide1description {
+#slide2description {
 	margin: 50px;
 	padding: 20px;
+	padding-bottom: 70px;
 	background-color: rgba(250, 250, 250, 0.8);
 }
 
@@ -78,4 +79,31 @@
 #button_bar {
 	position: relative !important;
 	z-index: 0 !important;
+}
+
+#slide2description h3 {
+	font-size: 30px;
+}
+
+#slide2description td, #slide2description th {
+	font-size: 20px;
+	border: 2px solid black;
+	padding: 10px;
+}
+
+#slide2description table {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+#button_bar .navmenubar {
+	float: inherit !important;
+}
+
+#slide2 .ccslide {
+	align-content: flex-start !important;
+}
+
+#slide2 li {
+	font-size: 20px;
 }

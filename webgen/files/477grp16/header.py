@@ -58,7 +58,7 @@ class header_obj:
         self.button_padding = button_padding
         self.navbar_rounded = False if navbar == 'normal' else True
         self.navbar_conditions = None if navbar == 'normal' else navbar
-        self.nav_switch = [5000,1250,1000,750,500][min(range(len([5000,1250,1000,750,500])), key = lambda i: abs([5000,1250,1000,750,500][i]-int(nav_switch)))]
+        self.nav_switch = [5000,1250,1000,750,500,0][min(range(len([5000,1250,1000,750,500,0])), key = lambda i: abs([5000,1250,1000,750,500,0][i]-int(nav_switch)))]
         self.position = position
         self.underline = '2px' if underline else '0px'
         self.base_url = base_url
@@ -209,7 +209,7 @@ button_names = ['Home','About','Team','Documentation','GitHub','Contact']
 button_actions = ["window.open('https://engineering.purdue.edu/477grp16/','_self');", "window.open('https://engineering.purdue.edu/477grp16/about.html','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/team.html','_self');", "window.open('https://engineering.purdue.edu/477grp16/Files/documents.html','_self');", "window.open('https://github.com/drebarrera/Repeat-Rover','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/contact.php','_self');"]
 for x in range(len(button_names)):
     buttons.append(('func',button_names[x],button_actions[x]))
-header = Header(branding='left',menubar='right')
+header = Header(branding='left',menubar='center')
 header.logo_name='repeat_rover.png'
 header.site_name='  '
 header.logo_height='75px'
@@ -220,5 +220,5 @@ header.button_style='rounded inverse'
 header.button_colors='#fe8e03 rgb(250,250,250)'
 header.button_width='auto 50px'
 header.button_padding='10px'
-header.nav_switch='750'
+header.nav_switch='1000'
 header.build()
