@@ -14,6 +14,8 @@ from content import *
 importlib.reload(sys.modules['content'])
 
 data.title = 'Repeat Rover | About'
+base = mx.X()
+base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
 
 ### OBJECTS ###
 page = Page()
@@ -56,7 +58,7 @@ button_bar.build()
 slide2description = mx.X()
 
 ### CONTENT ###
-body.content = [header, page]
+body.content = [base, header, page]
 page.content = [slide1,slide2]
 
 # SLIDE 1

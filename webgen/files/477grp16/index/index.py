@@ -16,9 +16,10 @@ from tiles import *
 importlib.reload(sys.modules['tiles'])
 
 data.title = "Repeat Rover"
+base = mx.X()
+base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
 
 ### OBJECTS
-base = mx.X()
 page = Page()
 slide = Slide()
 tileSlide = Tile_Slide()
@@ -38,8 +39,7 @@ rover = mx.Image()
 header.logo_name = None
 
 ### CONTENT
-base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
-body.content = [header, page, subtitle, title, roverDomain]
+body.content = [base, header, page, subtitle, title, roverDomain]
 page.content = [slide]
 slide.content = [[[tileSlide,overlay]]]
 title.content = 'Repeat Rover'
@@ -48,7 +48,7 @@ roverDomain.content = [rover]
 rover.src = 'images/rover.png'
 
 # SLIDE 2
-tileSlide.content = [[None,None,tileStatic,None],[None,None,tileStatic,None],[None,None,tileStatic,tileStatic,tile477,None],[None,None,tileGitHub,tileStatic,tileStatic,None],[None,None,tileDocuments,tileTeam,tileStatic,None],[None,None,None,tileAbout,tileStatic,None],[None,None,None,tileStatic,tileStatic,None],[None,None,None,tileStatic,tileContact,None],[None,None,None,tileStatic,None],[None,None,None,tileStatic,None]]
+tileSlide.content = [[None,None,tileStatic,None],[None,None,tileStatic,None],[None,None,tileStatic,tileStatic,tile477,None],[None,None,tileGitHub,tileStatic,tileStatic,None],[None,None,tileDocuments,tileTeam,tileStatic,None],[None,None,None,tileAbout,tileStatic,None],[None,None,None,tileStatic,tileStatic,None],[None,None,None,tileStatic,None,None],[None,None,None,tileStatic,None],[None,None,None,tileStatic,None]]
 
 # SLIDE 2
 slide.height = 'auto'
