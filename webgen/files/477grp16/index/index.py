@@ -17,7 +17,7 @@ importlib.reload(sys.modules['tiles'])
 
 data.title = "Repeat Rover"
 base = mx.X()
-base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
+base.content = '<base href="https://engineering.purdue.edu/477grp16/"/>'
 
 ### OBJECTS
 page = Page()

@@ -15,7 +15,7 @@ importlib.reload(sys.modules['content'])
 
 data.title = 'Repeat Rover | About'
 base = mx.X()
-base.content = '<base href="https://engineering.purdue.edu/ece477grp16/"/>'
+base.content = '<base href="https://engineering.purdue.edu/477grp16/"/>'
 
 ### OBJECTS ###
 page = Page()
