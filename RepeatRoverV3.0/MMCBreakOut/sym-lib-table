@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name "MMC5983MA")(type "Legacy")(uri "C:/Users/amirk/OneDrive/Desktop/RepeatRover/MMC5983MA/MMC5983MA.lib")(options "")(descr ""))
-  (lib (name "MMCBreakOut-rescue")(type "Legacy")(uri "${KIPRJMOD}/MMCBreakOut-rescue.lib")(options "")(descr ""))
-)
