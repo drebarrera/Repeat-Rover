@@ -119,4 +119,9 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/main.o: \
  /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
- /Users/waewtasaw/Desktop/Repeat-Rover/firmware/examples/ble_peripheral/RepeatRover_Project/ble_cus.h
+ /Users/waewtasaw/Desktop/Repeat-Rover/firmware/examples/ble_peripheral/RepeatRover_Project/ble_cus.h \
+ ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_spim.h \
+ ../../../../../../modules/nrfx/hal/nrf_spim.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_spi.h \
+ ../../../../../../modules/nrfx/hal/nrf_spi.h

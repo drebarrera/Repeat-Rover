@@ -38,6 +38,7 @@
 "Output/Debug/Obj/ble_app_template_pca10040_s132/nrfx_prs.o"
 "Output/Debug/Obj/ble_app_template_pca10040_s132/nrfx_uart.o"
 "Output/Debug/Obj/ble_app_template_pca10040_s132/nrfx_uarte.o"
+"Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_drv_spi.o"
 "Output/Debug/Obj/ble_app_template_pca10040_s132/bsp.o"
 "Output/Debug/Obj/ble_app_template_pca10040_s132/bsp_btn_ble.o"
 "Output/Debug/Obj/ble_app_template_pca10040_s132/main.o"

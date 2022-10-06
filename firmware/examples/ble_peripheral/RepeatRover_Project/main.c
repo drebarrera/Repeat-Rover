@@ -82,6 +82,10 @@
 #include "nrf_log_default_backends.h"
 #include "ble_cus.h"
 
+#include "nrf_drv_spi.h"
+#include "nrf_gpio.h"
+#include "boards.h"
+
 #define DEVICE_NAME                     "Nordic_Template"                       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME               "NordicSemiconductor"                   /**< Manufacturer. Will be passed to Device Information Service. */
 #define APP_ADV_INTERVAL                300                                     /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
@@ -127,6 +131,16 @@ static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        
 /* YOUR_JOB: Declare all services structure your application is using
  *  BLE_XYZ_DEF(m_xyz);
  */
+
+//SPI Stuff
+#define SPI_INSTANCE  0 /**< SPI instance index. */
+static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);  /**< SPI instance. */
+static volatile bool spi_xfer_done;  /**< Flag used to indicate that SPI instance completed the transfer. */
+
+#define TEST_STRING "Nordic"
+static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
+static uint8_t       m_rx_buf[sizeof(TEST_STRING) + 1];    /**< RX buffer. */
+static const uint8_t m_length = sizeof(m_tx_buf);        /**< Transfer length. */
 
 // YOUR_JOB: Use UUIDs for service(s) used in your application.
 static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
@@ -852,11 +866,43 @@ static void advertising_start(bool erase_bonds)
     }
 }
 
+//SPI stuff
+/**
+ * @brief SPI user event handler.
+ * @param event
+ */
+void spi_event_handler(nrf_drv_spi_evt_t const * p_event,
+                       void *                    p_context)
+{
+    spi_xfer_done = true;
+    NRF_LOG_INFO("Transfer completed.");
+    if (m_rx_buf[0] != 0)
+    {
+        NRF_LOG_INFO(" Received:");
+        NRF_LOG_HEXDUMP_INFO(m_rx_buf, strlen((const char *)m_rx_buf));
+    }
+}
+
+static void spi_init(void)
+{
+    nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
+    spi_config.ss_pin   = 7;
+    spi_config.miso_pin = 4;
+    spi_config.mosi_pin = 5;
+    spi_config.sck_pin  = 6;
+    APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
+}
+
 
 /**@brief Function for application main entry.
  */
 int main(void)
 {
+
+    //SPI
+    //spi_init();
+
+    //BLE
     bool erase_bonds;
 
     // Initialize.
