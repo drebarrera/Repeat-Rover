@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2015 - 2018, Nordic Semiconductor ASA
  * 
@@ -49,13 +50,14 @@
  *
  */
 
-#include <stdbool.h>
-#include <stdint.h>
+#include 
+#include 
 #include "nrf.h"
 #include "app_error.h"
 #include "bsp.h"
 #include "nrf_delay.h"
 #include "app_pwm.h"
+#include "nrf_gpio.h"
 
 APP_PWM_INSTANCE(PWM1,1);                   // Create the instance "PWM1" using TIMER1.
 
@@ -80,13 +82,14 @@ int main(void)
     err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
     APP_ERROR_CHECK(err_code);
     app_pwm_enable(&PWM1);
-
+    nrf_gpio_cfg_output(10);
+    nrf_gpio_pin_toggle(10);
     uint32_t value;
     while (true)
     {
         for (uint8_t i = 0; i < 40; ++i)
         {
-            value = (i < 20) ? (i * 5) : (100 - (i - 20) * 5);
+            value = 80;
 
             ready_flag = false;
             /* Set the duty cycle - keep trying until PWM is ready... */
