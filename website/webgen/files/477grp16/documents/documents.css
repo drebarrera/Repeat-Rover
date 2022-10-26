@@ -1,6 +1,10 @@
 #page {
 	display: flex;
 	justify-content: center;
+	width: 100%;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 #bg {
@@ -12,6 +16,8 @@
 	font-size: 35px;
 }
 
+
+
 #flextable h2 {
 	font-size: 70px;
 	font-weight: 300;
@@ -20,6 +26,7 @@
 
 #flextable {
 	padding-bottom: 50px;
+	width: fit-content;
 }
 
 .doc_img {
