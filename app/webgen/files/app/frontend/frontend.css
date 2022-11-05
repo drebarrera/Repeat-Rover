@@ -1,0 +1,21 @@
+#nav {
+    background-color: rgba(0,0,0,0) !important;
+}
+
+#region {
+    height: calc(100vh - 85px);
+    width: 100vw;
+    background-color: orange;
+}
+
+#frame {
+    height: calc(100vh - 85px - 50px - 80px);
+    background-color: blue;
+    padding: 25px;
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+}
