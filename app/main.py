@@ -1,11 +1,11 @@
 import sys
 import os
 from utility import *
-from webgen import comp as c
+from Webgen import comp as c
 import re
 import webbrowser
-sys.path.insert(1, r_path(os.getcwd(), 'webgen','files','app'))
-sys.path.insert(1, r_path(os.getcwd(), 'webgen'))
+sys.path.insert(1, r_path(os.getcwd(), 'Webgen','files','app'))
+sys.path.insert(1, r_path(os.getcwd(), 'Webgen'))
 
 class Map:
     def __init__(self):
@@ -23,7 +23,7 @@ def parse_coords(coords):
 
 def start_frontend(m: Map):
     c.main(m.bounds, m.obstacles, m.grid, m.path)
-    url = "file:///"+r_path(os.getcwd(),"webgen","files","app","frontend","index.html")
+    url = "file:///"+r_path(os.getcwd(),"Webgen","files","app","frontend","index.html")
     webbrowser.get().open(url, new=0)
 
 if __name__ == "__main__":
