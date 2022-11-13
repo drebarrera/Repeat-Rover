@@ -16,7 +16,7 @@ def push_map(bounds, obstacles, grid, path):
     prepend_javascript = "const bounds = " + str(bounds) + ";\n"
     prepend_javascript += "const obstacles = " + str(obstacles) + ";\n"
     prepend_javascript += "const grid = " + str(grid) + ";\n"
-    prepend_javascript += "var path = " + str(grid) + ";\n"
+    prepend_javascript += "var path = " + str(path) + ";\n"
     f = open(r_path(os.getcwd(), 'Webgen', 'files', 'app', 'frontend', 'frontend.js'), 'w')
     f.write(prepend_javascript + javascript)
     f.close()

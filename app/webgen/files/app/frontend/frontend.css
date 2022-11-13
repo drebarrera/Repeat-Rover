@@ -15,4 +15,9 @@ canvas {
     height: 100%;
     width: 100%;
     background-color: #F5FCFC;
+    cursor: url('images/cursor.png') 24 24, auto;
+}
+
+canvas:active {
+    cursor: url('images/cursor_click.png') 24 24, auto;
 }

@@ -3,13 +3,13 @@ import os
 import importlib
 from utility import *
 
-def main(bounds, obstacles, grid, path):
+def main(bounds, obstacles, grid, p):
     path = "webgen/files/app/frontend/"
     folder = "app"
     filename = "frontend"
     sys.path.insert(1, path)
     import ui as x
-    x.push_map(bounds, obstacles, grid, path)
+    x.push_map(bounds, obstacles, grid, p)
     #importlib.reload(x)
     php = False
     jquery = False
