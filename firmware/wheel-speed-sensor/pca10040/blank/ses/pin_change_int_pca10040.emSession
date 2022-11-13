@@ -59,17 +59,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="102" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="82" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="65" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/nRF5/nRF5_SDK/examples/My Projects/pin_change_int/main.c" path="../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h" left="0" top="62" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="17" y="200" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/nRF5/nRF5_SDK/integration/nrfx/legacy/nrf_drv_gpiote.h" path="../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h" left="0" top="200" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="50" useTextEdit="1" path="../../../../../../modules/nrfx/mdk/ses_startup_nrf52.s" left="0" top="48" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="36" y="255" useTextEdit="1" path="../config/sdk_config.h" left="0" top="237" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="890" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" left="0" top="872" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../../../components/libraries/strerror/nrf_strerror.c" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="46" useTextEdit="1" path="../../../../../../external/fprintf/nrf_fprintf.c" left="0" top="31" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="3" y="100" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="4" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="54" y="3220" useTextEdit="1" path="../config/sdk_config.h" left="0" top="40" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="9" y="117" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/nRF5/nRF5_SDK/examples/My Projects/wheel-speed-sensor/main.c" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 6.34a/include/stdio.h" left="0" top="107" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="52" y="703" useTextEdit="1" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 6.34a/include/__SEGGER_RTL_Arm_Conf.h" left="0" top="689" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="92" useTextEdit="1" path="../../../../../../external/fprintf/nrf_fprintf_format.c" left="0" top="92" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="pin_change_int_pca10040" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <EMStudioWindow activeProject="pin_change_int_pca10040" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
