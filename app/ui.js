@@ -1,3 +1,5 @@
+var NEW_PATH = false;
+
 const Canvas = {
     canvas: undefined,
     c: undefined,
@@ -306,6 +308,30 @@ reset = function() {
     }
 }
 
+function button1() {
+    if (NEW_PATH == false) {
+        NEW_PATH = true;
+        path = [];
+        Canvas.start_coords = undefined;
+        Canvas.click_coords = undefined;
+        reset();
+        document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
+    } else {
+        path = [];
+        Canvas.start_coords = undefined;
+        Canvas.click_coords = undefined;
+        reset();
+    }
+    
+}
+
+function button2() {
+    NEW_PATH = false;
+    document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">New Path</p>';
+    Canvas.canvas.style.cursor = "auto";
+}
+
 window.onresize = reset;
 
 var DOUBLECLICK = false;
@@ -321,6 +347,15 @@ $(document).ready(function() {
     Canvas.plot_bounds();
     Canvas.plot_obstacles();
     Canvas.canvas.addEventListener('mousedown', function(e) {
-        Canvas.log_click(e);
+        if (!NEW_PATH)
+            Canvas.canvas.style.cursor = "auto";
+        else {
+            Canvas.canvas.style.cursor = "url('images/cursor_click.png') 24 24, auto";
+            Canvas.log_click(e);
+        }
+    });
+    Canvas.canvas.addEventListener('mouseup', function() {
+        if (NEW_PATH)
+            Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     });
 });

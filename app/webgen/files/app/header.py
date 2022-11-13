@@ -205,8 +205,8 @@ class Header(header_obj):
 
 ### HEADER ###
 buttons = list()
-button_names = ['Home','About','Team','Documentation','GitHub']
-button_actions = ["window.open('https://engineering.purdue.edu/477grp16/','_self');", "window.open('https://engineering.purdue.edu/477grp16/about.html','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/team.html','_self');", "window.open('https://engineering.purdue.edu/477grp16/Files/documents.html','_self');", "window.open('https://github.com/drebarrera/Repeat-Rover','_self');", "window.open('https://engineering.purdue.edu/477grp16/Team/contact.php','_self');"]
+button_names = ['New Path','Start Rover','Team','Documentation','User Manual']
+button_actions = ["button1()", "button2()", "button3()", "button4()", "button5()", "button6()"]
 for x in range(len(button_names)):
     buttons.append(('func',button_names[x],button_actions[x]))
 header = Header(branding='left',menubar='right')
