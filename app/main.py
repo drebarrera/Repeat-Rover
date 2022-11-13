@@ -30,8 +30,10 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         #print('Too few arguments. Please supply a filename and an -n flag.')
         m = Map()
+        #m.bounds = parse_coords('(0,0),(8,0),(8,8),(0,8)')
         m.bounds = parse_coords('(0,0),(8,0),(8,8),(5,5),(0,5)')
         m.obstacles = [parse_coords('(1,1),(2,1),(2,2),(1,2)'), parse_coords('(3,3),(4,3),(4,4),(3,4)')]
+        m.grid = [1,0.5]
         start_frontend(m)
     if len(sys.argv) == 2:
         pass
