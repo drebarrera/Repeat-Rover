@@ -3,6 +3,7 @@ import os
 from utility import *
 from Webgen import modules as mx
 from header import *
+from buttons import *
 
 data = mx.Data()
 body = mx.Body()
@@ -35,14 +36,21 @@ with open(r_path(os.getcwd(), 'Webgen', 'files', 'app', 'frontend', 'frontend.js
 region = mx.C()
 frame = mx.C()
 canvas = mx.X()
+strip = mx.C()
+textbox = mx.X()
+submit = Button('func','Submit',None,'text_submit()',primary_color='white',accent_color='#45AF82',width='auto',padding='1vh',underline=True,inverse=True,radius='sharp')
+submit.id = 'submit'
 
 ### CONTENT
 canvas.content = '<canvas id="canvas"></canvas>'
 body.content = [region, header]
-region.content = [frame]
+region.content = [frame, strip]
 frame.content = [canvas]
+strip.content = [textbox, submit]
+textbox.content = '<input id="textbox" type="text"></input>'
 
 ### PROPERTIES
 body.overflow_y = 'hidden'
 region.id = "region"
 frame.id = "frame"
+strip.id = "strip"

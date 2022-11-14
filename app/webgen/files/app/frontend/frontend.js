@@ -1,8 +1,9 @@
-const bounds = [[0, 0], [8, 0], [8, 8], [5, 5], [0, 5]];
-const obstacles = [[[1, 1], [2, 1], [2, 2], [1, 2]], [[3, 3], [4, 3], [4, 4], [3, 4]]];
+const bounds = [[0.0, 0.0], [8.0, 0.0], [8.0, 8.0], [5.0, 5.0], [0.0, 5.0]];
+const obstacles = [[[1.0, 1.0], [2.0, 1.0], [2.0, 2.0], [1.0, 2.0]], [[3.0, 3.0], [4.0, 3.0], [4.0, 4.0], [3.0, 4.0]]];
 const grid = [1, 0.25];
-var path = [];
-var NEW_PATH = false;
+var path = [[5.0, 0.5], [5.0, 4.5], [0.5, 4.5], [0.5, 0.5]];
+var NEW_PATH = 0;
+var ROVER_ACTIVE = false;
 
 const Canvas = {
     canvas: undefined,
@@ -171,9 +172,9 @@ const Canvas = {
         }
     },
 
-    plot_path: function() {
-        var path_x = this.scale_dims(this.get_axis(path, 0, false));
-        var path_y = this.scale_dims(this.get_axis(path, 1, false));
+    plot_path: function(flip=false) {
+        var path_x = this.scale_dims(this.get_axis(path, 0, flip));
+        var path_y = this.scale_dims(this.get_axis(path, 1, flip));
         this.plot(path_x, path_y, this.x_start, this.y_start, 5, line_color="orange", fill="", close_path=false);
     },
 
@@ -243,49 +244,6 @@ const Canvas = {
                 this.plot(start, end, this.x_start, this.y_start, line_width=5, line_color="orange");
             }
         }
-    },
-
-    double_click: function(e) {
-        var x = e.clientX;
-        var y = e.clientY;
-        var c = this.grid_closest(x,y);
-        var c_coords = [this.descale_dim(c[0] - this.x_start), this.descale_dim(c[1] - this.y_start)];
-        if (this.start_coords != undefined && this.start_coords[0] == c_coords[0] && this.start_coords[1] == c_coords[1]) {
-            alert('start');
-        }
-        /*if (this.click_coords == undefined) {
-            var c_coords = [this.descale_dim(c[0] - this.x_start), this.descale_dim(c[1] - this.y_start)];
-            if (path.length > 0 && (c_coords[0] != path.at(-1)[0] || c_coords[1] != path.at(-1)[1])) {
-                alert("[!!!] Please continue a path at the last created node.");
-                return;
-            }
-            this.click_coords = c_coords;
-            Canvas.draw_icon(this.click_coords, 'images/cursor_click.png');
-            if (path.length == 0) {
-                this.start_coords = c_coords;
-                Canvas.draw_icon(this.start_coords, 'images/cursor.png');
-            }
-        } else {
-            var loc = [this.descale_dim(c[0] - this.x_start), this.descale_dim(c[1] - this.y_start)];
-            if (loc[0] == this.click_coords[0] && loc[1] == this.click_coords[1]) {
-                this.click_coords = undefined;
-                if (path.length == 0)
-                    this.start_coords = undefined;
-                reset();
-            } else {
-                var p = this.click_coords;
-                this.click_coords = undefined;
-                reset();
-                var start = [this.scale_dim(p[0]), this.scale_dim(loc[0])];
-                var end = [this.scale_dim(p[1]), this.scale_dim(loc[1])];
-                if (path.length == 0) {
-                    path.push(p, loc);
-                } else {
-                    path.push(loc);
-                }
-                this.plot(start, end, this.x_start, this.y_start, line_width=5, line_color="orange");
-            }
-        }*/
     }
 }
 
@@ -313,27 +271,47 @@ reset = function() {
 }
 
 function button1() {
-    if (NEW_PATH == false) {
-        NEW_PATH = true;
+    if (!NEW_PATH) { // Edit Allowed
+        NEW_PATH = 1; // Clear Allowed
         path = [];
         Canvas.start_coords = undefined;
         Canvas.click_coords = undefined;
         reset();
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
         Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
-    } else {
+    } else if (NEW_PATH == 1) { // Clear Allowed
         path = [];
         Canvas.start_coords = undefined;
         Canvas.click_coords = undefined;
         reset();
+    } else if (NEW_PATH == 2) { // No Edit Allowed
+        NEW_PATH = 0; // Edit Allowed
+        document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     }
     
 }
 
-function button2() {
-    NEW_PATH = false;
-    document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">New Path</p>';
+function button2() { 
+    NEW_PATH = 2; // No Edit Allowed
+    document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
     Canvas.canvas.style.cursor = "auto";
+    if (path.length == 0) {
+        alert("[!!!] Please provide a path for the rover.");
+        return;
+    }
+    if (!ROVER_ACTIVE) {
+        ROVER_ACTIVE = true;
+        document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
+    } else {
+        ROVER_ACTIVE = false;
+        document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+    }
+}
+
+function text_submit() {
+    var text = document.getElementById("textbox").value;
+    alert(text);
 }
 
 window.onresize = reset;
@@ -350,16 +328,26 @@ $(document).ready(function() {
     Canvas.plot_grid();
     Canvas.plot_bounds();
     Canvas.plot_obstacles();
+    if (path.length > 0) {
+        for (var i = 0; i < path.length; i++)
+            path[i][1] = Canvas.max_y_bound - path[i][1];
+        Canvas.plot_path();
+        Canvas.start_coords = path[0];
+        Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
+        document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
+        NEW_PATH = 2;
+    }
+    
     Canvas.canvas.addEventListener('mousedown', function(e) {
-        if (!NEW_PATH)
-            Canvas.canvas.style.cursor = "auto";
-        else {
+        if (NEW_PATH != 2) {
             Canvas.canvas.style.cursor = "url('images/cursor_click.png') 24 24, auto";
             Canvas.log_click(e);
+        } else {
+            Canvas.canvas.style.cursor = "auto";
         }
     });
     Canvas.canvas.addEventListener('mouseup', function() {
-        if (NEW_PATH)
+        if (NEW_PATH == 1)
             Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     });
 });

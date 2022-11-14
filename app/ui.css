@@ -16,3 +16,28 @@ canvas {
     width: 100%;
     background-color: #F5FCFC;
 }
+
+#strip {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+input[type=text], select, textarea {
+    width: 85%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    font-size: 1.75vh;
+}
+
+#submit {
+    margin-left: 25px;
+    height: fit-content;
+}
