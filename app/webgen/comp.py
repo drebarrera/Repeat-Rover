@@ -2,14 +2,15 @@ import sys
 import os
 import importlib
 from utility import *
+from map import Map
 
-def main(bounds, obstacles, grid, p):
+def main(m: Map):
     path = "webgen/files/app/frontend/"
     folder = "app"
     filename = "frontend"
     sys.path.insert(1, path)
     import ui as x
-    x.push_map(bounds, obstacles, grid, p)
+    x.push_map(m)
     #importlib.reload(x)
     php = False
     jquery = False

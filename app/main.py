@@ -4,17 +4,10 @@ from utility import *
 from Webgen import comp as c
 import re
 import webbrowser
+from map import Map
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.insert(1, r_path(os.getcwd(), 'Webgen','files','app'))
 sys.path.insert(1, r_path(os.getcwd(), 'Webgen'))
-
-class Map:
-    def __init__(self):
-        self.bounds = list()
-        self.obstacles = list()
-        self.grid = list()
-        self.path = list()
-        self.speed = 10
 
 def parse_coords(coords):
     coord_list = list()
@@ -24,7 +17,7 @@ def parse_coords(coords):
     return coord_list
 
 def start_frontend(m: Map):
-    c.main(m.bounds, m.obstacles, m.grid, m.path)
+    c.main(m)
     url = "file:///"+r_path(os.getcwd(),"Webgen","files","app","frontend","index.html")
     webbrowser.get().open(url, new=0)
 
@@ -37,6 +30,7 @@ if __name__ == "__main__":
         m.obstacles = [parse_coords('(1,1),(2,1),(2,2),(1,2)'), parse_coords('(3,3),(4,3),(4,4),(3,4)')]
         m.grid = [1, 0.25]
         m.path = parse_coords('(5,0.5),(5,4.5),(0.5,4.5),(0.5,0.5)')
+        #m.speed[2] = 5
         start_frontend(m)
     if len(sys.argv) == 2:
         pass

@@ -41,3 +41,8 @@ input[type=text], select, textarea {
     margin-left: 25px;
     height: fit-content;
 }
+
+#rover {
+    display: none;
+    position: absolute;
+}
