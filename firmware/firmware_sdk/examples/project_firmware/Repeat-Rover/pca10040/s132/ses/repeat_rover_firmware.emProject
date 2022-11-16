@@ -139,7 +139,6 @@
     <folder Name="nRF_BLE_Services">
       <file file_name="ble_cus.c" />
     </folder>
-    <file file_name="bluetooth.c" />
     <file file_name="ble_rr.c" />
     <file file_name="ble_rr.h" />
     <configuration Name="Debug" c_user_include_directories="" />
@@ -152,6 +151,7 @@
     <file file_name="../../../../includes/sd.h" />
     <file file_name="../../../../includes/motor.c" />
     <file file_name="../../../../includes/motor.h" />
+    <file file_name="../../../../includes/bluetooth.c" />
   </project>
   <configuration
     Name="Release"

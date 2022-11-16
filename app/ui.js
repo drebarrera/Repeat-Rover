@@ -260,7 +260,7 @@ const Canvas = {
 const Rover = {
     rover: undefined,
     pos: undefined,
-    turn_wait: 3,
+    turn_wait: 0,
 
     calc_angle: function(xy1, xy2) {
         var xy_info = []

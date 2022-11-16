@@ -40,19 +40,19 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="37" useTextEdit="1" path="../../../main.c" left="0" top="22" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="37" useTextEdit="1" path="../../../main.c" left="0" top="16" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware/examples/firmware - Copy/Repeat-Rover/pca10040/s132/ses/ble_rr.c" path="ble_rr.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="14" y="8" useTextEdit="1" path="ble_rr.c" left="0" top="8" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="56" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware/examples/firmware - Copy/Repeat-Rover/main.c" path="bluetooth.c" left="0" top="44" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="4" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware/examples/firmware - Copy/Repeat-Rover/main.c" path="../../../../includes/bluetooth.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="12" y="23" useTextEdit="1" folds0="42,50,54,58,63" path="../../../../includes/wss.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="1" y="2" useTextEdit="1" path="../../../../includes/wss.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="40" useTextEdit="1" path="../../../../includes/mag.c" left="0" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="40" useTextEdit="1" path="../../../../includes/mag.c" left="0" top="11" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="20" y="3" useTextEdit="1" path="../../../../includes/mag.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="34" useTextEdit="1" path="../../../../includes/sd.c" left="0" selected="1" top="47" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="34" useTextEdit="1" path="../../../../includes/sd.c" left="0" top="18" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="6" useTextEdit="1" path="../../../../includes/sd.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="23" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="31" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="23" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="14" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="20" y="3" useTextEdit="1" path="../../../../includes/motor.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="29" y="35" useTextEdit="1" path="../../../../includes/bluetooth.c" left="0" top="45" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="36" y="11" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware/examples/firmware - Copy/Repeat-Rover/main.c" path="../../../../includes/bluetooth.h" left="0" selected="1" top="0" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="repeat_rover_firmware" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

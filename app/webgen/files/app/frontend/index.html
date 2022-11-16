@@ -265,7 +265,7 @@ const Canvas = {
 const Rover = {
     rover: undefined,
     pos: undefined,
-    turn_wait: 3,
+    turn_wait: 0,
 
     calc_angle: function(xy1, xy2) {
         var xy_info = []
@@ -294,7 +294,6 @@ const Rover = {
                 r_speed = speed[i];
             if (r_pxy[i] == undefined)
                 r_pxy[i] = 0;
-            
             $("#rover").delay(r_pxy[i] * this.turn_wait * 1000 / 90).animate({
                 left: xy[0] + "px",
                 top: xy[1] + "px"
