@@ -2,6 +2,8 @@ $(document).ready(function(){
 	toggle = 0;
 	automenuheight = $('#headermenu').height();
 	$('#headermenu').height('0');
+	//alert(document.getElementById('headermenu').style.marginTop - 80 + "px");
+	//document.getElementById('headermenu').style.top = document.getElementById('headermenu').style.top - 80 + "px";
 	$('#navmenuicon').on('click',function(){
 		if(toggle == 0){
 			toggle = 2;
@@ -17,7 +19,8 @@ $(document).ready(function(){
 				$('#navmenuicon rect:nth-child(3)').addClass('navmenutoggle3-static');
 			},0.5);
 			$('#headermenu').animate({
-				height: automenuheight
+				height: automenuheight,
+				marginTop: "-=" + automenuheight
 			}, 500, function(){
 				$('#headermenu').animate({
 					paddingBottom: '10px'
@@ -41,7 +44,8 @@ $(document).ready(function(){
 					paddingBottom: '0'
 			}, 50, function(){
 				$('#headermenu').animate({
-					height: '0'
+					height: '0',
+					marginTop: '-80px'
 				}, 500, function(){
 					toggle = 0;
 				});				

@@ -94,9 +94,10 @@
 	display: var(--menu-display-5000);
 	justify-content: center;
 	margin-right: 3vw;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 	overflow-y: hidden;
+	margin-top: -80px;
 }
 
 #headermenutable{

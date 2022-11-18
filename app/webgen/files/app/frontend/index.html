@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><title>Repeat Rover</title><meta charset="utf-8"><meta name="description" content="Default WebGen Page"><meta name="keywords" content=""><meta name="author" content="Andres Barrera"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="..\JQuery.js"></script><script src="..\JQuery-UI.js"></script><script>const bounds = [[0.0, 0.0], [8.0, 0.0], [8.0, 8.0], [5.0, 5.0], [0.0, 5.0]];
 const obstacles = [[[1.0, 1.0], [2.0, 1.0], [2.0, 2.0], [1.0, 2.0]], [[3.0, 3.0], [4.0, 3.0], [4.0, 4.0], [3.0, 4.0]]];
-const grid = [1, 0.25];
+const grid = [1, 0.5];
 var path = [[5.0, 0.5], [5.0, 4.5], [0.5, 4.5], [0.5, 0.5]];
 var speed = {0: 1};
 var NEW_PATH = 0; // BUTTON1 BOUND NEW_PATH GLOBAL
@@ -265,7 +265,7 @@ const Canvas = {
 const Rover = {
     rover: undefined,
     pos: undefined,
-    turn_wait: 0,
+    turn_wait: 3,
 
     calc_angle: function(xy1, xy2) {
         var xy_info = []
@@ -275,34 +275,37 @@ const Rover = {
         console.log(xy_info);
     },
 
+    animate: function(x, y, t) {
+        $("#rover").animate({
+            left: x + "px",
+            top: y + "px"
+        }, t);
+    },
+
     drive: function() {
         this.rover.style.display = "inline";
         this.rover.style.left = Canvas.scale_dim(this.pos[0]) + Canvas.x_start - 24 + "px";
         this.rover.style.top =  Canvas.scale_dim(this.pos[1]) + Canvas.y_start - 24 + "px";
         var r_speed = speed[0];
-        var r_pxy = {};
+        var wait = 0;
         for (var i = 0; i < path.length; i++) {
             var coords = path[i];
             var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
-            if (i != 0 && i != path.length - 1) {
-                r_pxy[i] = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
-                console.log(i);
+            if (i > 0 && i < path.length - 1) {
+                var pxy = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
+                wait += pxy * this.turn_wait / 90;
             }
             var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
             var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
             if (speed[i] != undefined)
-                r_speed = speed[i];
-            if (r_pxy[i] == undefined)
-                r_pxy[i] = 0;
-            $("#rover").delay(r_pxy[i] * this.turn_wait * 1000 / 90).animate({
-                left: xy[0] + "px",
-                top: xy[1] + "px"
-            }, d * 1000 / r_speed, function() {
-                console.log(i, r_pxy[i]);
-            });
+               r_speed = speed[i];
+            var time = d * 1000 / r_speed;
+            wait += time;
+            console.log(i, wait);
+            setTimeout(this.animate.bind(null, xy[0], xy[1], time), wait);
             this.pos = coords;
         }
-        for (var i = path.length - 1; i >= 0; i--) {
+        /*for (var i = path.length - 1; i >= 0; i--) {
             var coords = path[i];
             var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
             var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
@@ -314,7 +317,7 @@ const Rover = {
                 top: xy[1] + "px"
             }, d * 1000 / r_speed);
             this.pos = coords;
-        }
+        }*/
     }
 }
 
@@ -349,6 +352,7 @@ function button1() {
         Canvas.click_coords = undefined;
         reset();
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
         Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     } else if (NEW_PATH == 1) { // Clear Allowed
         path = [];
@@ -365,6 +369,7 @@ function button1() {
         }
         NEW_PATH = 0; // Edit Allowed
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
         Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     }
 }
@@ -372,6 +377,7 @@ function button1() {
 function button2() { 
     NEW_PATH = 2; // No Edit Allowed
     document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
+    document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
     Canvas.canvas.style.cursor = "auto";
     if (path.length == 0) {
         alert("[!!!] Please provide a path for the rover.");
@@ -380,12 +386,14 @@ function button2() {
     if (!ROVER_ACTIVE) {
         ROVER_ACTIVE = 1;
         document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
+        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor_click.png');
         Rover.pos = Canvas.start_coords;
         Rover.drive();
     } else if (ROVER_ACTIVE == 1) {
         ROVER_ACTIVE = 2;
         document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
     }
 }
@@ -452,6 +460,7 @@ $(document).ready(function() {
         Canvas.start_coords = path[0];
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
         NEW_PATH = 2;
     }
     Rover.rover = document.getElementById("rover");
@@ -477,6 +486,8 @@ $(document).ready(function() {
 	toggle = 0;
 	automenuheight = $('#headermenu').height();
 	$('#headermenu').height('0');
+	//alert(document.getElementById('headermenu').style.marginTop - 80 + "px");
+	//document.getElementById('headermenu').style.top = document.getElementById('headermenu').style.top - 80 + "px";
 	$('#navmenuicon').on('click',function(){
 		if(toggle == 0){
 			toggle = 2;
@@ -492,7 +503,8 @@ $(document).ready(function() {
 				$('#navmenuicon rect:nth-child(3)').addClass('navmenutoggle3-static');
 			},0.5);
 			$('#headermenu').animate({
-				height: automenuheight
+				height: automenuheight,
+				marginTop: "-=" + automenuheight
 			}, 500, function(){
 				$('#headermenu').animate({
 					paddingBottom: '10px'
@@ -516,12 +528,13 @@ $(document).ready(function() {
 					paddingBottom: '0'
 			}, 50, function(){
 				$('#headermenu').animate({
-					height: '0'
+					height: '0',
+					marginTop: '-80px'
 				}, 500, function(){
 					toggle = 0;
 				});				
 			});
 		}
 	});
-});</script><style>.nav{ 	width: 100vw; 	height: auto; 	display: flex; 	justify-content: center; 	border-bottom: var(--border-width) solid var(--accent-color); }  .header-gradient{ 	border-bottom: 3px solid transparent; 	background-image: linear-gradient(var(--primary-color), var(--primary-color)),                      linear-gradient(var(--header-gradient)); 	background-size: 100% 100%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  #header > .navtable{ 	width: 80vw; 	height: auto; }  .navbrand{ 	height: auto; 	width: auto; 	padding: 5px; 	display: flex; 	align-items: center; 	color: black; 	text-decoration: none; }  .navlogo{ 	height: var(--logo-height); 	width: auto; 	display: inline; }  .navtitle{ 	font-size: 26px; 	width: auto; 	display: inline; 	padding-left: 18px; 	padding-right: 25px; 	margin-block-start:0em; 	margin-block-end: 0em; 	font-weight: 500; 	white-space: nowrap; }  .navmenubar{ 	width: auto; 	display: var(--nav-display-5000); 	flex-direction: row; 	justify-content: center; 	gap: 2vw; 	align-items: center; 	margin: 10px auto; 	flex-wrap: wrap; 	float: var(--navmenubar-float); }  .menubar-gradient{ 	border: 2px solid transparent; 	background-image: linear-gradient(var(--menubar-color), var(--menubar-color)),                      linear-gradient(var(--menubar-gradient)); 	background-size: 100% 100%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  #navtabletype1 { 	width: 85vw; }  #navtabletype1_0_0, #navtabletype2_0_0{ 	vertical-align: top; }  #navtabletype1_0_1, #navtabletype1_0_2, #navtabletype2_0_1, #navtabletype2_0_2{ 	vertical-align: middle; }  #navmenuicon{ 	display: var(--menu-display-5000); 	float: right; 	margin-right: 20px; }  #headermenu{ 	right: 0; 	width: 100%; 	max-width: 300px; 	display: var(--menu-display-5000); 	justify-content: center; 	margin-right: 3vw; 	border-bottom-right-radius: 10px; 	border-bottom-left-radius: 10px; 	overflow-y: hidden; }  #headermenutable{ 	opacity: 1; 	width: 100%; }  #headermenutable > header> div{ 	padding: 3px; 	text-align: center; }  @media only screen and (max-width: 1250px) { 	.navtable{ 		width: var(--nav-width-1250); 		margin-right: var(--nav-margin-1250); 	} 	.navmenubar{ 		display: var(--nav-display-1250); 	} 	#navmenuicon{ 		display: var(--menu-display-1250); 	} 	#headermenu{ 		display: var(--menu-display-1250); 	} }  @media only screen and (max-width:1000px) { 	.navtable{ 		width: var(--nav-width-1000); 		margin-right: var(--nav-margin-1000); 	} 	.navmenubar{ 		display: var(--nav-display-1000); 	} 	#navmenuicon{ 		display: var(--menu-display-1000); 	} 	#headermenu{ 		display: var(--menu-display-1000); 	} }  @media only screen and (max-width: 750px) { 	.navtable{ 		width: var(--nav-width-750); 		margin-right: var(--nav-margin-750); 	} 	.navmenubar{ 		display: var(--nav-display-750); 	} 	#navmenuicon{ 		display: var(--menu-display-750); 	} 	#headermenu{ 		display: var(--menu-display-750); 	} }  @media only screen and (max-width: 500px) { 	.navtable{ 		width: var(--nav-width-500); 		margin-right: var(--nav-margin-500); 	} 	.navmenubar{ 		display: var(--nav-display-500); 	} 	#navmenuicon{ 		display: var(--menu-display-500); 	} 	#headermenu{ 		display: var(--menu-display-500); 	} }  @keyframes navmenutoggle1-1{ 	0% {     		transform: rotate(0deg) translate(0px,0px);   	} 	100% { 		transform: rotate(45deg) translate(7px,-4px); 	} }  @keyframes navmenutoggle2-1{ 	0% {     		transform: rotate(0deg) translate(0px,0px);   	} 	100% { 		transform: rotate(-45deg) translate(-17px,7px); 	} }  @keyframes navmenutoggle3-1{ 	0% {     		opacity: 1; 		transform: translate(0px,0px);   	} 	100% { 		opacity: 0; 		transform: translate(0px, -10px);	 	} } @keyframes navmenutoggle1-2{ 	0% { 		transform: rotate(45deg) translate(7px,-4px);   	} 	100% { 		transform: rotate(0deg) translate(0px,0px);	 	} }  @keyframes navmenutoggle2-2{ 	0% { 		transform: rotate(-45deg) translate(-17px,7px);   	} 	100% { 		transform: rotate(0deg) translate(0px,0px); 	} }  @keyframes navmenutoggle3-2{ 	0% {     		opacity: 0; 		transform: translate(0px, -10px);	   	} 	100% { 		opacity: 1; 		transform: translate(0px,0px); 	} }   .navmenutoggle1-1{ 	animation: navmenutoggle1-1 0.5s linear 1; }  .navmenutoggle2-1{ 	animation: navmenutoggle2-1 0.5s linear 1; }  .navmenutoggle3-1{ 	animation: navmenutoggle3-1 0.5s linear 1; }  .navmenutoggle1-2{ 	animation: navmenutoggle1-2 0.5s linear 1; }  .navmenutoggle2-2{ 	animation: navmenutoggle2-2 0.5s linear 1; }  .navmenutoggle3-2{ 	animation: navmenutoggle3-2 0.5s linear 1; }  .navmenutoggle1-static{ 	transform: rotate(45deg) translate(7px,-4px); }  .navmenutoggle2-static{ 	transform: rotate(-45deg) translate(-17px,7px); }  .navmenutoggle3-static{ 	opacity:0; 	transform: translate(0px, -10px);	 }</style><style>.button{ 	position: relative; 	display: inline-block; 	padding: var(--button-padding); 	cursor: pointer; 	color: var(--accent-color); 	text-decoration: none; 	filter: var(--shadow); 	background-color: var(--primary-color); 	border: 2px solid var(--primary-color); 	width: var(--button-width); 	min-width: var(--button-min-width); 	border-radius: var(--button-radius); 	text-align: center; }  .button > p{ 	margin-block-start: 0px; 	margin-block-end: 0px; 	font-size: 18px; }  .button-inverse, .button:hover{ 	background-color: var(--accent-color); 	color: var(--primary-color); }  .button-inverse:hover{ 	background-color: var(--primary-color); 	color: var(--accent-color); }  .button-underline{ 	border: 0px solid var(--primary-color); 	border-bottom: 5px solid var(--accent-color); }  .button-underline:hover{ 	background-color: var(--primary-color); 	color: var(--accent-color); 	border-bottom: 5px solid var(--primary-color); }  .button-underline.button-inverse { 	background-color: var(--primary-color); 	color: var(--accent-color); 	border-bottom: 5px solid var(--accent-color); }  .button-underline.button-inverse:hover { 	border-bottom: 5px solid var(--primary-color); }  .button-gradient{ 	border: 3px solid transparent; 	background-image: linear-gradient(var(--primary-color), var(--primary-color)),                      linear-gradient(var(--button-gradient)); 	background-size: 400% 400%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  .button-gradient-inverse{ 	border: 3px solid var(--primary-color); 	background-image: linear-gradient(var(--button-gradient)),                      linear-gradient(var(--primary-color), var(--primary-color)); 	background-size: 400% 400%;   	background-origin: border-box;   	background-clip: padding-box, border-box; 	color: var(--accent-color); }  @keyframes gradient { 	0% { 		background-position: 0% 50%; 	} 	50% { 		background-position: 100% 50%; 	} 	100% { 		background-position: 150% 50%; 	} }  .button-gradient:hover, .button-gradient-inverse:hover{ 	animation: gradient 1s ease; 	color: white; } </style></head>
+});</script><style>.nav{ 	width: 100vw; 	height: auto; 	display: flex; 	justify-content: center; 	border-bottom: var(--border-width) solid var(--accent-color); }  .header-gradient{ 	border-bottom: 3px solid transparent; 	background-image: linear-gradient(var(--primary-color), var(--primary-color)),                      linear-gradient(var(--header-gradient)); 	background-size: 100% 100%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  #header > .navtable{ 	width: 80vw; 	height: auto; }  .navbrand{ 	height: auto; 	width: auto; 	padding: 5px; 	display: flex; 	align-items: center; 	color: black; 	text-decoration: none; }  .navlogo{ 	height: var(--logo-height); 	width: auto; 	display: inline; }  .navtitle{ 	font-size: 26px; 	width: auto; 	display: inline; 	padding-left: 18px; 	padding-right: 25px; 	margin-block-start:0em; 	margin-block-end: 0em; 	font-weight: 500; 	white-space: nowrap; }  .navmenubar{ 	width: auto; 	display: var(--nav-display-5000); 	flex-direction: row; 	justify-content: center; 	gap: 2vw; 	align-items: center; 	margin: 10px auto; 	flex-wrap: wrap; 	float: var(--navmenubar-float); }  .menubar-gradient{ 	border: 2px solid transparent; 	background-image: linear-gradient(var(--menubar-color), var(--menubar-color)),                      linear-gradient(var(--menubar-gradient)); 	background-size: 100% 100%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  #navtabletype1 { 	width: 85vw; }  #navtabletype1_0_0, #navtabletype2_0_0{ 	vertical-align: top; }  #navtabletype1_0_1, #navtabletype1_0_2, #navtabletype2_0_1, #navtabletype2_0_2{ 	vertical-align: middle; }  #navmenuicon{ 	display: var(--menu-display-5000); 	float: right; 	margin-right: 20px; }  #headermenu{ 	right: 0; 	width: 100%; 	max-width: 300px; 	display: var(--menu-display-5000); 	justify-content: center; 	margin-right: 3vw; 	border-top-right-radius: 10px; 	border-top-left-radius: 10px; 	overflow-y: hidden; 	margin-top: -80px; }  #headermenutable{ 	opacity: 1; 	width: 100%; }  #headermenutable > header> div{ 	padding: 3px; 	text-align: center; }  @media only screen and (max-width: 1250px) { 	.navtable{ 		width: var(--nav-width-1250); 		margin-right: var(--nav-margin-1250); 	} 	.navmenubar{ 		display: var(--nav-display-1250); 	} 	#navmenuicon{ 		display: var(--menu-display-1250); 	} 	#headermenu{ 		display: var(--menu-display-1250); 	} }  @media only screen and (max-width:1000px) { 	.navtable{ 		width: var(--nav-width-1000); 		margin-right: var(--nav-margin-1000); 	} 	.navmenubar{ 		display: var(--nav-display-1000); 	} 	#navmenuicon{ 		display: var(--menu-display-1000); 	} 	#headermenu{ 		display: var(--menu-display-1000); 	} }  @media only screen and (max-width: 750px) { 	.navtable{ 		width: var(--nav-width-750); 		margin-right: var(--nav-margin-750); 	} 	.navmenubar{ 		display: var(--nav-display-750); 	} 	#navmenuicon{ 		display: var(--menu-display-750); 	} 	#headermenu{ 		display: var(--menu-display-750); 	} }  @media only screen and (max-width: 500px) { 	.navtable{ 		width: var(--nav-width-500); 		margin-right: var(--nav-margin-500); 	} 	.navmenubar{ 		display: var(--nav-display-500); 	} 	#navmenuicon{ 		display: var(--menu-display-500); 	} 	#headermenu{ 		display: var(--menu-display-500); 	} }  @keyframes navmenutoggle1-1{ 	0% {     		transform: rotate(0deg) translate(0px,0px);   	} 	100% { 		transform: rotate(45deg) translate(7px,-4px); 	} }  @keyframes navmenutoggle2-1{ 	0% {     		transform: rotate(0deg) translate(0px,0px);   	} 	100% { 		transform: rotate(-45deg) translate(-17px,7px); 	} }  @keyframes navmenutoggle3-1{ 	0% {     		opacity: 1; 		transform: translate(0px,0px);   	} 	100% { 		opacity: 0; 		transform: translate(0px, -10px);	 	} } @keyframes navmenutoggle1-2{ 	0% { 		transform: rotate(45deg) translate(7px,-4px);   	} 	100% { 		transform: rotate(0deg) translate(0px,0px);	 	} }  @keyframes navmenutoggle2-2{ 	0% { 		transform: rotate(-45deg) translate(-17px,7px);   	} 	100% { 		transform: rotate(0deg) translate(0px,0px); 	} }  @keyframes navmenutoggle3-2{ 	0% {     		opacity: 0; 		transform: translate(0px, -10px);	   	} 	100% { 		opacity: 1; 		transform: translate(0px,0px); 	} }   .navmenutoggle1-1{ 	animation: navmenutoggle1-1 0.5s linear 1; }  .navmenutoggle2-1{ 	animation: navmenutoggle2-1 0.5s linear 1; }  .navmenutoggle3-1{ 	animation: navmenutoggle3-1 0.5s linear 1; }  .navmenutoggle1-2{ 	animation: navmenutoggle1-2 0.5s linear 1; }  .navmenutoggle2-2{ 	animation: navmenutoggle2-2 0.5s linear 1; }  .navmenutoggle3-2{ 	animation: navmenutoggle3-2 0.5s linear 1; }  .navmenutoggle1-static{ 	transform: rotate(45deg) translate(7px,-4px); }  .navmenutoggle2-static{ 	transform: rotate(-45deg) translate(-17px,7px); }  .navmenutoggle3-static{ 	opacity:0; 	transform: translate(0px, -10px);	 }</style><style>.button{ 	position: relative; 	display: inline-block; 	padding: var(--button-padding); 	cursor: pointer; 	color: var(--accent-color); 	text-decoration: none; 	filter: var(--shadow); 	background-color: var(--primary-color); 	border: 2px solid var(--primary-color); 	width: var(--button-width); 	min-width: var(--button-min-width); 	border-radius: var(--button-radius); 	text-align: center; }  .button > p{ 	margin-block-start: 0px; 	margin-block-end: 0px; 	font-size: 18px; }  .button-inverse, .button:hover{ 	background-color: var(--accent-color); 	color: var(--primary-color); }  .button-inverse:hover{ 	background-color: var(--primary-color); 	color: var(--accent-color); }  .button-underline{ 	border: 0px solid var(--primary-color); 	border-bottom: 5px solid var(--accent-color); }  .button-underline:hover{ 	background-color: var(--primary-color); 	color: var(--accent-color); 	border-bottom: 5px solid var(--primary-color); }  .button-underline.button-inverse { 	background-color: var(--primary-color); 	color: var(--accent-color); 	border-bottom: 5px solid var(--accent-color); }  .button-underline.button-inverse:hover { 	border-bottom: 5px solid var(--primary-color); }  .button-gradient{ 	border: 3px solid transparent; 	background-image: linear-gradient(var(--primary-color), var(--primary-color)),                      linear-gradient(var(--button-gradient)); 	background-size: 400% 400%;   	background-origin: border-box;   	background-clip: padding-box, border-box; }  .button-gradient-inverse{ 	border: 3px solid var(--primary-color); 	background-image: linear-gradient(var(--button-gradient)),                      linear-gradient(var(--primary-color), var(--primary-color)); 	background-size: 400% 400%;   	background-origin: border-box;   	background-clip: padding-box, border-box; 	color: var(--accent-color); }  @keyframes gradient { 	0% { 		background-position: 0% 50%; 	} 	50% { 		background-position: 100% 50%; 	} 	100% { 		background-position: 150% 50%; 	} }  .button-gradient:hover, .button-gradient-inverse:hover{ 	animation: gradient 1s ease; 	color: white; } </style></head>
 <body style="margin:0;background-color:white;overflow-x:hidden;font-family:Helvetica;color:black;overflow-y:hidden;"><div id="region" style="overflow-x:visible;overflow-y:visible;"><div id="frame" style="overflow-x:visible;overflow-y:visible;"><canvas id="canvas"></canvas><img  id="rover" style="" src="images/cursor.png"/></div><div id="strip" style="overflow-x:visible;overflow-y:visible;"><input id="textbox" type="text"></input><div id="submit" class="button  button-inverse button-underline" onclick="text_submit()" style="overflow-x:visible;overflow-y:visible;--primary-color:white;--accent-color:#45AF82;--button-width:auto;--button-min-width:auto;--button-padding:1vh;--button-radius:0;--shadow:none;"><p style="">Submit</p></div></div></div><div id="header" style="overflow-x:visible;overflow-y:visible;position:sticky;--accent-color:#fe8e03;--border-width:0px;top:0;z-index:50;--nav-width-5000:100vw;--nav-margin-5000:0vw;--nav-display-5000:flex;--menu-display-5000:none;--nav-width-1250:100vw;--nav-margin-1250:0vw;--nav-display-1250:flex;--menu-display-1250:none;--nav-width-1000:95vw;--nav-margin-1000:2.5vw;--nav-display-1000:none;--menu-display-1000:flex;--nav-width-750:95vw;--nav-margin-750:2.5vw;--nav-display-750:none;--menu-display-750:flex;--nav-width-500:95vw;--nav-margin-500:2.5vw;--nav-display-500:none;--menu-display-500:flex;"><div id="nav" class="nav" style="background-color:rgb(250,250,250);position:relative;"><section id="navtabletype1" class="navtable" style="display:table;"><header id="navtabletype1_0" style="display:table-row;"><div id="navtabletype1_0_0" style="display:table-cell;" colspan="1" rowspan="1"><a href="" target="_self" style="text-decoration:none;"><div class="navbrand" style="overflow-x:visible;overflow-y:visible;justify-content:flex-start;"><img  id="navlogo" class="navlogo" style="--logo-height:75px;" src="images/repeat_rover.png"/><h1 id="navtitle" class="navtitle" style="">  </h1></div></a></div><div id="navtabletype1_0_1" style="display:table-cell;" colspan="1" rowspan="1"><div class="navmenubar" style="overflow-x:visible;overflow-y:visible;--navmenubar-float:right;"><div id="navbutton0" class="button navbutton button-inverse" onclick="button1()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:auto;--button-min-width:50px;--button-padding:10px;--button-radius:10px;--shadow:none;"><p style="">New Path</p></div><div id="navbutton1" class="button navbutton button-inverse" onclick="button2()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:auto;--button-min-width:50px;--button-padding:10px;--button-radius:10px;--shadow:none;"><p style="">Start Rover</p></div><div id="navbutton2" class="button navbutton button-inverse" onclick="button3()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:auto;--button-min-width:50px;--button-padding:10px;--button-radius:10px;--shadow:none;"><p style="">Team</p></div><div id="navbutton3" class="button navbutton button-inverse" onclick="button4()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:auto;--button-min-width:50px;--button-padding:10px;--button-radius:10px;--shadow:none;"><p style="">Documentation</p></div><div id="navbutton4" class="button navbutton button-inverse" onclick="button5()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:auto;--button-min-width:50px;--button-padding:10px;--button-radius:10px;--shadow:none;"><p style="">User Manual</p></div></div></div><div id="navtabletype1_0_2" style="display:table-cell;" colspan="1" rowspan="1"><svg id="navmenuicon" height="35" width="35" style="cursor:pointer;"><rect x="0" y="2.4000000000000004" rx="1" ry="1" width="35" height="3" style="fill:black;"/><rect x="0" y="16.0" rx="1" ry="1" width="35" height="3" style="fill:black;"/><rect x="0" y="29.6" rx="1" ry="1" width="35" height="3" style="fill:black;"/><animate xlink:href="#my-circle" attributeName="cx" from="50" to="450" dur="1s" begin="click" fill="freeze" /></svg></div></header></section></div><div id="headermenu" style="background-color:#fe8e03;position:fixed;"><section id="headermenutable" style="display:table;"><header id="headermenutable_0" style="display:table-row;"><div id="headermenutable_0_0" style="display:table-cell;" colspan="1" rowspan="1"><div id="navmenubutton0" class="button navmenubutton" onclick="button1()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:92%;--button-min-width:auto;--button-padding:1vh;--button-radius:10px;--shadow:none;"><p style="">New Path</p></div></div></header><header id="headermenutable_1" style="display:table-row;"><div id="headermenutable_1_0" style="display:table-cell;" colspan="1" rowspan="1"><div id="navmenubutton1" class="button navmenubutton" onclick="button2()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:92%;--button-min-width:auto;--button-padding:1vh;--button-radius:10px;--shadow:none;"><p style="">Start Rover</p></div></div></header><header id="headermenutable_2" style="display:table-row;"><div id="headermenutable_2_0" style="display:table-cell;" colspan="1" rowspan="1"><div id="navmenubutton2" class="button navmenubutton" onclick="button3()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:92%;--button-min-width:auto;--button-padding:1vh;--button-radius:10px;--shadow:none;"><p style="">Team</p></div></div></header><header id="headermenutable_3" style="display:table-row;"><div id="headermenutable_3_0" style="display:table-cell;" colspan="1" rowspan="1"><div id="navmenubutton3" class="button navmenubutton" onclick="button4()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:92%;--button-min-width:auto;--button-padding:1vh;--button-radius:10px;--shadow:none;"><p style="">Documentation</p></div></div></header><header id="headermenutable_4" style="display:table-row;"><div id="headermenutable_4_0" style="display:table-cell;" colspan="1" rowspan="1"><div id="navmenubutton4" class="button navmenubutton" onclick="button5()" style="overflow-x:visible;overflow-y:visible;--primary-color:#fe8e03;--accent-color:rgb(250,250,250);--button-width:92%;--button-min-width:auto;--button-padding:1vh;--button-radius:10px;--shadow:none;"><p style="">User Manual</p></div></div></header></section></div></div></body></html>

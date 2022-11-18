@@ -1,6 +1,6 @@
 const bounds = [[0.0, 0.0], [8.0, 0.0], [8.0, 8.0], [5.0, 5.0], [0.0, 5.0]];
 const obstacles = [[[1.0, 1.0], [2.0, 1.0], [2.0, 2.0], [1.0, 2.0]], [[3.0, 3.0], [4.0, 3.0], [4.0, 4.0], [3.0, 4.0]]];
-const grid = [1, 0.25];
+const grid = [1, 0.5];
 var path = [[5.0, 0.5], [5.0, 4.5], [0.5, 4.5], [0.5, 0.5]];
 var speed = {0: 1};
 var NEW_PATH = 0; // BUTTON1 BOUND NEW_PATH GLOBAL
@@ -265,7 +265,7 @@ const Canvas = {
 const Rover = {
     rover: undefined,
     pos: undefined,
-    turn_wait: 0,
+    turn_wait: 3,
 
     calc_angle: function(xy1, xy2) {
         var xy_info = []
@@ -275,34 +275,37 @@ const Rover = {
         console.log(xy_info);
     },
 
+    animate: function(x, y, t) {
+        $("#rover").animate({
+            left: x + "px",
+            top: y + "px"
+        }, t);
+    },
+
     drive: function() {
         this.rover.style.display = "inline";
         this.rover.style.left = Canvas.scale_dim(this.pos[0]) + Canvas.x_start - 24 + "px";
         this.rover.style.top =  Canvas.scale_dim(this.pos[1]) + Canvas.y_start - 24 + "px";
         var r_speed = speed[0];
-        var r_pxy = {};
+        var wait = 0;
         for (var i = 0; i < path.length; i++) {
             var coords = path[i];
             var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
-            if (i != 0 && i != path.length - 1) {
-                r_pxy[i] = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
-                console.log(i);
+            if (i > 0 && i < path.length - 1) {
+                var pxy = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
+                wait += pxy * this.turn_wait / 90;
             }
             var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
             var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
             if (speed[i] != undefined)
-                r_speed = speed[i];
-            if (r_pxy[i] == undefined)
-                r_pxy[i] = 0;
-            $("#rover").delay(r_pxy[i] * this.turn_wait * 1000 / 90).animate({
-                left: xy[0] + "px",
-                top: xy[1] + "px"
-            }, d * 1000 / r_speed, function() {
-                console.log(i, r_pxy[i]);
-            });
+               r_speed = speed[i];
+            var time = d * 1000 / r_speed;
+            wait += time;
+            console.log(i, wait);
+            setTimeout(this.animate.bind(null, xy[0], xy[1], time), wait);
             this.pos = coords;
         }
-        for (var i = path.length - 1; i >= 0; i--) {
+        /*for (var i = path.length - 1; i >= 0; i--) {
             var coords = path[i];
             var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
             var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
@@ -314,7 +317,7 @@ const Rover = {
                 top: xy[1] + "px"
             }, d * 1000 / r_speed);
             this.pos = coords;
-        }
+        }*/
     }
 }
 
@@ -349,6 +352,7 @@ function button1() {
         Canvas.click_coords = undefined;
         reset();
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
         Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     } else if (NEW_PATH == 1) { // Clear Allowed
         path = [];
@@ -365,6 +369,7 @@ function button1() {
         }
         NEW_PATH = 0; // Edit Allowed
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Clear Path</p>';
         Canvas.canvas.style.cursor = "url('images/cursor.png') 24 24, auto";
     }
 }
@@ -372,6 +377,7 @@ function button1() {
 function button2() { 
     NEW_PATH = 2; // No Edit Allowed
     document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
+    document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
     Canvas.canvas.style.cursor = "auto";
     if (path.length == 0) {
         alert("[!!!] Please provide a path for the rover.");
@@ -380,12 +386,14 @@ function button2() {
     if (!ROVER_ACTIVE) {
         ROVER_ACTIVE = 1;
         document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
+        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor_click.png');
         Rover.pos = Canvas.start_coords;
         Rover.drive();
     } else if (ROVER_ACTIVE == 1) {
         ROVER_ACTIVE = 2;
         document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
     }
 }
@@ -452,6 +460,7 @@ $(document).ready(function() {
         Canvas.start_coords = path[0];
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
         document.getElementById("navbutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
+        document.getElementById("navmenubutton0").innerHTML = '<p style="font-size: 18px;">Edit Path</p>';
         NEW_PATH = 2;
     }
     Rover.rover = document.getElementById("rover");

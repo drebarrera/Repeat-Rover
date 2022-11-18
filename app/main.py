@@ -28,7 +28,7 @@ if __name__ == "__main__":
         #m.bounds = parse_coords('(0,0),(8,0),(8,8),(0,8)')
         m.bounds = parse_coords('(0,0),(8,0),(8,8),(5,5),(0,5)')
         m.obstacles = [parse_coords('(1,1),(2,1),(2,2),(1,2)'), parse_coords('(3,3),(4,3),(4,4),(3,4)')]
-        m.grid = [1, 0.25]
+        m.grid = [1, 0.5]
         m.path = parse_coords('(5,0.5),(5,4.5),(0.5,4.5),(0.5,0.5)')
         #m.speed[2] = 5
         start_frontend(m)
