@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_sdh_ble.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\softdevice\common\nrf_sdh_ble.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\softdevice\common\nrf_sdh_ble.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,7 +35,7 @@ Output/Debug/Obj/repeat_rover_firmware/nrf_sdh_ble.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\softdevice\common\nrf_sdh_ble.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\softdevice\common\nrf_sdh_ble.h \
  ../../../../../../components/libraries/util/app_util.h \
  ../../../../../../components/softdevice/s132/headers/ble.h \
  ../../../../../../components/softdevice/s132/headers/nrf_svc.h \
@@ -54,7 +54,7 @@ Output/Debug/Obj/repeat_rover_firmware/nrf_sdh_ble.o: \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\softdevice\common\nrf_sdh.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\softdevice\common\nrf_sdh.h \
  ../../../../../../components/libraries/util/app_error.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdio.h \

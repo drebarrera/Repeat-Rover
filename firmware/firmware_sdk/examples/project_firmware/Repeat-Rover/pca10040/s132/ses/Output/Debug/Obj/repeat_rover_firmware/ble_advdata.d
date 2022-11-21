@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/ble_advdata.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\common\ble_advdata.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\common\ble_advdata.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\common\ble_advdata.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\common\ble_advdata.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdint.h \
@@ -49,7 +49,7 @@ Output/Debug/Obj/repeat_rover_firmware/ble_advdata.o: \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/softdevice/s132/headers/ble_gap.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\common\ble_srv_common.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\common\ble_srv_common.h \
  ../../../../../../components/softdevice/s132/headers/ble_types.h \
  ../../../../../../components/libraries/util/app_util.h \
  ../../../../../../components/softdevice/s132/headers/ble_gatt.h

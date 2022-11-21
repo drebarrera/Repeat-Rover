@@ -22,29 +22,26 @@ def start_frontend(m: Map):
     webbrowser.get().open(url, new=0)
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        #print('Too few arguments. Please supply a filename and an -n flag.')
-        m = Map()
-        #m.bounds = parse_coords('(0,0),(8,0),(8,8),(0,8)')
-        m.bounds = parse_coords('(0,0),(8,0),(8,8),(5,5),(0,5)')
-        m.obstacles = [parse_coords('(1,1),(2,1),(2,2),(1,2)'), parse_coords('(3,3),(4,3),(4,4),(3,4)')]
-        m.grid = [1, 0.5]
-        m.path = parse_coords('(5,0.5),(5,4.5),(0.5,4.5),(0.5,0.5)')
-        #m.speed[2] = 5
-        start_frontend(m)
-    if len(sys.argv) == 2:
-        pass
-    if len(sys.argv) == 3:
-        filename = sys.argv[1]
-        flag = sys.argv[2]
-
-        if flag == '-n':
-            print('Type comma-delimeted bound coordinates in the form of (x,y):')
-            bounds = parse_coords(input('>> '))
-            print("Type comma-delimeted obstacle coordinates in the form of (x,y). Write 'quit' to end.")
-            obstacles = list()
-            while True:
-                res = input('New obstacle >> ')
-                if res == 'quit' or res == '': break          
-                obstacles.append(parse_coords(res))
-            update_json(filename, map)
+    m = Map()
+    print("Provide a filename with a pre-configured map or hit enter to create a new map.")
+    filename = input(">> ")
+    if filename != "":
+        m = load_obj(r_path("maps", filename), m)
+        print(m.bounds)
+    else:
+        print("Provide environment bounds as a set of comma-delimeted (x,y) coordinates.")
+        m.bounds = parse_coords(input(">> "))
+        res = " "
+        while res != "":
+            print("Provide obstacle bounds for a single obstacle as a set of comma-delimeted (x,y) coordinates or hit enter to skip.")
+            res = input(">> ")
+            if res != "": m.obstacles.append(parse_coords(res))
+        m.grid.append(input("Major grid line spacing in meters >> "))
+        m.grid.append(input("Minor grid line spacing in meters >> "))
+        print("Provide a saved path as a set of comma-delimeted (x,y) coordinates or hit enter to skip.")
+        res = input(">> ")
+        if res != "": m.path = (parse_coords(res))
+        print("Provide a filename to save this map or hit enter to skip.")
+        filename = input(">> ")
+        if filename != "": update_json(r_path("maps", filename), m)
+    start_frontend(m)

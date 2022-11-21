@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/ble_srv_common.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\common\ble_srv_common.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\common\ble_srv_common.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\common\ble_srv_common.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\common\ble_srv_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdint.h \

@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/hardfault_implementation.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\hardfault\hardfault_implementation.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\hardfault\hardfault_implementation.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \

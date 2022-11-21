@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/bluetooth.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\bluetooth.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\includes\bluetooth.c \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdbool.h \
@@ -83,5 +83,5 @@ Output/Debug/Obj/repeat_rover_firmware/bluetooth.o: \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../components/boards/pca10040.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\bluetooth.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_rr.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\includes\bluetooth.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\includes\ble_rr.h

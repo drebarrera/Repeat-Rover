@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/bsp.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\bsp\bsp.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\bsp\bsp.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\bsp\bsp.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\bsp\bsp.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdint.h \
@@ -61,5 +61,5 @@ Output/Debug/Obj/repeat_rover_firmware/bsp.o: \
  ../../../../../../components/boards/pca10040.h \
  ../../../../../../components/libraries/button/app_button.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\bsp\bsp_config.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\bsp\bsp_config.h \
  ../../../../../../components/libraries/timer/app_timer.h

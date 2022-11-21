@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_log_frontend.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\experimental_log\src\nrf_log_frontend.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\experimental_log\src\nrf_log_frontend.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -55,7 +55,7 @@ Output/Debug/Obj/repeat_rover_firmware/nrf_log_frontend.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\experimental_log\src\nrf_log_internal.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\experimental_log\src\nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_ctrl.h \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \

@@ -1,7 +1,7 @@
 Output/Debug/Obj/repeat_rover_firmware/SEGGER_RTT.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\segger_rtt\SEGGER_RTT.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\segger_rtt\SEGGER_RTT.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\segger_rtt\SEGGER_RTT_Conf.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\segger_rtt\SEGGER_RTT.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\segger_rtt\SEGGER_RTT.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\segger_rtt\SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \

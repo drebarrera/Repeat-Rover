@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/nrfx_uart.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\modules\nrfx\drivers\src\nrfx_uart.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\modules\nrfx\drivers\src\nrfx_uart.c \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
@@ -57,7 +57,7 @@ Output/Debug/Obj/repeat_rover_firmware/nrfx_uart.o: \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_uart.h \
  ../../../../../../modules/nrfx/hal/nrf_uart.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\modules\nrfx\drivers\src\prs/nrfx_prs.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\modules\nrfx\drivers\src\prs/nrfx_prs.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../integration/nrfx/nrfx_log.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \

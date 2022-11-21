@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_fprintf_format.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\fprintf\nrf_fprintf_format.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\fprintf\nrf_fprintf_format.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -37,5 +37,5 @@ Output/Debug/Obj/repeat_rover_firmware/nrf_fprintf_format.o: \
  ../../../../../../components/libraries/util/nrf_assert.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdarg.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\fprintf\nrf_fprintf.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\external\fprintf\nrf_fprintf_format.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\fprintf\nrf_fprintf.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\external\fprintf\nrf_fprintf_format.h

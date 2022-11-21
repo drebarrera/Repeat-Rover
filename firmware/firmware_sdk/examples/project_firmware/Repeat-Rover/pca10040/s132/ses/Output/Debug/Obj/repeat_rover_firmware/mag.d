@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/mag.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\includes\mag.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\includes\mag.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\includes\mag.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\includes\mag.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdbool.h \

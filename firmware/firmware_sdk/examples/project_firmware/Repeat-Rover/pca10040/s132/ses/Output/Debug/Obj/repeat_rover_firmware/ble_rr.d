@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/ble_rr.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_rr.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_rr.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\pca10040\s132\ses\ble_rr.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\pca10040\s132\ses\ble_rr.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdbool.h \
@@ -123,7 +123,7 @@ Output/Debug/Obj/repeat_rover_firmware/ble_rr.o: \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_cus.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\pca10040\s132\ses\ble_cus.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h \
  ../../../../../../modules/nrfx/hal/nrf_gpiote.h \

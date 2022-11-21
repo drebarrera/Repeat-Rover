@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_drv_ppi.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_ppi.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_ppi.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_ppi.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_ppi.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_ppi.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \

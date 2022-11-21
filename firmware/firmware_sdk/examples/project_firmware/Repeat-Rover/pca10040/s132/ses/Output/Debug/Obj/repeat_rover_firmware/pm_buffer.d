@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/pm_buffer.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\pm_buffer.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\pm_buffer.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,6 +35,6 @@ Output/Debug/Obj/repeat_rover_firmware/pm_buffer.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\pm_buffer.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\pm_buffer.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\pm_mutex.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\pm_mutex.h

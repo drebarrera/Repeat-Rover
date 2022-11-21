@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/crc16.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\crc16\crc16.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\crc16\crc16.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,6 +35,6 @@ Output/Debug/Obj/repeat_rover_firmware/crc16.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\crc16\crc16.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\crc16\crc16.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdlib.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdlib.h

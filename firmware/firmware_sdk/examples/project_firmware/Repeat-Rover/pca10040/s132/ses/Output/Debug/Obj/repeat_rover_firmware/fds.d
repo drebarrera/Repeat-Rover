@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/fds.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\fds\fds.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\fds\fds.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,7 +35,7 @@ Output/Debug/Obj/repeat_rover_firmware/fds.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\fds\fds.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\fds\fds.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
  ../../../../../../components/softdevice/s132/headers/nrf_soc.h \
@@ -47,7 +47,7 @@ Output/Debug/Obj/repeat_rover_firmware/fds.o: \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdio.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\libraries\fds\fds_internal_defs.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\libraries\fds\fds_internal_defs.h \
  ../../../../../../components/libraries/atomic/nrf_atomic.h \
  ../../../../../../components/libraries/atomic_fifo/nrf_atfifo.h \
  ../../../../../../components/libraries/util/nordic_common.h \

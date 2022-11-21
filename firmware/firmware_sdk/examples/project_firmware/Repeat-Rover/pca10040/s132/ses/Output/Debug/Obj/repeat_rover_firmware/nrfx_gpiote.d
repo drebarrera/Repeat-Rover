@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/nrfx_gpiote.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\modules\nrfx\drivers\src\nrfx_gpiote.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\modules\nrfx\drivers\src\nrfx_gpiote.c \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \

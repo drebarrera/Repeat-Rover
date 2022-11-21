@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/ble_advertising.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\ble_advertising\ble_advertising.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\ble_advertising\ble_advertising.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -48,7 +48,7 @@ Output/Debug/Obj/repeat_rover_firmware/ble_advertising.o: \
  ../../../../../../components/softdevice/s132/headers/ble_gatt.h \
  ../../../../../../components/softdevice/s132/headers/ble_gattc.h \
  ../../../../../../components/softdevice/s132/headers/ble_gatts.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\ble_advertising\ble_advertising.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\ble_advertising\ble_advertising.h \
  ../../../../../../components/softdevice/s132/headers/ble_gattc.h \
  ../../../../../../components/softdevice/s132/headers/nrf_soc.h \
  ../../../../../../components/softdevice/s132/headers/nrf_error_soc.h \

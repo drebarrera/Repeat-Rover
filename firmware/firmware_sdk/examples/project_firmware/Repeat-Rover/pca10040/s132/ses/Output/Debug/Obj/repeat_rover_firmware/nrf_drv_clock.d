@@ -1,7 +1,7 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_drv_clock.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_clock.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_clock.c \
  ../../../../../../components/libraries/util/nordic_common.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_clock.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_clock.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_clock.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \

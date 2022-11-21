@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/peer_data_storage.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_data_storage.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_data_storage.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,7 +35,7 @@ Output/Debug/Obj/repeat_rover_firmware/peer_data_storage.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_data_storage.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_data_storage.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s132/headers/ble_gap.h \
  ../../../../../../components/softdevice/s132/headers/nrf_svc.h \
@@ -44,7 +44,7 @@ Output/Debug/Obj/repeat_rover_firmware/peer_data_storage.o: \
  ../../../../../../components/softdevice/s132/headers/ble_ranges.h \
  ../../../../../../components/softdevice/s132/headers/ble_types.h \
  ../../../../../../components/softdevice/s132/headers/ble_err.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_manager_types.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_manager_types.h \
  ../../../../../../components/softdevice/s132/headers/ble_hci.h \
  ../../../../../../components/ble/common/ble_gatt_db.h \
  ../../../../../../components/softdevice/s132/headers/ble.h \
@@ -63,6 +63,6 @@ Output/Debug/Obj/repeat_rover_firmware/peer_data_storage.o: \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdio.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_manager_internal.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_id.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_manager_internal.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_id.h \
  ../../../../../../components/libraries/fds/fds.h

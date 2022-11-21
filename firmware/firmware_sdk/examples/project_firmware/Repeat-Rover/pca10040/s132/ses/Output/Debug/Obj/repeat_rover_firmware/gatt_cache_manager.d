@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/gatt_cache_manager.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\gatt_cache_manager.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\gatt_cache_manager.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,7 +35,7 @@ Output/Debug/Obj/repeat_rover_firmware/gatt_cache_manager.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\gatt_cache_manager.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\gatt_cache_manager.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s132/headers/ble.h \
  ../../../../../../components/softdevice/s132/headers/nrf_svc.h \
@@ -50,7 +50,7 @@ Output/Debug/Obj/repeat_rover_firmware/gatt_cache_manager.o: \
  ../../../../../../components/softdevice/s132/headers/ble_gattc.h \
  ../../../../../../components/softdevice/s132/headers/ble_gatts.h \
  ../../../../../../components/softdevice/s132/headers/ble_gap.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_manager_types.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_manager_types.h \
  ../../../../../../components/softdevice/s132/headers/ble_hci.h \
  ../../../../../../components/ble/common/ble_gatt_db.h \
  ../../../../../../components/softdevice/s132/headers/ble_gattc.h \
@@ -66,8 +66,8 @@ Output/Debug/Obj/repeat_rover_firmware/gatt_cache_manager.o: \
  ../../../../../../components/softdevice/s132/headers/ble_err.h \
  ../../../../../../components/ble/common/ble_conn_state.h \
  ../../../../../../components/libraries/atomic/nrf_atomic.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_manager_internal.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\id_manager.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\gatts_cache_manager.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\peer_database.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\ble\peer_manager\pm_mutex.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_manager_internal.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\id_manager.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\gatts_cache_manager.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\peer_database.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\ble\peer_manager\pm_mutex.h

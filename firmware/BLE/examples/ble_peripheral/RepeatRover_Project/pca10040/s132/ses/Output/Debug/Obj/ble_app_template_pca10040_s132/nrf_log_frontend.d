@@ -1,14 +1,17 @@
 Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_frontend.o: \
- /Users/waewtasaw/Desktop/Repeat-Rover/firmware/components/libraries/experimental_log/src/nrf_log_frontend.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\BLE\components\libraries\experimental_log\src\nrf_log_frontend.c \
  ../../../../../../components/libraries/util/sdk_common.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stdint.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stdbool.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/string.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/__crossworks.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdbool.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/string.h \
  ../config/sdk_config.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
@@ -16,8 +19,8 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_frontend.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s132/headers/nrf_error.h \
  ../../../../../../components/libraries/util/app_util.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stddef.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stddef.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stddef.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52.h \
  ../../../../../../components/toolchain/cmsis/include/core_cm4.h \
@@ -40,8 +43,8 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_frontend.o: \
  ../../../../../../components/softdevice/s132/headers/nrf_error_soc.h \
  ../../../../../../components/softdevice/s132/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/app_error.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stdio.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdio.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
@@ -52,13 +55,13 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_frontend.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- /Users/waewtasaw/Desktop/Repeat-Rover/firmware/components/libraries/experimental_log/src/nrf_log_internal.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\BLE\components\libraries\experimental_log\src\nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_ctrl.h \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \
  ../../../../../../components/libraries/experimental_memobj/nrf_memobj.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdlib.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.68/include/stdlib.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_str_formatter.h \
  ../../../../../../external/fprintf/nrf_fprintf.h \

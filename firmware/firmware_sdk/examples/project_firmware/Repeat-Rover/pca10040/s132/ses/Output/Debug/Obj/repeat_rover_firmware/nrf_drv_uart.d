@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/nrf_drv_uart.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_uart.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\integration\nrfx\legacy\nrf_drv_uart.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_uart.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\integration\nrfx\legacy\nrf_drv_uart.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \

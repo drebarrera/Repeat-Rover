@@ -1,5 +1,5 @@
 Output/Debug/Obj/repeat_rover_firmware/ble_cus.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_cus.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\pca10040\s132\ses\ble_cus.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
  C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
@@ -35,7 +35,7 @@ Output/Debug/Obj/repeat_rover_firmware/ble_cus.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\examples\firmware\ -\ Copy\Repeat-Rover\pca10040\s132\ses\ble_cus.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\pca10040\s132\ses\ble_cus.h \
  ../../../../../../components/softdevice/s132/headers/ble.h \
  ../../../../../../components/softdevice/s132/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s132/headers/nrf_error.h \

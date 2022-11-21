@@ -26,8 +26,8 @@
 #define WSS2_GPIO 27
 #define WSS3_GPIO 28
 #define WSS4_GPIO 29
-#define CIRCUMFERENCE 224.51
-#define N_POLES 24
+#define WSS_CIRCUMFERENCE 224.51
+#define WSS_N_POLES 24
 
 // WSS Variables
 int WSS_COUNT1;

@@ -6,6 +6,7 @@
  *
  */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -27,6 +28,15 @@
 
 /**@brief Function for application main entry.
  */
+
+#define WSS_CIRCUMFERENCE 224.51
+#define WSS_N_POLES 24
+
+extern int WSS_COUNT1;
+//extern int WSS_COUNT2;
+//extern int WSS_COUNT3;
+//extern int WSS_COUNT4;
+
 int main(void)
 {
     setup_bluetooth();
@@ -37,9 +47,13 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
-        if (NRF_LOG_PROCESS() == false) {
+        /*if (NRF_LOG_PROCESS() == false) {
             nrf_pwr_mgmt_run();
-        }
+        }*/
+        int DT1 = (WSS_CIRCUMFERENCE / WSS_N_POLES) * WSS_COUNT1;
+        char c[100];
+        sprintf(c, "COUNT1: %d  C: %d\r\n", WSS_COUNT1, DT1);
+        printf(c);
     }
 }
 

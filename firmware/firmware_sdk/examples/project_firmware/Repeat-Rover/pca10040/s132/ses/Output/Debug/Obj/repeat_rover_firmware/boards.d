@@ -1,6 +1,6 @@
 Output/Debug/Obj/repeat_rover_firmware/boards.o: \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\boards\boards.c \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\boards\boards.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\boards\boards.c \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\boards\boards.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
@@ -57,4 +57,4 @@ Output/Debug/Obj/repeat_rover_firmware/boards.o: \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware\components\boards\pca10040.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\components\boards\pca10040.h
