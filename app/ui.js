@@ -262,6 +262,12 @@ const Rover = {
     pos: undefined,
     turn_wait: 3,
 
+    gen_speed: function() {
+        for (var i = 0; i < path.length - 1; i++)
+            if (speed[i] == undefined)
+                speed[i] = speed[i - 1];
+    },
+
     calc_angle: function(xy1, xy2) {
         var xy_info = []
         for (let xy of [xy1, xy2]) {
@@ -277,29 +283,38 @@ const Rover = {
         }, t);
     },
 
-    drive: function() {
-        this.rover.style.display = "inline";
-        this.rover.style.left = Canvas.scale_dim(this.pos[0]) + Canvas.x_start - 24 + "px";
-        this.rover.style.top =  Canvas.scale_dim(this.pos[1]) + Canvas.y_start - 24 + "px";
-        var r_speed = speed[0];
-        var wait = 0;
-        for (var i = 0; i < path.length; i++) {
-            var coords = path[i];
-            var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
-            if (i > 0 && i < path.length - 1) {
-                var pxy = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
-                wait += pxy * this.turn_wait / 90;
-            }
-            var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
-            var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
-            if (speed[i] != undefined)
-               r_speed = speed[i];
-            var time = d * 1000 / r_speed;
-            wait += time;
-            console.log(i, wait);
-            setTimeout(this.animate.bind(null, xy[0], xy[1], time), wait);
-            this.pos = coords;
+    drive: function(i=1, wait=0, rev=false) {
+        var coords = path[i];
+        var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
+        var next_wait = 0;
+        if (i > 0 && i < path.length - 1) {
+            var pxy = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
+            next_wait += pxy * this.turn_wait / 90;
         }
+        var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
+        var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
+        r_speed = speed[i - 1];
+        console.log(i, speed[i-1], r_speed);
+        var time = d * 1000 / r_speed;
+        $("#rover").delay(wait * 1000).animate({
+            left: xy[0] + "px",
+            top: xy[1] + "px"
+        }, time, () => {
+            this.pos = coords;
+            if (i < path.length - 1 && !rev)
+                this.drive(i + 1, wait=next_wait);
+            /*else if (i >= 0 && rev)
+                this.drive(i - 1, wait=next_wait);*/
+        });
+        /*setTimeout(function() {
+            this.animate(xy[0], xy[1], time)
+        }, wait, () => {
+            this.pos = coords;
+            if (i < path.length - 1)
+                this.drive(i + 1, wait);
+        });*/
+        
+        
         /*for (var i = path.length - 1; i >= 0; i--) {
             var coords = path[i];
             var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
@@ -384,6 +399,10 @@ function button2() {
         document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Stop Rover</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor_click.png');
         Rover.pos = Canvas.start_coords;
+        Rover.rover.style.display = "inline";
+        Rover.rover.style.left = Canvas.scale_dim(Rover.pos[0]) + Canvas.x_start - 24 + "px";
+        Rover.rover.style.top =  Canvas.scale_dim(Rover.pos[1]) + Canvas.y_start - 24 + "px";
+        Rover.gen_speed();
         Rover.drive();
     } else if (ROVER_ACTIVE == 1) {
         ROVER_ACTIVE = 2;
