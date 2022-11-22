@@ -21,7 +21,7 @@
 #include "boards.h"
 
 // Motor Literals
-#define MOTOR_SPEED_MAX 0// Provide max motor speed here
+#define MOTOR_SPEED_MAX 10// Provide max motor speed here
 
 // Motor Variables
 int MOTOR_SPEED;
@@ -47,10 +47,9 @@ bool motor_drive(void) {
   if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
     return false;
   }
-  float time = MOTOR_DISTANCE / MOTOR_SPEED; //ms
-  
-  if (counter < time){
-  
+  float speed = (MOTOR_SPEED_MAX - MOTOR_SPEED) / MOTOR_SPEED_MAX * 60 + 20;
+  //IMPLEMENT PWM HERE
+
   if (MOTOR_DIRECTION == 0) {
     // Move Forward at angle MOTOR_ANGLE and speed MOTOR_SPEED
     //direction
@@ -128,13 +127,6 @@ bool motor_drive(void) {
     nrf_gpio_pin_clear(8);
     nrf_gpio_pin_clear(9);
   }
-  } else {
-    nrf_gpio_pin_clear(4);
-    nrf_gpio_pin_clear(5);
-    nrf_gpio_pin_clear(6);
-    nrf_gpio_pin_clear(7);
-    nrf_gpio_pin_clear(8);
-    nrf_gpio_pin_clear(9);
-  }
+
   return true;
 }
