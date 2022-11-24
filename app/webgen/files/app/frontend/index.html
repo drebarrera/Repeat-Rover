@@ -293,21 +293,42 @@ const Rover = {
         var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
         var next_wait = 0;
         if (i > 0 && i < path.length - 1) {
-            var pxy = (Math.atan((path[i-1][1] - path[i][1]) / (path[i-1][0] - path[i][0])) + Math.atan((path[i+1][1] - path[i][1]) / (path[i+1][0] - path[i][0]))) * 180 / Math.PI;
+            var y0 = path[i-1][1];
+            var y1 = path[i][1];
+            var y2 = path[i+1][1];
+            var x0 = path[i-1][0];
+            var x1 = path[i][0];
+            var x2 = path[i+1][0];
+            var dx1 = x1 - x0;
+            var dx2 = x2 - x1;
+            var dy1 = y1 - y0;
+            var dy2 = y2 - y1;
+            var adx1 = Math.abs(dx1);
+            var adx2 = Math.abs(dx2);
+            var ady1 = Math.abs(dy1);
+            var ady2 = Math.abs(dy2);
+            var d1 = Math.sqrt((y1 - y0) ** 2 + (x1 - x0) ** 2);
+            var d2 = Math.sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2);
+            var pxy = Math.acos(((ady1 * ady2) + (adx1 * adx2)) / (d1 * d2)) * 180 / Math.PI;
+            if ((dx1 > 0 && dx2 < 0) || (dy1 > 0 && dy2 < 0) || (dx1 < 0 && dx2 > 0) || (dy1 < 0 && dy2 > 0))
+                pxy = pxy + 90;
             next_wait += pxy * this.turn_wait / 90;
         }
         var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
         var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
         r_speed = speed[i - 1];
-        console.log(i, speed[i-1], r_speed);
         var time = d * 1000 / r_speed;
         $("#rover").delay(wait * 1000).animate({
             left: xy[0] + "px",
             top: xy[1] + "px"
         }, time, () => {
             this.pos = coords;
-            if (i < path.length - 1)
+            if (i < path.length - 1 && !rev)
                 this.drive(i + 1, wait=next_wait);
+            else if (i >= 0 && rev)
+                this.drive(i - 1, wait=next_wait);
+            else
+                this.drive(path.length, wait=(2 * this.turn_wait), rev=true);
         });
         /*setTimeout(function() {
             this.animate(xy[0], xy[1], time)
