@@ -142,6 +142,7 @@ char * sd_read(void) {
 
 // SD Card Write
 bool sd_write(char * str) {  
+  TEST_STRING = str;
   // Write str to sd card
    while (fno.fname[0]);
     NRF_LOG_RAW_INFO("");
