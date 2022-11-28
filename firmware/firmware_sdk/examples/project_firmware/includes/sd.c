@@ -24,9 +24,78 @@
 // SD Card Literals
 #define SD_STR_SIZE_MAX 100
 
+
 // SD Card Initialize GPIO
 void sd_init(void) {
   // Initialize GPIO
+    static FATFS fs;
+    static DIR dir;
+    static FILINFO fno;
+    static FIL file;
+
+    uint32_t bytes_written;
+    FRESULT ff_result;
+    DSTATUS disk_state = STA_NOINIT;
+      // Initialize FATFS disk I/O interface by providing the block device.
+    static diskio_blkdev_t drives[] =
+    {
+            DISKIO_BLOCKDEV_CONFIG(NRF_BLOCKDEV_BASE_ADDR(m_block_dev_sdc, block_dev), NULL)
+    };
+
+    diskio_blockdev_register(drives, ARRAY_SIZE(drives));
+
+    NRF_LOG_INFO("Initializing disk 0 (SDC)...");
+    for (uint32_t retries = 3; retries && disk_state; --retries)
+    {
+        disk_state = disk_initialize(0);
+    }
+    if (disk_state)
+    {
+        NRF_LOG_INFO("Disk initialization failed.");
+        return;
+    }
+
+    uint32_t blocks_per_mb = (1024uL * 1024uL) / m_block_dev_sdc.block_dev.p_ops->geometry(&m_block_dev_sdc.block_dev)->blk_size;
+    uint32_t capacity = m_block_dev_sdc.block_dev.p_ops->geometry(&m_block_dev_sdc.block_dev)->blk_count / blocks_per_mb;
+    NRF_LOG_INFO("Capacity: %d MB", capacity);
+
+    NRF_LOG_INFO("Mounting volume...");
+    ff_result = f_mount(&fs, "", 1);
+    if (ff_result)
+    {
+        NRF_LOG_INFO("Mount failed.");
+        return;
+    }
+
+    NRF_LOG_INFO("\r\n Listing directory: /");
+    ff_result = f_opendir(&dir, "/");
+    if (ff_result)
+    {
+        NRF_LOG_INFO("Directory listing failed!");
+        return;
+    }
+
+    do
+    {
+        ff_result = f_readdir(&dir, &fno);
+        if (ff_result != FR_OK)
+        {
+            NRF_LOG_INFO("Directory read failed.");
+            return;
+        }
+
+        if (fno.fname[0])
+        {
+            if (fno.fattrib & AM_DIR)
+            {
+                NRF_LOG_RAW_INFO("   <DIR>   %s",(uint32_t)fno.fname);
+            }
+            else
+            {
+                NRF_LOG_RAW_INFO("%9lu  %s", fno.fsize, (uint32_t)fno.fname);
+            }
+        }
+    }
 
 }
 
@@ -34,14 +103,72 @@ void sd_init(void) {
 char * sd_read(void) {
   char * str;
   // Read SD card to string str
+  //read content of the file
+    char data[SD_STR_SIZE_MAX]={0}; /* Line buffer */
+    unsigned int ByteRead = 0;
+
+    ff_result = f_open(&file, FILE_NAME, FA_READ);
+    if (ff_result != FR_OK)
+    {
+        NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".\r\n");
+        return;
+    }
+
+    uint16_t size = f_size(&file) ;
+    NRF_LOG_INFO("size of the file in bytes = %d\r\n",size);
+
+    ff_result = f_read(&file,SD_STR_SIZE_MAX, &ByteRead);
+
+    if (ff_result != FR_OK)
+    {
+        NRF_LOG_INFO("Unable to read or create file: " FILE_NAME ".\r\n");
+       (void) f_close(&file);
+        return 0;
+    }
+    else if(ff_result == FR_OK)
+    {
+      NRF_LOG_INFO("%d bytes read\r\n",ByteRead);
+
+    }
+    else
+    {
+      NRF_LOG_INFO("Error operation\r\n");
+    }
 
   // Return data
-  return str;
+   (void) f_close(&file);
+  return data;
 }
 
 // SD Card Write
 bool sd_write(char * str) {  
   // Write str to sd card
+   while (fno.fname[0]);
+    NRF_LOG_RAW_INFO("");
+    ff_result = f_open(&file, FILE_NAME,FA_WRITE);
+    (void) f_close(&file);
+
+    NRF_LOG_INFO("Writing to file " FILE_NAME "...");
+    ff_result = f_open(&file, FILE_NAME, FA_READ | FA_WRITE | FA_OPEN_APPEND);
+    if (ff_result != FR_OK)
+    {
+        NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".");
+        return;
+    }
+
+    ff_result = f_write(&file, TEST_STRING, sizeof(TEST_STRING) - 1, (UINT *) &bytes_written);
+    if (ff_result != FR_OK)
+    {
+        NRF_LOG_INFO("Write failed\r\n.");
+       (void) f_close(&file);
+      return false
+    }
+    else
+    {
+        NRF_LOG_INFO("%d bytes written.", bytes_written);
+    }
+
+    (void) f_close(&file);
 
   // If success return true, else false
   return true;
