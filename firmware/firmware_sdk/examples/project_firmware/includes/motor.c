@@ -49,6 +49,60 @@ bool motor_drive(void) {
   }
   float speed = (MOTOR_SPEED_MAX - MOTOR_SPEED) / MOTOR_SPEED_MAX * 60 + 20;
   //IMPLEMENT PWM HERE
+  //right
+  /* Initialize and enable PWM. */
+  err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
+  APP_ERROR_CHECK(err_code);
+  app_pwm_enable(&PWM1);
+
+  nrf_gpio_cfg_output(4);
+  nrf_gpio_pin_set(4);
+
+  uint32_t value;
+
+  while (true)
+  {
+      for (uint8_t i = 0; i < 40; ++i)
+      {
+          value = speed;
+
+          ready_flag = false;
+           /* Set the duty cycle - keep trying until PWM is ready... */
+           while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
+
+           /* ... or wait for callback. */
+           while (!ready_flag);
+           APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
+          nrf_delay_ms(25);
+       }
+   }
+  //left
+  /* Initialize and enable PWM. */
+  err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
+  APP_ERROR_CHECK(err_code);
+  app_pwm_enable(&PWM1);
+
+  nrf_gpio_cfg_output(7);
+  nrf_gpio_pin_set(7);
+
+  uint32_t value;
+
+  while (true)
+  {
+      for (uint8_t i = 0; i < 40; ++i)
+      {
+          value = speed;
+
+          ready_flag = false;
+           /* Set the duty cycle - keep trying until PWM is ready... */
+           while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
+
+           /* ... or wait for callback. */
+           while (!ready_flag);
+           APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
+          nrf_delay_ms(25);
+       }
+   }
 
   if (MOTOR_DIRECTION == 0) {
     // Move Forward at angle MOTOR_ANGLE and speed MOTOR_SPEED
