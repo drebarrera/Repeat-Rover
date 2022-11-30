@@ -24,7 +24,7 @@
 #define MOTOR_SPEED_MAX 10// Provide max motor speed here
 
 // Motor Variables
-int MOTOR_SPEED;
+int MOTOR_SPEED; //1-10
 int MOTOR_DIRECTION; // 0 = Forward, 1 = Backward, 2 = Counter Clockwise, 3 = Clockwise
 int MOTOR_ANGLE; // 0 (hard right) to 180 (hard left)
 int MOTOR_DISTANCE; //mm
@@ -42,14 +42,32 @@ void motor_init(void) {
   nrf_gpio_pin_clear(9);
 }
 
+APP_PWM_INSTANCE(PWM1,1);                   // Create the instance "PWM1" using TIMER1.
+
+static volatile bool ready_flag;            // A flag indicating PWM status.
+
+void pwm_ready_callback(uint32_t pwm_id)    // PWM callback function
+{
+    ready_flag = true;
+}
+
 // Drive Motors
 bool motor_drive(void) {
   if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
     return false;
   }
-  float speed = (MOTOR_SPEED_MAX - MOTOR_SPEED) / MOTOR_SPEED_MAX * 60 + 20;
+  float speed = MOTOR_SPEED / MOTOR_SPEED_MAX * 60 + 20;
+  
   //IMPLEMENT PWM HERE
-  //right
+  ret_code_t err_code;
+
+    /* 2-channel PWM, 200Hz, output on DK LED pins. */
+    app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7);
+
+    /* Switch the polarity of both channel. */
+    pwm1_cfg.pin_polarity[1] = APP_PWM_POLARITY_ACTIVE_HIGH;
+    pwm1_cfg.pin_polarity[0] = APP_PWM_POLARITY_ACTIVE_HIGH;
+
   /* Initialize and enable PWM. */
   err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
   APP_ERROR_CHECK(err_code);
@@ -59,50 +77,7 @@ bool motor_drive(void) {
   nrf_gpio_pin_set(4);
 
   uint32_t value;
-
-  while (true)
-  {
-      for (uint8_t i = 0; i < 40; ++i)
-      {
-          value = speed;
-
-          ready_flag = false;
-           /* Set the duty cycle - keep trying until PWM is ready... */
-           while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
-
-           /* ... or wait for callback. */
-           while (!ready_flag);
-           APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
-          nrf_delay_ms(25);
-       }
-   }
-  //left
-  /* Initialize and enable PWM. */
-  err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
-  APP_ERROR_CHECK(err_code);
-  app_pwm_enable(&PWM1);
-
-  nrf_gpio_cfg_output(7);
-  nrf_gpio_pin_set(7);
-
-  uint32_t value;
-
-  while (true)
-  {
-      for (uint8_t i = 0; i < 40; ++i)
-      {
-          value = speed;
-
-          ready_flag = false;
-           /* Set the duty cycle - keep trying until PWM is ready... */
-           while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
-
-           /* ... or wait for callback. */
-           while (!ready_flag);
-           APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
-          nrf_delay_ms(25);
-       }
-   }
+  
 
   if (MOTOR_DIRECTION == 0) {
     // Move Forward at angle MOTOR_ANGLE and speed MOTOR_SPEED
@@ -181,6 +156,23 @@ bool motor_drive(void) {
     nrf_gpio_pin_clear(8);
     nrf_gpio_pin_clear(9);
   }
+  
+    while (true)
+  {
+      for (uint8_t i = 0; i < 40; ++i)
+      {
+          value = speed;
+
+          ready_flag = false;
+           /* Set the duty cycle - keep trying until PWM is ready... */
+           while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
+
+           /* ... or wait for callback. */
+           while (!ready_flag);
+           APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
+          nrf_delay_ms(25);
+       }
+   }
 
   return true;
 }
