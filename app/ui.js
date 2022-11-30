@@ -311,7 +311,7 @@ const Rover = {
         }
         var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
         var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
-        r_speed = speed[i - 1];
+        r_speed = !rev ? speed[i - 1] : speed[i];
         var time = d * 1000 / r_speed;
         $("#rover").delay(wait * 1000).animate({
             left: xy[0] + "px",
@@ -320,33 +320,21 @@ const Rover = {
             this.pos = coords;
             if (i < path.length - 1 && !rev)
                 this.drive(i + 1, wait=next_wait);
-            else if (i >= 0 && rev)
-                this.drive(i - 1, wait=next_wait);
-            else
-                this.drive(path.length, wait=(2 * this.turn_wait), rev=true);
+            else if (i > 0 && rev)
+                this.drive(i - 1, wait=next_wait, rev=true);
+            else if (i == path.length - 1)
+                this.drive(path.length - 1, wait=(2 * this.turn_wait), rev=true);
+            else if (i == 0 && ROVER_ACTIVE == 1)
+                setTimeout(() => {
+                    this.drive(i + 1, wait=next_wait);
+                }, this.turn_wait * 2 * 1000);                
+            else if (i == 0 && ROVER_ACTIVE == 2) {
+                ROVER_ACTIVE = 0;
+                document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+                document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+                this.rover.style.display = "none";
+            }
         });
-        /*setTimeout(function() {
-            this.animate(xy[0], xy[1], time)
-        }, wait, () => {
-            this.pos = coords;
-            if (i < path.length - 1)
-                this.drive(i + 1, wait);
-        });*/
-        
-        
-        /*for (var i = path.length - 1; i >= 0; i--) {
-            var coords = path[i];
-            var xy = Canvas.format_coords([coords[0],coords[1]], Canvas.x_start - 24, Canvas.y_start - 24);
-            var dxy = [this.pos[0] - coords[0], this.pos[1] - coords[1]];
-            var d = Math.sqrt(dxy[0] ** 2 + dxy[1] ** 2);
-            if (speed[i] != undefined)
-                r_speed = speed[i];
-            $("#rover").animate({
-                left: xy[0] + "px",
-                top: xy[1] + "px"
-            }, d * 1000 / r_speed);
-            this.pos = coords;
-        }*/
     }
 }
 
@@ -425,9 +413,11 @@ function button2() {
         Rover.drive();
     } else if (ROVER_ACTIVE == 1) {
         ROVER_ACTIVE = 2;
-        document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
-        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Start Rover</p>';
+        document.getElementById("navbutton1").innerHTML = '<p style="font-size: 18px;">Waiting...</p>';
+        document.getElementById("navmenubutton1").innerHTML = '<p style="font-size: 18px;">Waiting...</p>';
         Canvas.draw_icon(Canvas.start_coords, 'images/cursor.png');
+    } else if (ROVER_ACTIVE == 2) {
+        alert("Waiting for the Rover to return to origin.");
     }
 }
 
