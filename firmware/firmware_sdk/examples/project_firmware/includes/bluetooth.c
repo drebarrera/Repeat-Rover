@@ -19,6 +19,7 @@
 
 #include "bluetooth.h"
 #include "ble_rr.h"
+#include "ble_cus.h"
 
 // BLUETOOTH
 /* Setup Bluetooth From ble_rr.c (originally the 
@@ -28,31 +29,74 @@ void setup_bluetooth(void) {
 }
 
 // Wait for bluetooth connection
-bool bluetooth_check_connection(void) {
+bool bluetooth_check_connection(ble_evt_t * p_ble_evt) {
   // if bluetooth is connected, return true
-  return true;
+  switch (p_ble_evt->header.evt_id) {
+    case BLE_GAP_EVT_CONNECTED: 
+      return true;
+    case BLE_GAP_EVT_DISCONNECTED:
+      return false;
+    default:
+      return false;
+  }
 }
 
-bool bluetooth_tx(char * str) {
+//refer to ble_cus_on_ble_evt() function in ble_cus.c
+bool bluetooth_tx(char * str, ble_evt_t const * p_ble_evt, void * p_context) {
   // transmit str through a bluetooth connection
   // if transmission fails, return false
+  ble_cus_t * p_cus = (ble_cus_t *) p_context;
+    
+      NRF_LOG_INFO("BLE event received. Event type = %d\r\n", p_ble_evt->header.evt_id); 
+      if (p_cus == NULL || p_ble_evt == NULL)
+      {
+          return false;
+      }
+    
+      switch (p_ble_evt->header.evt_id)
+      {
+          case BLE_GATTS_EVT_WRITE:
+              on_write(p_cus, p_ble_evt);
+              return true;
 
-  // if transmission succeeds, return true
-  return true;
+          default:
+              return false;
+      }
+
 }
 
-bool bluetooth_check_incoming(void) {
+bool bluetooth_check_incoming(ble_evt_t const * p_ble_evt, void * p_context) {
   // check for incoming data
   // if no incoming data, return false
   // if data is incoming, return true
-  return true;
+
+  ble_cus_t * p_cus = (ble_cus_t *) p_context;
+
+  switch (p_ble_evt->header.evt_id)
+      {
+          case BLE_GATTS_EVT_WRITE:
+              on_write(p_cus, p_ble_evt);
+              return true;
+
+          default:
+              return false;
+      }
+
 }
 
-char * bluetooth_rx(void) {
+//refer to on_write function in ble_cus.c
+uint8_t* bluetooth_rx(ble_cus_t * p_cus, ble_evt_t const * p_ble_evt) {
   // check for incoming data
-  if (!bluetooth_check_incoming()) {
-    return "BLUETOOTH_RX_ERROR";
-  }
 
-  // return data
+  ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
+
+  if (p_evt_write->handle == p_cus->custom_value_handles.value_handle)
+  {
+    //return data
+    return *p_evt_write->data;
+  }
+  else
+  {
+    NRF_LOG_INFO("Error, no incoming data");
+  }
 }

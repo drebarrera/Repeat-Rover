@@ -75,27 +75,27 @@
 #define DEAD_BEEF                       0xDEADBEEF                              /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
 
-NRF_BLE_GATT_DEF(m_gatt);
-NRF_BLE_QWR_DEF(m_qwr);                                                         /**< GATT module instance. */
-BLE_CUS_DEF(m_cus);                                                             /**< Context for the Queued Write module.*/
-BLE_ADVERTISING_DEF(m_advertising);                                             /**< Advertising module instance. */
+//NRF_BLE_GATT_DEF(m_gatt);
+//NRF_BLE_QWR_DEF(m_qwr);                                                         /**< GATT module instance. */
+//BLE_CUS_DEF(m_cus);                                                             /**< Context for the Queued Write module.*/
+//BLE_ADVERTISING_DEF(m_advertising);                                             /**< Advertising module instance. */
 
-APP_TIMER_DEF(m_notification_timer_id);
+//APP_TIMER_DEF(m_notification_timer_id);
 
-static uint8_t m_custom_value = 0;
+//static uint8_t m_custom_value = 0;
 
-static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        /**< Handle of the current connection. */
+//static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        /**< Handle of the current connection. */
 
-/* YOUR_JOB: Declare all services structure your application is using
- *  BLE_XYZ_DEF(m_xyz);
- */
+///* YOUR_JOB: Declare all services structure your application is using
+// *  BLE_XYZ_DEF(m_xyz);
+// */
 
 
-// YOUR_JOB: Use UUIDs for service(s) used in your application.
-static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
-{
-    {CUSTOM_SERVICE_UUID, BLE_UUID_TYPE_VENDOR_BEGIN }
-};
+//// YOUR_JOB: Use UUIDs for service(s) used in your application.
+//static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
+//{
+//    {CUSTOM_SERVICE_UUID, BLE_UUID_TYPE_VENDOR_BEGIN }
+//};
 
 
 static void advertising_start(bool erase_bonds);
