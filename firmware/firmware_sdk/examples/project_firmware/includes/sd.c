@@ -123,6 +123,7 @@ char * sd_read(void) {
             }
         }
     }
+  while (fno.fname[0]);
   char * str;
   // Read SD card to string str
   //read content of the file
