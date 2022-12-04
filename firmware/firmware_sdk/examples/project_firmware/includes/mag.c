@@ -24,6 +24,13 @@
 int MAG_X;
 int MAG_Y;
 int MAG_Z;
+//Uncomment when needing calibration
+//int minX = 0;
+//int minY = 0;
+//int maxX = 0;
+//int maxY = 0;
+//int offset_x = 0;
+//int offset_y = 0;
 uint8_t address = 0x1E; // address of the sensor
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 
@@ -49,6 +56,23 @@ float mag_timer_handler(void) {
   X = twosCompToDec(Xu);
   Y = twosCompToDec(Yu);
   Z = twosCompToDec(Zu);
+  //Calibration code Uncomment when using in new area and do a full rotation of the project in a circle.
+  //if (X < minx){
+  //        minx=X;
+  //    }
+  //    if (Y < miny){
+  //        miny=Y;
+  //    }
+  //    if (X > maxx){
+  //        maxx=X;
+  //    }
+  //    if (Y > maxy){
+  //        maxy=Y;
+  //    }
+  //offset_x = (maxX + minX) / 2
+  //offset_y = (maxY + minY) / 2
+  //X = X - offset_x;
+  //Y = Y - offset_y;
   MAG_X = X;
   MAG_Y = Y;
   MAG_Z = Z;
@@ -56,17 +80,12 @@ float mag_timer_handler(void) {
   heading = 90 - (atan2(Y,X) * (180/M_PI));
   heading = heading + declination;  
   printf("New Direction: %d \n", heading);
-  return heading;
+  return(heading);
 }
 
 int16_t twosCompToDec(uint16_t two_compliment_val)
 {
-    // [0x0000; 0x7FFF] corresponds to [0; 32,767]
-    // [0x8000; 0xFFFF] corresponds to [-32,768; -1]
-    // int16_t has the range [-32,768; 32,767]
-
     uint16_t sign_mask = 0x8000;
-
     // if positive
     if ( (two_compliment_val & sign_mask) == 0 ) {
         return two_compliment_val;
