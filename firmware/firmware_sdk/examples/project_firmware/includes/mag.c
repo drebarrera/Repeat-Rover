@@ -71,16 +71,16 @@ int mag_timer_handler(void) {
   Y = twosCompToDec(Yu);
   Z = twosCompToDec(Zu);
   //Calibration code Uncomment when using in new area and do a full rotation of the project in a circle.
-  //if (X < minx){
+  //if (X < minX){
   //        minX=X;
   //    }
-  //    if (Y < miny){
+  //    if (Y < minY){
   //        minY=Y;
   //    }
-  //    if (X > maxx){
+  //    if (X > maxX){
   //        maxX=X;
   //    }
-  //    if (Y > maxy){
+  //    if (Y > maxY){
   //        maxY=Y;
   //    }
   //offset_x = (maxX + minX) / 2;
