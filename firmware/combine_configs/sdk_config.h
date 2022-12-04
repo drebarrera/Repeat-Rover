@@ -1964,7 +1964,7 @@
 #endif
 
 #ifndef NRFX_PPI_ENABLED
-#define NRFX_PPI_ENABLED 0
+#define NRFX_PPI_ENABLED 1
 #endif
 
 #ifndef NRFX_PPI_CONFIG_LOG_ENABLED
@@ -2456,7 +2456,7 @@
 #endif
 
 #ifndef NRFX_TIMER_ENABLED
-#define NRFX_TIMER_ENABLED 0
+#define NRFX_TIMER_ENABLED 1
 #endif
 
 #ifndef NRFX_TIMER0_ENABLED
@@ -2800,7 +2800,7 @@
 #endif
 
 #ifndef PPI_ENABLED
-#define PPI_ENABLED 0
+#define PPI_ENABLED 1
 #endif
 
 #ifndef PWM_ENABLED
@@ -3096,7 +3096,7 @@
 #endif
 
 #ifndef TIMER_ENABLED
-#define TIMER_ENABLED 0
+#define TIMER_ENABLED 1
 #endif
 
 #ifndef TIMER_DEFAULT_CONFIG_FREQUENCY
@@ -3116,11 +3116,11 @@
 #endif
 
 #ifndef TIMER0_ENABLED
-#define TIMER0_ENABLED 0
+#define TIMER0_ENABLED 1
 #endif
 
 #ifndef TIMER1_ENABLED
-#define TIMER1_ENABLED 0
+#define TIMER1_ENABLED 1
 #endif
 
 #ifndef TIMER2_ENABLED
@@ -3288,7 +3288,7 @@
 #endif
 
 #ifndef APP_PWM_ENABLED
-#define APP_PWM_ENABLED 0
+#define APP_PWM_ENABLED 1
 #endif
 
 #ifndef APP_SCHEDULER_ENABLED
@@ -3304,7 +3304,7 @@
 #endif
 
 #ifndef APP_SDCARD_ENABLED
-#define APP_SDCARD_ENABLED 0
+#define APP_SDCARD_ENABLED 1
 #endif
 
 #ifndef APP_SDCARD_SPI_INSTANCE
@@ -3864,7 +3864,7 @@
 #endif
 
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
-#define NRF_LOG_BACKEND_UART_ENABLED 0
+#define NRF_LOG_BACKEND_UART_ENABLED 1
 #endif
 
 #ifndef NRF_LOG_BACKEND_UART_TX_PIN
@@ -4505,6 +4505,18 @@
 
 #ifndef POWER_CONFIG_SOC_OBSERVER_PRIO
 #define POWER_CONFIG_SOC_OBSERVER_PRIO 0
+#endif
+
+#ifndef APP_FIFO_ENABLED
+#define APP_FIFO_ENABLED 1
+#endif
+
+#ifndef APP_UART_ENABLED
+#define APP_UART_ENABLED 1
+#endif
+
+#ifndef APP_UART_DRIVER_INSTANCE
+#define APP_UART_DRIVER_INSTANCE 0
 #endif
 
 
