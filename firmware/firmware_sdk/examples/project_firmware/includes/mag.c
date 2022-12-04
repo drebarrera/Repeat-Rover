@@ -73,6 +73,7 @@ float mag_timer_handler(void) {
   //offset_y = (maxY + minY) / 2
   //X = X - offset_x;
   //Y = Y - offset_y;
+  //printf("X offset: %d , Y offset: %d\n", offset_x, offset_y);
   MAG_X = X;
   MAG_Y = Y;
   MAG_Z = Z;
