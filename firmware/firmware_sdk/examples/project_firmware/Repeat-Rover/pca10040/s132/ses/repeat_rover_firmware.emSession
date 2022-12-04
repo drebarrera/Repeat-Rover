@@ -60,20 +60,20 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="47" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="33" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="54" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware/Repeat-Rover/pca10040/s132/ses/ble_rr.c" path="ble_rr.h" left="0" top="90" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="17" y="827" useTextEdit="1" path="ble_rr.c" left="0" top="818" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="29" y="28" useTextEdit="1" folds0="50,54,58,63" path="../../../../includes/wss.c" left="0" top="18" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="3" useTextEdit="1" path="../../../../includes/wss.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="60" useTextEdit="1" path="../../../main.c" left="0" top="42" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="54" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware/Repeat-Rover/pca10040/s132/ses/ble_rr.c" path="ble_rr.h" left="0" top="54" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="17" y="827" useTextEdit="1" path="ble_rr.c" left="0" top="815" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="4" useTextEdit="1" folds0="50,54,58,63" path="../../../../includes/wss.c" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="8" useTextEdit="1" path="../../../../includes/wss.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="14" y="40" useTextEdit="1" path="../../../../includes/mag.c" left="0" top="11" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="29" y="7" useTextEdit="1" path="../../../../includes/mag.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="256" useTextEdit="1" path="../../../../includes/sd.c" left="0" top="250" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="256" useTextEdit="1" path="../../../../includes/sd.c" left="0" top="235" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="26" y="9" useTextEdit="1" path="../../../../includes/sd.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="2" y="4" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="2" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="34" y="9" useTextEdit="1" path="../../../../includes/motor.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="19" y="33" useTextEdit="1" path="../../../../includes/bluetooth.c" left="0" top="25" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="41" y="8" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware/examples/firmware - Copy/Repeat-Rover/main.c" path="../../../../includes/bluetooth.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="66" y="299" useTextEdit="1" path="ble_cus.c" left="0" top="295" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="299" useTextEdit="1" path="ble_cus.c" left="0" top="295" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="34" y="90" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware/Repeat-Rover/pca10040/s132/ses/ble_cus.c" path="ble_cus.h" left="0" top="67" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="143" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware/Repeat-Rover/pca10040/s132/ses/ble_rr.c" path="../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.h" left="0" top="140" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="67" y="131" useTextEdit="1" path="../../../../../../components/ble/ble_advertising/ble_advertising.c" left="0" top="105" codecName="Default"/>
