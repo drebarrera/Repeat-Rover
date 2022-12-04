@@ -165,7 +165,7 @@ char * sd_read(void) {
 
 // SD Card Write
 bool sd_write(char * str) { 
-  TEST_STRING = str;
+  char * TEST_STRING = str;
 
     static FATFS fs;
     static DIR dir;
@@ -254,7 +254,7 @@ bool sd_write(char * str) {
     {
         NRF_LOG_INFO("Write failed\r\n.");
        (void) f_close(&file);
-      return false
+      return false;
     }
     else
     {
