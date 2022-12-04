@@ -5,20 +5,18 @@
  *
 */
 
-#include "mag.h"
-
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-
-#include "nordic_common.h"
-#include "nrf.h"
+#include <stdio.h>
+#include "boards.h"
+#include "app_util_platform.h"
+#include "app_error.h"
+#include "nrf_drv_twi.h"
+#include "nrf_gpio.h"
+#include "nrf_delay.h"
+#include "SEGGER_RTT.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "nrf_pwr_mgmt.h"
-#include "nrf_gpio.h"
-#include "boards.h"
+#include "math.h"
 
 #define TWI_INSTANCE_ID     0 // create a ID constant
 
@@ -54,8 +52,10 @@ float mag_timer_handler(void) {
   MAG_X = X;
   MAG_Y = Y;
   MAG_Z = Z;
+  printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
   heading = 90 - (atan2(Y,X) * (180/M_PI));
   heading = heading + declination;  
+  printf("New Direction: %d \n", heading);
   return heading;
 }
 
