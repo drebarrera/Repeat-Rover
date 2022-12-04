@@ -34,9 +34,24 @@ int MAG_Z;
 uint8_t address = 0x1E; // address of the sensor
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 
+
+int16_t twosCompToDec(uint16_t two_compliment_val)
+{
+    uint16_t sign_mask = 0x8000;
+    // if positive
+    if ( (two_compliment_val & sign_mask) == 0 ) {
+        return two_compliment_val;
+    //  if negative
+    } else {
+        // invert all bits, add one, and make negative
+        return -(~two_compliment_val + 1);
+    }
+}
+
 /* Magnetometer Timer Interrupt Handler */
-float mag_timer_handler(void) {
+int mag_timer_handler(void) {
   // Retreive magnetometer data and update magnetometer variables above.
+  ret_code_t err_code; // a variable to hold error code value
   uint8_t get2[1] = {0x03}; //Address of data register
   uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
   uint16_t Xu; //X Value
@@ -45,9 +60,8 @@ float mag_timer_handler(void) {
   int16_t X;
   int16_t Y;
   int16_t Z;
-  float heading; //Heading in radians
+  int heading; //Heading in radians
   float declination = -4.28; //Magnetic declination in degrees for Purdue
-  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
   err_code = nrf_drv_twi_tx(&m_twi, address, get2, sizeof(get2), false); //Send data register address
   err_code = nrf_drv_twi_rx(&m_twi, address, data, sizeof(data)); //Read data
   Xu = (data[0] << 8) + (data[1]); //Convert 2 8 bit 2's complement into 1 16 bit 2's complement
@@ -82,19 +96,6 @@ float mag_timer_handler(void) {
   heading = heading + declination;  
   printf("New Direction: %d \n", heading);
   return(heading);
-}
-
-int16_t twosCompToDec(uint16_t two_compliment_val)
-{
-    uint16_t sign_mask = 0x8000;
-    // if positive
-    if ( (two_compliment_val & sign_mask) == 0 ) {
-        return two_compliment_val;
-    //  if negative
-    } else {
-        // invert all bits, add one, and make negative
-        return -(~two_compliment_val + 1);
-    }
 }
 
 // a function to initialize the twi(i2c)
