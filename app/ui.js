@@ -1,3 +1,6 @@
+const PORT = 3000;
+const socket = io.connect('http://localhost:' + PORT.toString());
+
 var NEW_PATH = 0; // BUTTON1 BOUND NEW_PATH GLOBAL
 var ROVER_ACTIVE = 0; // BUTTON2 BOUND ROVER_ACTIVE GLOBAL
 
@@ -419,6 +422,11 @@ function button2() {
     } else if (ROVER_ACTIVE == 2) {
         alert("Waiting for the Rover to return to origin.");
     }
+}
+
+function button3() {
+    alert('test sent');
+    socket.emit('test', {test: 'hello world!'});
 }
 
 function arr_to_str(arr, depth=0) {

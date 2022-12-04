@@ -4,6 +4,7 @@ from utility import *
 from Webgen import comp as c
 import re
 import webbrowser
+import subprocess
 from map import Map
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.insert(1, r_path(os.getcwd(), 'Webgen','files','app'))
@@ -18,8 +19,11 @@ def parse_coords(coords):
 
 def start_frontend(m: Map):
     c.main(m)
-    url = "file:///"+r_path(os.getcwd(),"Webgen","files","app","frontend","index.html")
-    webbrowser.get().open(url, new=0)
+    #url = "file:///"+r_path(os.getcwd(),"Webgen","files","app","frontend","index.html")
+    #webbrowser.get().open(url, new=0)
+    server = r_path(os.getcwd(), "server", "index.js")
+    subprocess.Popen(['node', server], stdout=subprocess.PIPE)
+    webbrowser.get().open('http://localhost:3000/', new=0)
 
 if __name__ == "__main__":
     m = Map()
@@ -27,7 +31,6 @@ if __name__ == "__main__":
     filename = input(">> ")
     if filename != "":
         m = load_obj(r_path("maps", filename), m)
-        print(m.bounds)
     else:
         print("Provide environment bounds as a set of comma-delimeted (x,y) coordinates.")
         m.bounds = parse_coords(input(">> "))

@@ -11,7 +11,6 @@ def main(m: Map):
     sys.path.insert(1, path)
     import ui as x
     x.push_map(m)
-    #importlib.reload(x)
     php = False
     jquery = False
     head = "<head>"+x.data.c()

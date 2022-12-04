@@ -10,6 +10,8 @@ data = mx.Data()
 body = mx.Body()
 data.title = "Repeat Rover"
 
+data.scripts.append('http://localhost:3000/socket.io/socket.io.js')
+
 ### PUSH MAP
 def push_map(m: Map):
     f = open(r_path(os.getcwd(), 'Webgen', 'files', 'app', 'frontend', 'frontend.js'), 'r')

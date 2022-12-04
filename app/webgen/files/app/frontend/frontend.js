@@ -3,6 +3,9 @@ const obstacles = [[[1.0, 1.0], [2.0, 1.0], [2.0, 2.0], [1.0, 2.0]], [[3.0, 3.0]
 const grid = [1, 0.5];
 var path = [[5.0, 0.5], [5.0, 4.5], [0.5, 4.5], [0.5, 0.5]];
 var speed = {'0': 1, '2': 5};
+const PORT = 3000;
+const socket = io.connect('http://localhost:' + PORT.toString());
+
 var NEW_PATH = 0; // BUTTON1 BOUND NEW_PATH GLOBAL
 var ROVER_ACTIVE = 0; // BUTTON2 BOUND ROVER_ACTIVE GLOBAL
 
@@ -424,6 +427,11 @@ function button2() {
     } else if (ROVER_ACTIVE == 2) {
         alert("Waiting for the Rover to return to origin.");
     }
+}
+
+function button3() {
+    alert('test sent');
+    socket.emit('test', {test: 'hello world!'});
 }
 
 function arr_to_str(arr, depth=0) {
