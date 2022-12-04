@@ -29,7 +29,7 @@ void setup_bluetooth(void) {
 }
 
 // Wait for bluetooth connection
-bool bluetooth_check_connection(ble_evt_t * p_ble_evt) {
+bool bluetooth_check_connection(ble_evt_t const * p_ble_evt) {
   // if bluetooth is connected, return true
   switch (p_ble_evt->header.evt_id) {
     case BLE_GAP_EVT_CONNECTED: 

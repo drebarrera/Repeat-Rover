@@ -82,4 +82,23 @@ Output/Debug/Obj/repeat_rover_firmware/main.o: \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../components/boards/boards.h \
- ../../../../../../components/boards/pca10040.h
+ ../../../../../../components/boards/pca10040.h \
+ ../../../../includes/ble_rr.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware\Repeat-Rover\ble_cus.h \
+ ../../../../../../components/softdevice/s132/headers/ble.h \
+ ../../../../../../components/softdevice/s132/headers/ble_err.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gap.h \
+ ../../../../../../components/softdevice/s132/headers/ble_hci.h \
+ ../../../../../../components/softdevice/s132/headers/ble_ranges.h \
+ ../../../../../../components/softdevice/s132/headers/ble_types.h \
+ ../../../../../../components/softdevice/s132/headers/ble_l2cap.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gatt.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gattc.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gatts.h \
+ ../../../../../../components/ble/common/ble_srv_common.h \
+ ../../../../../../components/softdevice/s132/headers/ble_types.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gap.h \
+ ../../../../../../components/softdevice/s132/headers/ble_gatt.h \
+ ../../../../includes/bluetooth.h ../../../../includes/ble_cus.h \
+ ../../../../includes/wss.h ../../../../includes/mag.h \
+ ../../../../includes/sd.h ../../../../includes/motor.h

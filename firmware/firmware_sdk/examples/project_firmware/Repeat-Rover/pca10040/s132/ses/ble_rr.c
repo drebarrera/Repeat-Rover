@@ -840,12 +840,6 @@ void setup_ble(void)
     application_timers_start();
 
     advertising_start(erase_bonds);
-
-    // Enter main loop.
-    for (;;)
-    {
-        idle_state_handle();
-    }
 }
 
 

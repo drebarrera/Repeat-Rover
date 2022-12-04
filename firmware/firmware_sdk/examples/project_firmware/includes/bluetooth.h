@@ -6,7 +6,7 @@
 
 void setup_bluetooth(void);
 
-bool bluetooth_check_connection(ble_evt_t * p_ble_evt);
+bool bluetooth_check_connection(ble_evt_t const * p_ble_evt);
 
 bool bluetooth_tx(char * str, ble_evt_t const * p_ble_evt, void * p_context);
 
