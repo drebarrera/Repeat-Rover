@@ -105,7 +105,7 @@ rate for the magnetometer. */
 void magnetometer_init(void) {
   ret_code_t err_code; // a variable to hold error code value
   uint8_t address = 0x1E; // address of the sensor
-// initialize the Logger so that we can print msgs on the logger
+  // initialize the Logger so that we can print msgs on the logger
   APP_ERROR_CHECK(NRF_LOG_INIT(NULL)); 
   NRF_LOG_FLUSH(); // flushing is necessary if deferred is set to 1(check this video tutorial to know it better)
   twi_init(); // call the twi initialization function
