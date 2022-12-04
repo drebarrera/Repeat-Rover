@@ -30,8 +30,8 @@ static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 /* Magnetometer Timer Interrupt Handler */
 float mag_timer_handler(void) {
   // Retreive magnetometer data and update magnetometer variables above.
-  uint8_t get1[1] = {0x06}; //Number of bytes to read
   uint8_t get2[1] = {0x03}; //Address of data register
+  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
   uint16_t Xu; //X Value
   uint16_t Yu; //Y Value
   uint16_t Zu; //Z Value
@@ -110,7 +110,6 @@ void magnetometer_init(void) {
   NRF_LOG_FLUSH(); // flushing is necessary if deferred is set to 1(check this video tutorial to know it better)
   twi_init(); // call the twi initialization function
   //init sensor
-  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
   uint8_t cont[2] = {0x02, 0x00}; //Continuous measurement mode
   uint8_t single[2] = {0x00, 0x70}; //Set frequency in sensor register 0
   uint8_t single2[2] = {0x01, 0x10}; //Set gain in sensor register 1
