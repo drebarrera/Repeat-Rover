@@ -62,7 +62,7 @@ bool motor_drive(void) {
   ret_code_t err_code;
 
     /* 2-channel PWM, 200Hz, output on DK LED pins. */
-    app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7);
+    app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7); //enable pins 4 and 7
 
     /* Switch the polarity of both channel. */
     pwm1_cfg.pin_polarity[1] = APP_PWM_POLARITY_ACTIVE_HIGH;
@@ -72,9 +72,6 @@ bool motor_drive(void) {
   err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
   APP_ERROR_CHECK(err_code);
   app_pwm_enable(&PWM1);
-
-  nrf_gpio_cfg_output(4);
-  nrf_gpio_pin_set(4);
 
   uint32_t value;
   
