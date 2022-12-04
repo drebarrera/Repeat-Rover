@@ -140,7 +140,7 @@ char * sd_read(void) {
     uint16_t size = f_size(&file) ;
     NRF_LOG_INFO("size of the file in bytes = %d\r\n",size);
 
-    ff_result = f_read(&file,SD_STR_SIZE_MAX, &ByteRead);
+    ff_result = f_read(&file,data,SD_STR_SIZE_MAX, &ByteRead);
 
     if (ff_result != FR_OK)
     {
