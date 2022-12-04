@@ -34,55 +34,6 @@ int MAG_Z;
 uint8_t address = 0x1E; // address of the sensor
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 
-/* Magnetometer Timer Interrupt Handler */
-float mag_timer_handler(void) {
-  // Retreive magnetometer data and update magnetometer variables above.
-  uint8_t get2[1] = {0x03}; //Address of data register
-  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
-  uint16_t Xu; //X Value
-  uint16_t Yu; //Y Value
-  uint16_t Zu; //Z Value
-  int16_t X;
-  int16_t Y;
-  int16_t Z;
-  float heading; //Heading in radians
-  float declination = -4.28; //Magnetic declination in degrees for Purdue
-  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
-  err_code = nrf_drv_twi_tx(&m_twi, address, get2, sizeof(get2), false); //Send data register address
-  err_code = nrf_drv_twi_rx(&m_twi, address, data, sizeof(data)); //Read data
-  Xu = (data[0] << 8) + (data[1]); //Convert 2 8 bit 2's complement into 1 16 bit 2's complement
-  Yu = (data[2] << 8) + (data[3]); //...
-  Zu = (data[4] << 8) + (data[5]); //...
-  X = twosCompToDec(Xu);
-  Y = twosCompToDec(Yu);
-  Z = twosCompToDec(Zu);
-  //Calibration code Uncomment when using in new area and do a full rotation of the project in a circle.
-  //if (X < minx){
-  //        minx=X;
-  //    }
-  //    if (Y < miny){
-  //        miny=Y;
-  //    }
-  //    if (X > maxx){
-  //        maxx=X;
-  //    }
-  //    if (Y > maxy){
-  //        maxy=Y;
-  //    }
-  //offset_x = (maxX + minX) / 2
-  //offset_y = (maxY + minY) / 2
-  //X = X - offset_x;
-  //Y = Y - offset_y;
-  //printf("X offset: %d , Y offset: %d\n", offset_x, offset_y);
-  MAG_X = X;
-  MAG_Y = Y;
-  MAG_Z = Z;
-  printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
-  heading = 90 - (atan2(Y,X) * (180/M_PI));
-  heading = heading + declination;  
-  printf("New Direction: %d \n", heading);
-  return(heading);
-}
 
 int16_t twosCompToDec(uint16_t two_compliment_val)
 {
@@ -95,6 +46,56 @@ int16_t twosCompToDec(uint16_t two_compliment_val)
         // invert all bits, add one, and make negative
         return -(~two_compliment_val + 1);
     }
+}
+
+/* Magnetometer Timer Interrupt Handler */
+int mag_timer_handler(void) {
+  // Retreive magnetometer data and update magnetometer variables above.
+  ret_code_t err_code; // a variable to hold error code value
+  uint8_t get2[1] = {0x03}; //Address of data register
+  uint8_t data[6] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}; //Data buffer
+  uint16_t Xu; //X Value
+  uint16_t Yu; //Y Value
+  uint16_t Zu; //Z Value
+  int16_t X;
+  int16_t Y;
+  int16_t Z;
+  int heading; //Heading in radians
+  float declination = -4.28; //Magnetic declination in degrees for Purdue
+  err_code = nrf_drv_twi_tx(&m_twi, address, get2, sizeof(get2), false); //Send data register address
+  err_code = nrf_drv_twi_rx(&m_twi, address, data, sizeof(data)); //Read data
+  Xu = (data[0] << 8) + (data[1]); //Convert 2 8 bit 2's complement into 1 16 bit 2's complement
+  Yu = (data[2] << 8) + (data[3]); //...
+  Zu = (data[4] << 8) + (data[5]); //...
+  X = twosCompToDec(Xu);
+  Y = twosCompToDec(Yu);
+  Z = twosCompToDec(Zu);
+  //Calibration code Uncomment when using in new area and do a full rotation of the project in a circle.
+  //if (X < minX){
+  //        minX=X;
+  //    }
+  //    if (Y < minY){
+  //        minY=Y;
+  //    }
+  //    if (X > maxX){
+  //        maxX=X;
+  //    }
+  //    if (Y > maxY){
+  //        maxY=Y;
+  //    }
+  //offset_x = (maxX + minX) / 2;
+  //offset_y = (maxY + minY) / 2;
+  //X = X - offset_x;
+  //Y = Y - offset_y;
+  //printf("X offset: %d , Y offset: %d\n", offset_x, offset_y);
+  MAG_X = X;
+  MAG_Y = Y;
+  MAG_Z = Z;
+  printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
+  heading = 90 - (atan2(Y,X) * (180/M_PI));
+  heading = heading + declination;  
+  printf("New Direction: %d \n", heading);
+  return(heading);
 }
 
 // a function to initialize the twi(i2c)

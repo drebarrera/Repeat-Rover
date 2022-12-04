@@ -20,6 +20,11 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
+#include "app_error.h"
+#include "bsp.h"
+#include "nrf_delay.h"
+#include "app_pwm.h"
+
 // Motor Literals
 #define MOTOR_SPEED_MAX 10// Provide max motor speed here
 
