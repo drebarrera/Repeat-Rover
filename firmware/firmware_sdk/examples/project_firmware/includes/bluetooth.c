@@ -21,6 +21,8 @@
 #include "ble_rr.h"
 #include "ble_cus.h"
 
+//Global variables
+
 // BLUETOOTH
 /* Setup Bluetooth From ble_rr.c (originally the 
 main file of the ble_peripheral code). */

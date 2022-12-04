@@ -8,6 +8,8 @@
 #include "SEGGER_RTT.h"
 #include "app_pwm.h"
 
+ble_evt_t * p_ble_evt_global;
+
 /**@brief Function for handling the Connect event.
  *
  * @param[in]   p_cus       Custom Service structure.
@@ -22,6 +24,8 @@ static void on_connect(ble_cus_t * p_cus, ble_evt_t const * p_ble_evt)
     evt.evt_type = BLE_CUS_EVT_CONNECTED;
 
     p_cus->evt_handler(p_cus, &evt);
+
+    p_ble_evt_global = p_ble_evt;
 }
 
 /**@brief Function for handling the Disconnect event.

@@ -27,6 +27,8 @@
 #include "mag.h"
 #include "sd.h"
 #include "motor.h"
+#include "SEGGER_RTT.h"
+
 
 /**@brief Function for application main entry.
  */
@@ -42,25 +44,26 @@ extern int WSS_COUNT1;
 int main(void)
 {
     setup_bluetooth();
-    extern ble_evt_t * p_ble_evt;
+    extern ble_evt_t * p_ble_evt_global;
     wss_init();
     // Start execution.
     NRF_LOG_INFO("Template example started.");
 
-    while (!bluetooth_check_connection(ble_evt_t const * p_ble_evt)) {
-
-    }
+    /*while (!bluetooth_check_connection(p_ble_evt_global)) {
+      printf("Works");
+    }*/
     // Enter main loop.
     for (;;)
     {
     
-        /*if (NRF_LOG_PROCESS() == false) {
+        if (NRF_LOG_PROCESS() == false) {
             nrf_pwr_mgmt_run();
-        }*/
+        }
         /*int DT1 = (WSS_CIRCUMFERENCE / WSS_N_POLES) * WSS_COUNT1;
         char c[100];
         sprintf(c, "COUNT1: %d  C: %d\r\n", WSS_COUNT1, DT1);
         printf(c);*/
+        //idle_state_handle();
     }
 }
 
