@@ -1,6 +1,6 @@
 import re
 d = dict()
-for config_file in ['wss_config.h', 'ble_config.h', 'sdcard_config.h', 'pwm_config.h']:
+for config_file in ['wss_config.h', 'ble_config.h', 'sdcard_config.h', 'pwm_config.h', 'mag_config.h']:
     with open(config_file, 'r') as cf:
         cfc = cf.read()
         cfd = dict()

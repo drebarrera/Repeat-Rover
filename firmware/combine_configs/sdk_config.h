@@ -2512,7 +2512,7 @@
 #endif
 
 #ifndef NRFX_TWIM_ENABLED
-#define NRFX_TWIM_ENABLED 0
+#define NRFX_TWIM_ENABLED 1
 #endif
 
 #ifndef NRFX_TWIM0_ENABLED
@@ -2612,7 +2612,7 @@
 #endif
 
 #ifndef NRFX_TWI_ENABLED
-#define NRFX_TWI_ENABLED 0
+#define NRFX_TWI_ENABLED 1
 #endif
 
 #ifndef NRFX_TWI0_ENABLED
@@ -3176,7 +3176,7 @@
 #endif
 
 #ifndef TWI_ENABLED
-#define TWI_ENABLED 0
+#define TWI_ENABLED 1
 #endif
 
 #ifndef TWI_DEFAULT_CONFIG_FREQUENCY
@@ -3196,11 +3196,11 @@
 #endif
 
 #ifndef TWI0_ENABLED
-#define TWI0_ENABLED 0
+#define TWI0_ENABLED 1
 #endif
 
 #ifndef TWI0_USE_EASY_DMA
-#define TWI0_USE_EASY_DMA 0
+#define TWI0_USE_EASY_DMA 1
 #endif
 
 #ifndef TWI1_ENABLED

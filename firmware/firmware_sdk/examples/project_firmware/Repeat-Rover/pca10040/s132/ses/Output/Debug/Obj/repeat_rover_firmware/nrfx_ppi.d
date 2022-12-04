@@ -54,4 +54,20 @@ Output/Debug/Obj/repeat_rover_firmware/nrfx_ppi.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
- ../../../../../../modules/nrfx/drivers/nrfx_errors.h
+ ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_ppi.h \
+ ../../../../../../modules/nrfx/hal/nrf_ppi.h \
+ ../../../../../../integration/nrfx/nrfx_log.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log.h \
+ ../../../../../../components/libraries/util/sdk_common.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/string.h \
+ ../../../../../../components/libraries/util/sdk_os.h \
+ ../../../../../../components/libraries/util/app_util.h \
+ ../../../../../../components/libraries/util/sdk_macros.h \
+ ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
+ ../../../../../../components/libraries/strerror/nrf_strerror.h \
+ ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h
