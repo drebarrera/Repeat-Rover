@@ -59,14 +59,14 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="823" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="820" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="823" useTextEdit="1" path="../../../main.c" left="0" top="820" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="43" y="59" useTextEdit="1" path="../../../../includes/ble_cus.c" left="0" top="50" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="46" y="3" useTextEdit="1" path="../../../../includes/peripherals.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="129" useTextEdit="1" path="../../../../includes/peripherals.c" left="0" top="148" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="15" useTextEdit="1" path="../../../../includes/CommandMap.h" left="0" top="5" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../includes/sd.c" left="0" top="254" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="97" useTextEdit="1" path="../../../../includes/peripherals.c" left="0" selected="1" top="80" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="15" useTextEdit="1" path="../../../../includes/CommandMap.h" left="0" top="14" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../includes/sd.c" left="0" top="248" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="12" y="5" useTextEdit="1" path="../../../../includes/sd.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="45" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="68" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="45" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="45" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <EMStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

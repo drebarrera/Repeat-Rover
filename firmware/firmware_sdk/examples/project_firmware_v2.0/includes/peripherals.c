@@ -96,7 +96,6 @@ void mode_select(int val) {
   if (MODE == 0 || MODE == 2) {
     // sd_file_clear(); // CLEAR FILE IN SD CARD
   } else if (MODE == 1) {
-    // sd_open(); // OPEN FILE IN SD CARD
     // sd_read_parse(cmd_stack, &cmd_stack_length); // READ & PARSE FILE FROM SD CARD
   } else {
     MODE = -1;
