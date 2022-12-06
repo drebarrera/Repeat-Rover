@@ -55,6 +55,8 @@
 #include "ble_gatt.h"
 #include "ble_gap.h"
 
+#define GATTS_MAX_DATA_LENGTH_WRITE 20
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -350,7 +352,7 @@ typedef struct
   uint8_t                     auth_required;      /**< Writing operation deferred due to authorization requirement. Application may use @ref sd_ble_gatts_value_set to finalize the writing operation. */
   uint16_t                    offset;             /**< Offset for the write operation. */
   uint16_t                    len;                /**< Length of the received data. */
-  uint8_t                     data[1];            /**< Received data. @note This is a variable length array. The size of 1 indicated is only a placeholder for compilation.
+  uint8_t                     data[GATTS_MAX_DATA_LENGTH_WRITE];            /**< Received data. @note This is a variable length array. The size of 1 indicated is only a placeholder for compilation.
                                                        See @ref sd_ble_evt_get for more information on how to use event structures with variable length array members. */
 } ble_gatts_evt_write_t;
 

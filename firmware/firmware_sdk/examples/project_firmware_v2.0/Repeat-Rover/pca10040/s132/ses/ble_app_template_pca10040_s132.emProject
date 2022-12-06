@@ -109,6 +109,7 @@
       <file file_name="../../../../includes/peripherals.h" />
       <file file_name="../../../../includes/sd.c" />
       <file file_name="../../../../includes/sd.h" />
+      <file file_name="../../../../includes/CommandMap.h" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../../../../../../external/segger_rtt/SEGGER_RTT.c" />

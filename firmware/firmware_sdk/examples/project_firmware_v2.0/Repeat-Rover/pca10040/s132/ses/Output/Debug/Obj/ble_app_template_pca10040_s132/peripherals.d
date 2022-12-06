@@ -88,4 +88,5 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/peripherals.o: \
  C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\sd.h \
  C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\motor.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT.h \
- ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h
+ ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\CommandMap.h

@@ -46,229 +46,21 @@ static void on_disconnect(ble_cus_t * p_cus, ble_evt_t const * p_ble_evt)
  * @param[in]   p_cus       Custom Service structure.
  * @param[in]   p_ble_evt   Event received from the BLE stack.
  */
+
 static void on_write(ble_cus_t * p_cus, ble_evt_t const * p_ble_evt)
 {
     ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
-    
-    // Custom Value Characteristic Written to.
-    if (p_evt_write->handle == p_cus->custom_value_handles.value_handle)
-    {
-        //nrf_gpio_pin_toggle(LED_4);
+    int data_handle = (int) (*p_evt_write).handle;
 
-        //SEGGER_RTT_printf(0, p_evt_write->data);
+    if (data_handle == 16){
 
-        //nrf_gpio_cfg_output(31);
-        //nrf_gpio_pin_set(31);
-        //nrf_gpio_pin_toggle(31);
+      int data_length = (int) (*p_evt_write).len;
+      char data[data_length];
+      for (int i = 0; i < data_length; i++) {
+        data[i] = (int) (*p_evt_write).data[i];
+      }      
 
-        //pwm
-           //right    
-           /* Initialize and enable PWM. */
-           //err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
-           //APP_ERROR_CHECK(err_code);
-           //app_pwm_enable(&PWM1);
-
-           //nrf_gpio_cfg_output(4);
-           //nrf_gpio_pin_set(4);
-
-           //uint32_t value;
-
-           //while (true)
-           //{
-           //    for (uint8_t i = 0; i < 40; ++i)
-           //    {
-           //        value = 80;
-
-           //        ready_flag = false;
-           //        /* Set the duty cycle - keep trying until PWM is ready... */
-           //        while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
-
-           //        /* ... or wait for callback. */
-           //        while (!ready_flag);
-           //        APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
-           //        nrf_delay_ms(25);
-           //    }
-           //}
-
-           //left
-           /* Initialize and enable PWM. */
-           //err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
-           //APP_ERROR_CHECK(err_code);
-           //app_pwm_enable(&PWM1);
-
-           //nrf_gpio_cfg_output(7);
-           //nrf_gpio_pin_set(7);
-
-           //uint32_t value;
-
-           //while (true)
-           //{
-           //    for (uint8_t i = 0; i < 40; ++i)
-           //    {
-           //        value = 80;
-
-           //        ready_flag = false;
-           //        /* Set the duty cycle - keep trying until PWM is ready... */
-           //        while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
-
-           //        /* ... or wait for callback. */
-           //        while (!ready_flag);
-           //        APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
-           //        nrf_delay_ms(25);
-           //    }
-           //}
-
-        //forward
-        if(*p_evt_write->data == 0x01)
-        {
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_pin_clear(5);
-           nrf_gpio_pin_clear(6);
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_pin_clear(8);
-           nrf_gpio_pin_clear(9);
-
-           //right
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_cfg_output(4);
-           nrf_gpio_pin_set(4);
-           //left
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_cfg_output(7);
-           nrf_gpio_pin_set(7);
-
-           //direction
-           nrf_gpio_cfg_output(5);
-           nrf_gpio_pin_set(5);
-
-           nrf_gpio_cfg_output(6);
-           nrf_gpio_pin_clear(6);
-           NRF_GPIO->PIN_CNF[6] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-           nrf_gpio_cfg_output(8);
-           nrf_gpio_pin_set(8);
-
-           nrf_gpio_cfg_output(9);
-           nrf_gpio_pin_clear(9);
-           NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-        }
-        //backwards
-        else if(*p_evt_write->data == 0x02)
-        { 
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_pin_clear(5);
-           nrf_gpio_pin_clear(6);
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_pin_clear(8);
-           nrf_gpio_pin_clear(9);
-
-           //pwm
-           //right
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_cfg_output(4);
-           nrf_gpio_pin_set(4);
-           //left
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_cfg_output(7);
-           nrf_gpio_pin_set(7);
-    
-           //direction
-           nrf_gpio_cfg_output(6);
-           nrf_gpio_pin_set(6);
-
-           nrf_gpio_cfg_output(5);
-           nrf_gpio_pin_clear(5);
-           NRF_GPIO->PIN_CNF[5] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-           nrf_gpio_cfg_output(9);
-           nrf_gpio_pin_set(9);
-
-           nrf_gpio_cfg_output(8);
-           nrf_gpio_pin_clear(8);
-           NRF_GPIO->PIN_CNF[8] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-            
-        }
-        //left
-        else if(*p_evt_write->data == 0x03)
-        {
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_pin_clear(5);
-           nrf_gpio_pin_clear(6);
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_pin_clear(8);
-           nrf_gpio_pin_clear(9);
-            
-           //pwm
-           //right
-           nrf_gpio_cfg_output(4);
-           nrf_gpio_pin_set(4);
-           //left
-           nrf_gpio_cfg_output(7);
-           nrf_gpio_pin_set(7);
-
-           //direction
-           nrf_gpio_cfg_output(5);
-           nrf_gpio_pin_set(5);
-
-           nrf_gpio_cfg_output(6);
-           nrf_gpio_pin_clear(6);
-           NRF_GPIO->PIN_CNF[6] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-           nrf_gpio_cfg_output(9);
-           nrf_gpio_pin_set(9);
-
-           nrf_gpio_cfg_output(8);
-           nrf_gpio_pin_clear(8);
-           NRF_GPIO->PIN_CNF[8] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-
-        }
-        //right
-        else if(*p_evt_write->data == 0x04)
-        {
-           nrf_gpio_pin_clear(4);
-           nrf_gpio_pin_clear(5);
-           nrf_gpio_pin_clear(6);
-           nrf_gpio_pin_clear(7);
-           nrf_gpio_pin_clear(8);
-           nrf_gpio_pin_clear(9);
-            
-           //pwm
-           //right
-           nrf_gpio_cfg_output(4);
-           nrf_gpio_pin_set(4);
-           //left
-           nrf_gpio_cfg_output(7);
-           nrf_gpio_pin_set(7);
-
-           //direction
-           nrf_gpio_cfg_output(8);
-           nrf_gpio_pin_set(8);
-
-           nrf_gpio_cfg_output(9);
-           nrf_gpio_pin_clear(9);
-           NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-           nrf_gpio_cfg_output(6);
-           nrf_gpio_pin_set(6);
-
-           nrf_gpio_cfg_output(5);
-           nrf_gpio_pin_clear(5);
-           NRF_GPIO->PIN_CNF[5] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
-        }
-        else
-        {
-         //do nothing
-         nrf_gpio_pin_clear(4);
-         nrf_gpio_pin_clear(5);
-         nrf_gpio_pin_clear(6);
-         nrf_gpio_pin_clear(7);
-         nrf_gpio_pin_clear(8);
-         nrf_gpio_pin_clear(9);
-        }
+      bluetooth_rx(data, data_length);
 
     }
 
@@ -386,7 +178,7 @@ static uint32_t custom_value_char_add(ble_cus_t * p_cus, const ble_cus_init_t * 
     attr_char_value.p_attr_md = &attr_md;
     attr_char_value.init_len  = sizeof(uint8_t);
     attr_char_value.init_offs = 0;
-    attr_char_value.max_len   = sizeof(uint8_t);
+    attr_char_value.max_len   = sizeof(uint8_t) * 20;
 
     err_code = sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md,
                                                &attr_char_value,
@@ -446,7 +238,7 @@ uint32_t ble_cus_custom_value_update(ble_cus_t * p_cus, uint8_t custom_value)
     // Initialize value struct.
     memset(&gatts_value, 0, sizeof(gatts_value));
 
-    gatts_value.len     = sizeof(uint8_t);
+    gatts_value.len     = sizeof(uint8_t) * 5;
     gatts_value.offset  = 0;
     gatts_value.p_value = &custom_value;
 
