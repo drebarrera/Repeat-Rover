@@ -48,7 +48,7 @@ int QUAN = -1;
 int SPEED = 5;
 
 void peripherals_init() {
-  //wss_init();
+  wss_init();
   //magnetometer_init();
   //sd_init();
   motor_init();
@@ -106,13 +106,21 @@ void mode_select(int val) {
 }
 
 bool drive_rover_motors() {
-  set_motor_params(SPEED, MODE, QUAN);
-  set_wss_goal(SPEED, MODE, QUAN);
+  set_motor_params(SPEED, MOVE, QUAN);
+  set_wss_goal(SPEED, MOVE, QUAN);
   if (motor_drive() == false) {
     NRF_LOG_ERROR("[!!!] Error driving motors.");
     return false;
   }
   return true;
+}
+
+void add_to_cmd_stack() {
+  int index = push_cmd_values(MOVE, QUAN);
+  char line[5];
+  sprintf(line, "%d%d\n", MOVE, QUAN);
+  NRF_LOG_INFO("%s", NRF_LOG_PUSH(line));
+  //sd_append_line(line);
 }
 
 void bluetooth_rx(char * data, int data_length) {
@@ -191,12 +199,10 @@ void bluetooth_rx(char * data, int data_length) {
       if (MOVE != -1 && MODE == 0) {
         if (drive_rover_motors()) {
         //if (true) {
-          int index = push_cmd_values(MOVE, QUAN);
-          char line[5];
-          sprintf(line, "%d%d\n", MOVE, QUAN);
-          NRF_LOG_INFO("%s", NRF_LOG_PUSH(line));
-          //sd_append_line(line);
+          add_to_cmd_stack();
         }
+      } else if (MOVE != -1 && MODE == 2) {
+          add_to_cmd_stack();
       }
     }
   }

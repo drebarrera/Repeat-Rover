@@ -865,7 +865,7 @@ int main(void)
     bool erase_bonds;
 
     // Initialize.
-    log_init();
+    /*log_init();
     timers_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
@@ -881,7 +881,16 @@ int main(void)
     NRF_LOG_INFO("Template example started.");
     application_timers_start();
 
-    advertising_start(erase_bonds);
+    advertising_start(erase_bonds);*/
+
+    nrf_gpio_pin_clear(4);
+     nrf_gpio_pin_clear(5);
+     nrf_gpio_pin_clear(6);
+     nrf_gpio_pin_clear(7);
+     nrf_gpio_pin_clear(8);
+     nrf_gpio_pin_clear(9);
+
+
 
     // Enter main loop.
     for (;;)

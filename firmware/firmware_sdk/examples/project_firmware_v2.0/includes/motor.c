@@ -54,7 +54,7 @@ void motor_init(void) {
   nrf_gpio_pin_clear(7);
   nrf_gpio_cfg_output(7);
   nrf_gpio_pin_set(7);
-
+  return;
 }
 
 APP_PWM_INSTANCE(PWM1,1);                   // Create the instance "PWM1" using TIMER1.
@@ -67,63 +67,62 @@ void pwm_ready_callback(uint32_t pwm_id)    // PWM callback function
 }
 
 // SET PARAMETERS
-void set_motor_params(int SPEED, int MODE, int QUANTIFIER) {
+void set_motor_params(int SPEED, int MOVE, int QUANTIFIER) {
   MOTOR_SPEED = SPEED;
-  MOTOR_DIRECTION = MODE;
-  if (MODE == 0 || MODE == 1) {
+  MOTOR_DIRECTION = MOVE;
+  /*if (MODE == 0 || MODE == 1) {
     MOTOR_DISTANCE = QUANTIFIER;
     MOTOR_ANGLE = 90;
   } else if (MODE == 2 || MODE == 3) {
     MOTOR_DISTANCE = 0;
     if (MODE == 2) MOTOR_ANGLE = 0;
     else MOTOR_ANGLE = 180;
-  }
+  }*/
   return;
 }
 
 // Drive Motors
 bool motor_drive(void) {
-  if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
+  /*if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
     return false;
   }
 
-  motor_init();
   float speed = MOTOR_SPEED / MOTOR_SPEED_MAX * 60 + 20;
   
   //IMPLEMENT PWM HERE
   ret_code_t err_code;
 
-    /* 2-channel PWM, 200Hz, output on DK LED pins. */
+    // 2-channel PWM, 200Hz, output on DK LED pins. 
     app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7); //enable pins 4 and 7
 
-    /* Switch the polarity of both channel. */
+    // Switch the polarity of both channel. 
     pwm1_cfg.pin_polarity[1] = APP_PWM_POLARITY_ACTIVE_HIGH;
     pwm1_cfg.pin_polarity[0] = APP_PWM_POLARITY_ACTIVE_HIGH;
 
-  /* Initialize and enable PWM. */
+  // Initialize and enable PWM. 
   err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
   APP_ERROR_CHECK(err_code);
   app_pwm_enable(&PWM1);
 
-  uint32_t value;
-  
+  uint32_t value;*/
+  motor_init();
 
   if (MOTOR_DIRECTION == 0) {
     // Move Forward at angle MOTOR_ANGLE and speed MOTOR_SPEED
     //direction
-    nrf_gpio_cfg_output(5);
-    nrf_gpio_pin_set(5);
+     nrf_gpio_cfg_output(5);
+     nrf_gpio_pin_set(5);
 
-    nrf_gpio_cfg_output(6);
-    nrf_gpio_pin_clear(6);
-    NRF_GPIO->PIN_CNF[6] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
+     nrf_gpio_cfg_output(6);
+     nrf_gpio_pin_clear(6);
+     NRF_GPIO->PIN_CNF[6] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
 
-    nrf_gpio_cfg_output(8);
-    nrf_gpio_pin_set(8);
+     nrf_gpio_cfg_output(8);
+     nrf_gpio_pin_set(8);
 
-    nrf_gpio_cfg_output(9);
-    nrf_gpio_pin_clear(9);
-    NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
+     nrf_gpio_cfg_output(9);
+     nrf_gpio_pin_clear(9);
+     NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
   } else if (MOTOR_DIRECTION == 1) {
     // Move Backward at angle MOTOR_ANGLE and speed MOTOR_SPEED
         //direction
@@ -185,7 +184,7 @@ bool motor_drive(void) {
     nrf_gpio_pin_clear(9);
   }
   
-    while (true)
+    /*while (true)
   {
       for (uint8_t i = 0; i < 40; ++i)
       {
@@ -200,7 +199,7 @@ bool motor_drive(void) {
            APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
           nrf_delay_ms(25);
        }
-   }
+   }*/
 
   return true;
 }

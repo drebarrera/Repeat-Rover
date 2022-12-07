@@ -27,15 +27,16 @@
 // WSS Literals
 #define WSSR_GPIO 26 // Right
 #define WSSL_GPIO 28 // Left
-#define WSS_CIRCUMFERENCE 224.51
+#define WSS_CIRCUMFERENCE 22.451
 #define WSS_N_POLES 24
-#define WSS_ROVER_WIDTH 142.15
+#define WSS_ROVER_WIDTH 14.215
 #define WSS_ALLOWED_OFFSET 12 // Number of Poles Offset From Goal Allowed.
 
 // WSS Variables
 int WSS_COUNT_RIGHT;
 int WSS_COUNT_LEFT;
 int WSS_DRIVE_MODE = -1;
+bool MOTORS_ACTIVE;
 
 // WSS Goals
 int WSS_RIGHT_GOAL = -1;
@@ -56,11 +57,21 @@ void set_wss_goal(int SPEED, int MODE, int QUANTIFIER) {
     if (MODE == 2) WSS_LEFT_GOAL = GOAL;
     else WSS_RIGHT_GOAL = GOAL;
   }
+  WSS_COUNT_RIGHT = 0;
+  WSS_COUNT_LEFT = 0;
+  WSS_RIGHT_GOAL_OFFSET = 0;
+  WSS_LEFT_GOAL_OFFSET = 0;
+  MOTORS_ACTIVE = true;
+  nrf_drv_gpiote_in_event_enable(WSSR_GPIO, true);
+  nrf_drv_gpiote_in_event_enable(WSSL_GPIO, true);
+  return;
 }
 
 void terminate_rover_motors() {
-  set_motor_params(0, WSS_DRIVE_MODE, 0);
-  motor_drive();
+  nrf_drv_gpiote_in_event_disable(WSSR_GPIO);
+  nrf_drv_gpiote_in_event_disable(WSSL_GPIO);
+  motor_init();
+  MOTORS_ACTIVE = false;
   return;
 }
 
@@ -68,15 +79,19 @@ void terminate_rover_motors() {
 void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_RIGHT++;
   if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL) WSS_RIGHT_GOAL_OFFSET++;
-  if (WSS_RIGHT_GOAL_OFFSET > 0 && WSS_LEFT_GOAL_OFFSET > 0 || WSS_RIGHT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
+  if ((WSS_RIGHT_GOAL_OFFSET > 0 && WSS_LEFT_GOAL_OFFSET > 0) || WSS_RIGHT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
     terminate_rover_motors();
+  NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT);
+  return;
 }
 
 void wss_l_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_LEFT++;
   if (WSS_COUNT_LEFT >= WSS_LEFT_GOAL) WSS_LEFT_GOAL_OFFSET++;
-  if (WSS_LEFT_GOAL_OFFSET > 0 && WSS_RIGHT_GOAL_OFFSET > 0 || WSS_RIGHT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
+  if (WSS_LEFT_GOAL_OFFSET > 0 && WSS_RIGHT_GOAL_OFFSET > 0 || WSS_LEFT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
     terminate_rover_motors();
+  NRF_LOG_INFO("L%d", WSS_COUNT_LEFT);
+  return;
 }
 
 // Initialize WSS GPIO
@@ -93,8 +108,4 @@ void wss_init(void) {
   
   err_code = nrf_drv_gpiote_in_init(WSSL_GPIO, &in_config, wss_l_handler);
   APP_ERROR_CHECK(err_code);
-
-  nrf_drv_gpiote_in_event_enable(WSSR_GPIO, true);
-
-  nrf_drv_gpiote_in_event_enable(WSSL_GPIO, true);
 }

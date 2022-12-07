@@ -827,9 +827,9 @@ int main(void)
     bool erase_bonds;
 
     // Initialize.
-    peripherals_init();
     log_init();
     timers_init();
+    peripherals_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
     ble_stack_init();
@@ -839,6 +839,7 @@ int main(void)
     advertising_init();
     conn_params_init();
     peer_manager_init();
+    
 
     // Start execution.
     NRF_LOG_INFO("Template example started.");
