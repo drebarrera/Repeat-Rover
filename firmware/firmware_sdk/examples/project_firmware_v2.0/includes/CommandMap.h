@@ -9,20 +9,32 @@
 #define CMD_STACK_MAX_LENGTH 100
 
 struct cmd {
-  char * key;
-  int val;
+  int command;
+  int value;
 };
 
 struct cmd cmd_stack[CMD_STACK_MAX_LENGTH];
 int cmd_stack_length = 0;
 
-void push_cmd(char * key, int val) {
-  struct cmd new_cmd = {key, val};
+int push_cmd_values(int command, int value) {
+  struct cmd new_cmd = {command, value};
   cmd_stack[cmd_stack_length] = new_cmd;
   cmd_stack_length++;
+  return cmd_stack_length - 1;
 }
 
-struct cmd dequeue_cmd_arr() {
+int push_cmd(struct cmd new_cmd) {
+  cmd_stack[cmd_stack_length] = new_cmd;
+  cmd_stack_length++;
+  return cmd_stack_length - 1;
+}
+
+struct cmd check_cmd_top() {
+  return cmd_stack[cmd_stack_length - 1];
+
+}
+
+struct cmd dequeue_cmd_stack() {
   struct cmd dequeue_cmd = cmd_stack[0];
   for (int i = 0; i < cmd_stack_length - 1; i++)
     cmd_stack[i] = cmd_stack[i + 1];
@@ -30,7 +42,7 @@ struct cmd dequeue_cmd_arr() {
   return dequeue_cmd;
 }
 
-struct cmd pop_cmd_arr() {
+struct cmd pop_cmd_stack() {
   struct cmd pop_cmd = cmd_stack[cmd_stack_length - 1];
   cmd_stack_length--;
   return pop_cmd;

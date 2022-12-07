@@ -45,6 +45,16 @@ void motor_init(void) {
   nrf_gpio_pin_clear(7);
   nrf_gpio_pin_clear(8);
   nrf_gpio_pin_clear(9);
+
+  //right
+  nrf_gpio_pin_clear(4);
+  nrf_gpio_cfg_output(4);
+  nrf_gpio_pin_set(4);
+  //left
+  nrf_gpio_pin_clear(7);
+  nrf_gpio_cfg_output(7);
+  nrf_gpio_pin_set(7);
+
 }
 
 APP_PWM_INSTANCE(PWM1,1);                   // Create the instance "PWM1" using TIMER1.
@@ -56,11 +66,28 @@ void pwm_ready_callback(uint32_t pwm_id)    // PWM callback function
     ready_flag = true;
 }
 
+// SET PARAMETERS
+void set_motor_params(int SPEED, int MODE, int QUANTIFIER) {
+  MOTOR_SPEED = SPEED;
+  MOTOR_DIRECTION = MODE;
+  if (MODE == 0 || MODE == 1) {
+    MOTOR_DISTANCE = QUANTIFIER;
+    MOTOR_ANGLE = 90;
+  } else if (MODE == 2 || MODE == 3) {
+    MOTOR_DISTANCE = 0;
+    if (MODE == 2) MOTOR_ANGLE = 0;
+    else MOTOR_ANGLE = 180;
+  }
+  return;
+}
+
 // Drive Motors
 bool motor_drive(void) {
   if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
     return false;
   }
+
+  motor_init();
   float speed = MOTOR_SPEED / MOTOR_SPEED_MAX * 60 + 20;
   
   //IMPLEMENT PWM HERE
@@ -97,7 +124,6 @@ bool motor_drive(void) {
     nrf_gpio_cfg_output(9);
     nrf_gpio_pin_clear(9);
     NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
-
   } else if (MOTOR_DIRECTION == 1) {
     // Move Backward at angle MOTOR_ANGLE and speed MOTOR_SPEED
         //direction
@@ -115,8 +141,8 @@ bool motor_drive(void) {
     nrf_gpio_pin_clear(8);
     NRF_GPIO->PIN_CNF[8] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
     
-  } else if (MOTOR_DIRECTION == 2) {
-    // Move CC at angle MOTOR_ANGLE and speed MOTOR_SPEED
+  } else if (MOTOR_DIRECTION == 3) {
+    // Move CW at angle MOTOR_ANGLE and speed MOTOR_SPEED
         //direction
     nrf_gpio_cfg_output(5);
     nrf_gpio_pin_set(5);
@@ -132,8 +158,8 @@ bool motor_drive(void) {
     nrf_gpio_pin_clear(8);
     NRF_GPIO->PIN_CNF[8] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
     
-  } else if (MOTOR_DIRECTION == 3) {
-    // Move Clockwise at angle MOTOR_ANGLE and speed MOTOR_SPEED
+  } else if (MOTOR_DIRECTION == 2) {
+    // Move CCW at angle MOTOR_ANGLE and speed MOTOR_SPEED
         //direction
     nrf_gpio_cfg_output(6);
     nrf_gpio_pin_set(6);
@@ -166,10 +192,10 @@ bool motor_drive(void) {
           value = speed;
 
           ready_flag = false;
-           /* Set the duty cycle - keep trying until PWM is ready... */
+           // Set the duty cycle - keep trying until PWM is ready... 
            while (app_pwm_channel_duty_set(&PWM1, 0, value) == NRF_ERROR_BUSY);
 
-           /* ... or wait for callback. */
+           // ... or wait for callback. 
            while (!ready_flag);
            APP_ERROR_CHECK(app_pwm_channel_duty_set(&PWM1, 1, value));
           nrf_delay_ms(25);

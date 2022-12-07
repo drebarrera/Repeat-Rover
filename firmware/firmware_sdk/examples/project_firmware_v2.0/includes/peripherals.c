@@ -12,10 +12,10 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
-#include "wss.h"
-#include "mag.h"
 #include "sd.h"
 #include "motor.h"
+#include "wss.h"
+#include "mag.h"
 #include "SEGGER_RTT.h"
 #include "CommandMap.h"
 
@@ -51,7 +51,7 @@ void peripherals_init() {
   //wss_init();
   //magnetometer_init();
   //sd_init();
-  //motor_init();
+  motor_init();
 }
 
 void decode(char * data, int data_length, char * command, int * value) {
@@ -100,12 +100,19 @@ void mode_select(int val) {
   } else {
     MODE = -1;
     NRF_LOG_ERROR("[!!!] Mode should be between 0 and 2");
+    return;
   }
   return;
 }
 
-void move_rover() {
-  return;
+bool drive_rover_motors() {
+  set_motor_params(SPEED, MODE, QUAN);
+  set_wss_goal(SPEED, MODE, QUAN);
+  if (motor_drive() == false) {
+    NRF_LOG_ERROR("[!!!] Error driving motors.");
+    return false;
+  }
+  return true;
 }
 
 void bluetooth_rx(char * data, int data_length) {
@@ -114,53 +121,82 @@ void bluetooth_rx(char * data, int data_length) {
   decode(data, data_length, &command, &value);
 
   if (MODE == -1) {
+    // SET MODE
     if (compare_strings(command, "MOD", 3)) {
       mode_select(value);
     } else {
-      NRF_LOG_ERROR("[!!!] Please set a mode with command MOD.")
+      NRF_LOG_ERROR("[!!!] Please set a mode with command MOD.");
+      return;
     }
   } else {
+    // SET SPEED
     if (compare_strings(command, "SPD", 3)) {
       if (value <= 10 && value >= 0) {
         SPEED = value;
+        MOVE = -1;
+        if (check_cmd_top().command == 4) {
+          struct cmd new_cmd = pop_cmd_stack();
+          new_cmd.value = SPEED;
+          push_cmd(new_cmd);
+        } else {
+          push_cmd_values(4, SPEED);
+        }
       } else {
         NRF_LOG_ERROR("[!!!] Speed should be an integer between 0 and 10");
+        return;
       }
     } else {
-      if (compare_strings(command, "FWD", 3)) {
+      // SET MOVEMENT
+        // FORWARD
+      if (compare_strings(command, "FWD", 3)) { 
         if (value > 0 && value <= 999) {
           MOVE = 0;
           QUAN = value;
         } else {
           NRF_LOG_ERROR("[!!!] Forward movement should be an integer between 0 and 999");
+          return;
         }
+        // REVERSE
       } else if (compare_strings(command, "REV", 3)) {
         if (value > 0 && value <= 999) {
           MOVE = 1;
           QUAN = value;
         } else {
           NRF_LOG_ERROR("[!!!] Reverse movement should be an integer between 0 and 999");
+          return;
         }
+        // CLOCKWISE
       } else if (compare_strings(command, "RCW", 3)) {
         if (value > 0 && value <= 360) {
           MOVE = 2;
           QUAN = value;
         } else {
           NRF_LOG_ERROR("[!!!] Rotation should be an integer between 0 and 999");
+          return;
         }
+        // COUNTER-CLOCKWISE
       } else if (compare_strings(command, "RCC", 3)) {
         if (value > 0 && value <= 360) {
           MOVE = 3;
           QUAN = value;
         } else {
           NRF_LOG_ERROR("[!!!] Rotation should be an integer between 0 and 999");
+          return;
         }
       } else {
-          NRF_LOG_ERROR("[!!!] Unknown command.");
+        NRF_LOG_ERROR("[!!!] Unknown command.");
+        return;
       }
 
       if (MOVE != -1 && MODE == 0) {
-        move_rover();
+        if (drive_rover_motors()) {
+        //if (true) {
+          int index = push_cmd_values(MOVE, QUAN);
+          char line[5];
+          sprintf(line, "%d%d\n", MOVE, QUAN);
+          NRF_LOG_INFO("%s", NRF_LOG_PUSH(line));
+          //sd_append_line(line);
+        }
       }
     }
   }
