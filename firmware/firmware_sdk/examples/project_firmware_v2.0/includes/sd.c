@@ -36,6 +36,10 @@
 #define SDC_MISO_PIN    17  ///< SDC serial data out (DO) pin.
 #define SDC_CS_PIN      20  ///< SDC chip select (CS) pin.
 
+//SD card modules
+//Delete an existing file or directory
+//FRESULT open_append (FIL* fp, const char* path);
+
 // SD Card Initialize GPIO
 void sd_init(void) {
   // Initialize GPIO
@@ -266,3 +270,115 @@ bool sd_write(char * str) {
   // If success return true, else false
   return true;
 }
+
+//Remove file
+void sd_file_clear(const char* Path) {
+  
+  f_unlink(Path);
+
+}
+
+
+void sd_read_parse() {
+
+  FRESULT ff_result;
+
+  ff_result = f_open(&file, FILE_NAME,FA_READ);
+
+  if (ff_result != FR_OK) {
+        NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".\r\n");
+        return;
+  }
+
+  char data[SD_STR_SIZE_MAX]={0}; /* Line buffer */
+  unsigned int ByteRead = 0;
+
+  uint16_t size = f_size(&file) ;
+  NRF_LOG_INFO("size of the file in bytes = %d\r\n",size);
+
+  ff_result = f_read(&file,data,SD_STR_SIZE_MAX, &ByteRead);
+
+  if (ff_result != FR_OK)
+  {
+      NRF_LOG_INFO("Unable to read or create file: " FILE_NAME ".\r\n");
+     (void) f_close(&file);
+      return 0;
+  }
+  else if(ff_result == FR_OK)
+  {
+    NRF_LOG_INFO("%d bytes read\r\n",ByteRead);
+    //printf("%s", data);
+
+    int* mode[30];
+    int* sp[30];
+    int first;
+    int second;
+    int third;
+    int i = 0;
+
+    for(int j = 0; j< sizeof(data); j++) {
+        if(data[j] == ' ') {
+            
+        }else if(data[j] == '\n'){
+            
+        }else{
+            mode[i] = data[j] - 48;
+            first = (data[(j+1)] - 48) * 100;
+            printf(" 1st: %d", first);
+            second = (data[j+2] - 48) * 10;
+            printf(" second : %d", second);
+            third = data[j+3] - 48;
+            printf(" third: %d", third);
+            sp[i] = first + second + third;
+            j+= 3;
+            i++;
+
+            push_cmd_values(mode[i], sp[i]);
+        }
+    }
+
+  }
+  else
+  {
+    NRF_LOG_INFO("Error operation\r\n");
+  }
+
+  (void) f_close(&file);
+
+}
+
+//Append to a line of text to a file
+FRESULT open_append (
+    FIL* fp,            /* [OUT] File object to create */
+    const char* path    /* [IN]  File name to be opened */
+)
+{
+    FRESULT fr;
+
+    /* Opens an existing file. If not exist, creates a new file. */
+    fr = f_open(fp, path, FA_WRITE | FA_OPEN_ALWAYS);
+    if (fr == FR_OK) {
+        /* Seek to end of the file to append data */
+        fr = f_lseek(fp, f_size(fp));
+        if (fr != FR_OK)
+            f_close(fp);
+    }
+    return fr;
+}
+
+void sd_append_line(char str) {
+
+    FRESULT fr;
+    FATFS fs;
+    FIL fil;
+
+    //append line to file
+    fr = open_append(&fil, FILE_NAME);
+    f_printf(&fil, "%s", str);
+
+    if (fr != FR_OK) {
+      printf("Something went wrong");
+    }
+
+}
+
