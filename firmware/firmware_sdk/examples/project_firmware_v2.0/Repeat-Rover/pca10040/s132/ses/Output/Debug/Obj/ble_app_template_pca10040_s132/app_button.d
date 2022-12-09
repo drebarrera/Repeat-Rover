@@ -65,6 +65,13 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/app_button.o: \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log.h \
+ ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
+ ../../../../../../components/libraries/strerror/nrf_strerror.h \
+ ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/timer/app_timer.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h \

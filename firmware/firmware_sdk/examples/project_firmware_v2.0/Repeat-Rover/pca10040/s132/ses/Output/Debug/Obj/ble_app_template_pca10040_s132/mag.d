@@ -57,16 +57,6 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/mag.o: \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- ../../../../../../components/boards/pca10040.h \
- ../../../../../../components/libraries/util/app_error.h \
- ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
- ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
- ../../../../../../modules/nrfx/hal/nrf_twim.h \
- ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
- ../../../../../../modules/nrfx/hal/nrf_twi.h \
- ../../../../../../components/libraries/delay/nrf_delay.h \
- ../../../../../../external/segger_rtt/SEGGER_RTT.h \
- ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
  /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
@@ -80,6 +70,16 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/mag.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/boards/pca10040.h \
+ ../../../../../../components/libraries/util/app_error.h \
+ ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
+ ../../../../../../modules/nrfx/hal/nrf_twim.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
+ ../../../../../../modules/nrfx/hal/nrf_twi.h \
+ ../../../../../../components/libraries/delay/nrf_delay.h \
+ ../../../../../../external/segger_rtt/SEGGER_RTT.h \
+ ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_ctrl.h \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \

@@ -3,7 +3,7 @@
  
 #include <stdbool.h>
 
-bool mag_timer_handler(void);
+bool mag_direction(void);
 
 void magnetometer_init(void);
 

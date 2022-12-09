@@ -84,6 +84,7 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/motor.o: \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../components/boards/pca10040.h \
+ ../../../../../../modules/nrfx/hal/nrf_uarte.h \
  ../../../../../../components/libraries/util/app_error.h \
  ../../../../../../components/libraries/bsp/bsp.h \
  ../../../../../../components/libraries/button/app_button.h \

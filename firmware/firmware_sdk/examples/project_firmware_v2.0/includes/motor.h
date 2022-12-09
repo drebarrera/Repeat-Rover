@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-void motor_init(void);
+void motor_gpio_clear(void);
 
 bool motor_drive(void);
 

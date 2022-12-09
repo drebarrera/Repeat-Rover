@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include <math.h>
 
 #include "nordic_common.h"
 #include "nrf.h"
@@ -19,8 +20,9 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 #include "motor.h"
-
+#include "mag.h"
 #include "nrf_drv_gpiote.h"
+#include "CommandMap.h"
 
 #define PI 3.14159265358979323846
 
@@ -29,39 +31,44 @@
 #define WSSL_GPIO 28 // Left
 #define WSS_CIRCUMFERENCE 22.451
 #define WSS_N_POLES 24
-#define WSS_ROVER_WIDTH 14.215
+#define WSS_ROVER_WIDTH 7.25
 #define WSS_ALLOWED_OFFSET 12 // Number of Poles Offset From Goal Allowed.
+
+// Main Variables
+int MODE;
+int MOVE;
+int SPEED;
+int QUAN;
+bool TERMINATE;
 
 // WSS Variables
 int WSS_COUNT_RIGHT;
 int WSS_COUNT_LEFT;
+int WSS_RIGHT_CONSTANT = 1;
+int WSS_LEFT_CONSTANT = 1;
 int WSS_DRIVE_MODE = -1;
-bool MOTORS_ACTIVE;
+int REPEAT_MODE = 1; // Reverse
+int DIRECTION;
 
 // WSS Goals
 int WSS_RIGHT_GOAL = -1;
 int WSS_LEFT_GOAL = -1;
-int WSS_RIGHT_GOAL_OFFSET = 0;
-int WSS_LEFT_GOAL_OFFSET = 0;
 
-void set_wss_goal(int SPEED, int MODE, int QUANTIFIER) {
-  WSS_DRIVE_MODE = MODE;
-  if (MODE == 0 || MODE == 1) {
-    int GOAL = QUANTIFIER * WSS_N_POLES / WSS_CIRCUMFERENCE;
+void set_wss_goal() {
+  WSS_DRIVE_MODE = MOVE;
+  if (MOVE == 0 || MOVE == 1) {
+    int GOAL = QUAN * WSS_N_POLES / WSS_CIRCUMFERENCE;
     WSS_RIGHT_GOAL = GOAL;
     WSS_LEFT_GOAL = GOAL;
-  } else if (MODE == 2 || MODE == 3) {
-    WSS_RIGHT_GOAL = 0;
-    WSS_LEFT_GOAL = 0;
-    int GOAL = 2 * PI * WSS_ROVER_WIDTH * QUANTIFIER / 360;
-    if (MODE == 2) WSS_LEFT_GOAL = GOAL;
-    else WSS_RIGHT_GOAL = GOAL;
+  } else if (MOVE == 2 || MOVE == 3) {
+    int GOAL = 2 * PI * WSS_ROVER_WIDTH * QUAN / 360;
+    WSS_LEFT_GOAL = GOAL;
+    WSS_RIGHT_GOAL = GOAL;
   }
   WSS_COUNT_RIGHT = 0;
   WSS_COUNT_LEFT = 0;
-  WSS_RIGHT_GOAL_OFFSET = 0;
-  WSS_LEFT_GOAL_OFFSET = 0;
-  MOTORS_ACTIVE = true;
+  DIRECTION = mag_direction();
+  NRF_LOG_INFO("%d",DIRECTION);
   nrf_drv_gpiote_in_event_enable(WSSR_GPIO, true);
   nrf_drv_gpiote_in_event_enable(WSSL_GPIO, true);
   return;
@@ -70,27 +77,36 @@ void set_wss_goal(int SPEED, int MODE, int QUANTIFIER) {
 void terminate_rover_motors() {
   nrf_drv_gpiote_in_event_disable(WSSR_GPIO);
   nrf_drv_gpiote_in_event_disable(WSSL_GPIO);
-  motor_init();
-  MOTORS_ACTIVE = false;
+  motor_gpio_clear();
+  if (MODE == 1 || MODE == 2) {
+    if (REPEAT_MODE == 1) repeat_rover_back();
+    else repeat_rover_fwd();
+  }
+  DIRECTION = mag_direction();
+  NRF_LOG_INFO("%d",DIRECTION);
   return;
+}
+
+void correct(int side) {
+  
 }
 
 // WSS HANDLERS
 void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_RIGHT++;
-  if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL) WSS_RIGHT_GOAL_OFFSET++;
-  if ((WSS_RIGHT_GOAL_OFFSET > 0 && WSS_LEFT_GOAL_OFFSET > 0) || WSS_RIGHT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
+  if (abs(DIRECTION - mag_direction()) == QUAN) //  WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET)
     terminate_rover_motors();
-  NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT);
+  correct(0);
+  NRF_LOG_INFO("R%d", DIRECTION - mag_direction());
   return;
 }
 
 void wss_l_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_LEFT++;
-  if (WSS_COUNT_LEFT >= WSS_LEFT_GOAL) WSS_LEFT_GOAL_OFFSET++;
-  if (WSS_LEFT_GOAL_OFFSET > 0 && WSS_RIGHT_GOAL_OFFSET > 0 || WSS_LEFT_GOAL_OFFSET > WSS_ALLOWED_OFFSET)
+  if (abs(DIRECTION - mag_direction()) == QUAN)//if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET)
     terminate_rover_motors();
-  NRF_LOG_INFO("L%d", WSS_COUNT_LEFT);
+  correct(1);
+  NRF_LOG_INFO("L%d", DIRECTION - mag_direction());
   return;
 }
 
@@ -108,4 +124,68 @@ void wss_init(void) {
   
   err_code = nrf_drv_gpiote_in_init(WSSL_GPIO, &in_config, wss_l_handler);
   APP_ERROR_CHECK(err_code);
+}
+
+void repeat_rover_fwd() {
+  if (cmd_stack_length > 0) {
+    REPEAT_MODE = 0;
+    struct cmd next_cmd = pop_cmd_stack();
+    MOVE = next_cmd.command;
+    QUAN = next_cmd.value;
+    drive_rover_motors();
+    int command;
+    int value = next_cmd.value;
+    switch (next_cmd.command) {
+      case 0: command = 1;
+      case 1: command = 0;
+      case 2: command = 3;
+      case 3: command = 2;
+    }
+    enqueue_cmd_values(command, value);
+  } else {
+    repeat_rover_back();
+  }
+}
+
+void repeat_rover_back() {
+  if (cmd_queue_length > 0) {
+    REPEAT_MODE = 1;
+    struct cmd next_cmd = dequeue_cmd_queue();
+    if (next_cmd.command == 4) SPEED = next_cmd.value;
+    else {
+      MOVE = next_cmd.command;
+      QUAN = next_cmd.value;
+      drive_rover_motors();
+      int command;
+      int value = next_cmd.value;
+      switch (next_cmd.command) {
+        case 0: command = 1;
+        case 1: command = 0;
+        case 2: command = 3;
+        case 3: command = 2;
+      }
+      push_cmd_values(command, value);
+    }
+  } else if (!TERMINATE) {
+    repeat_rover_fwd();
+  }
+}
+
+void drive(int MD, int S, int M, int Q) {
+  MODE = MD;
+  MOVE = M;
+  SPEED = S;
+  QUAN = Q;
+  drive_rover_motors();
+}
+
+void drive_rover_motors() {
+  set_motor_params(SPEED, MOVE, QUAN);
+  set_wss_goal();
+  motor_drive();
+  return;
+}
+
+void terminate(bool T) {
+  TERMINATE = T;
 }

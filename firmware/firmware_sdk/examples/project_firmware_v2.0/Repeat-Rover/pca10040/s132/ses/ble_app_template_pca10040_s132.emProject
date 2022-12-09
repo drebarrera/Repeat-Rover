@@ -69,6 +69,8 @@
       <file file_name="../../../../../../components/libraries/strerror/nrf_strerror.c" />
       <file file_name="../../../../../../components/libraries/sensorsim/sensorsim.c" />
       <file file_name="../../../../../../components/libraries/pwm/app_pwm.c" />
+      <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_swi.c" />
+      <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_twi.c" />
     </folder>
     <folder Name="Board Definition">
       <file file_name="../../../../../../components/boards/boards.c" />
@@ -92,6 +94,8 @@
       </file>
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_ppi.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_timer.c" />
+      <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_swi.c" />
+      <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_twim.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -110,6 +114,7 @@
       <file file_name="../../../../includes/sd.c" />
       <file file_name="../../../../includes/sd.h" />
       <file file_name="../../../../includes/CommandMap.h" />
+      <file file_name="../../../../includes/CommandMap.c" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../../../../../../external/segger_rtt/SEGGER_RTT.c" />

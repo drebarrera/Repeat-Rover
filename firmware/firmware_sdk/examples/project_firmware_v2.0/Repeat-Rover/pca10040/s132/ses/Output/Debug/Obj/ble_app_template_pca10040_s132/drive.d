@@ -61,6 +61,17 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/drive.o: \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log.h \
+ ../../../../../../components/libraries/util/sdk_common.h \
+ ../../../../../../components/libraries/util/sdk_os.h \
+ ../../../../../../components/libraries/util/app_util.h \
+ ../../../../../../components/libraries/util/sdk_macros.h \
+ ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
+ ../../../../../../components/libraries/strerror/nrf_strerror.h \
+ ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/boards/pca10040.h \
  ../../../../../../components/libraries/button/app_button.h \
  ../../../../../../components/libraries/util/app_error.h \
@@ -70,21 +81,10 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/drive.o: \
  ../../../../../../external/fatfs/port/diskio_blkdev.h \
  ../../../../../../external/fatfs/src/diskio.h \
  ../../../../../../components/libraries/block_dev/nrf_block_dev.h \
- ../../../../../../components/libraries/util/sdk_common.h \
- ../../../../../../components/libraries/util/sdk_os.h \
- ../../../../../../components/libraries/util/app_util.h \
- ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/block_dev/sdc/nrf_block_dev_sdc.h \
  ../../../../../../components/libraries/sdcard/app_sdcard.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
- ../../../../../../components/libraries/experimental_log/nrf_log.h \
- ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
- ../../../../../../components/libraries/strerror/nrf_strerror.h \
- ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_ctrl.h \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \
@@ -97,5 +97,4 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/drive.o: \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section_iter.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\motor.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\wss.h \
- C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\mag.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\CommandMap.h

@@ -58,12 +58,17 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrfx_gpiote.o: \
  ../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h \
  ../../../../../../modules/nrfx/hal/nrf_gpiote.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
+<<<<<<< Updated upstream
  ../../../../../../components/libraries/util/nrf_bitmask.h \
  /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
  /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/string.h \
  ../../../../../../integration/nrfx/nrfx_log.h \
+=======
+>>>>>>> Stashed changes
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/string.h \
  ../../../../../../components/libraries/util/sdk_os.h \
  ../../../../../../components/libraries/util/app_util.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
@@ -72,4 +77,6 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrfx_gpiote.o: \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_types.h
+ ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/libraries/util/nrf_bitmask.h \
+ ../../../../../../integration/nrfx/nrfx_log.h

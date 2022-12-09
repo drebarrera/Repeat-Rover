@@ -62,5 +62,4 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_default_backends.o: \
  /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/components/libraries/experimental_log/src/nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_backend_rtt.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_backend_uart.h
+ ../../../../../../components/libraries/experimental_log/nrf_log_backend_rtt.h

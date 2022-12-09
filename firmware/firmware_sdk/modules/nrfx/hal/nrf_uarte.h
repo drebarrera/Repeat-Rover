@@ -471,6 +471,7 @@ __STATIC_INLINE uint32_t nrf_uarte_errorsrc_get_and_clear(NRF_UARTE_Type * p_reg
 
 __STATIC_INLINE void nrf_uarte_enable(NRF_UARTE_Type * p_reg)
 {
+    /* ISSUES REPEAT ROVER */
     p_reg->ENABLE = UARTE_ENABLE_ENABLE_Enabled;
 }
 

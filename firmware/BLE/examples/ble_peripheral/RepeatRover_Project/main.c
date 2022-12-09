@@ -865,7 +865,7 @@ int main(void)
     bool erase_bonds;
 
     // Initialize.
-    /*log_init();
+    log_init();
     timers_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
@@ -881,7 +881,7 @@ int main(void)
     NRF_LOG_INFO("Template example started.");
     application_timers_start();
 
-    advertising_start(erase_bonds);*/
+    advertising_start(erase_bonds);
 
     nrf_gpio_pin_clear(4);
      nrf_gpio_pin_clear(5);
@@ -890,8 +890,29 @@ int main(void)
      nrf_gpio_pin_clear(8);
      nrf_gpio_pin_clear(9);
 
+/*nrf_gpio_pin_clear(4);
+           nrf_gpio_cfg_output(4);
+           nrf_gpio_pin_set(4);
+           //left
+           nrf_gpio_pin_clear(7);
+           nrf_gpio_cfg_output(7);
+           nrf_gpio_pin_set(7);
 
+           //direction
+           nrf_gpio_cfg_output(5);
+           nrf_gpio_pin_set(5);
 
+           nrf_gpio_cfg_output(6);
+           nrf_gpio_pin_clear(6);
+           NRF_GPIO->PIN_CNF[6] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
+
+           nrf_gpio_cfg_output(8);
+           nrf_gpio_pin_set(8);
+
+           nrf_gpio_cfg_output(9);
+           nrf_gpio_pin_clear(9);
+           NRF_GPIO->PIN_CNF[9] |= (GPIO_PIN_CNF_PULL_Pulldown<<GPIO_PIN_CNF_PULL_Pos);
+*/
     // Enter main loop.
     for (;;)
     {

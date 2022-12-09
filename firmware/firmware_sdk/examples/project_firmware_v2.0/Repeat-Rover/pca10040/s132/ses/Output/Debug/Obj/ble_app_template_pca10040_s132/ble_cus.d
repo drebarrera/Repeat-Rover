@@ -78,8 +78,6 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/ble_cus.o: \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s132/headers/nrf_sd_def.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- ../../../../../../components/boards/boards.h \
- ../../../../../../components/boards/pca10040.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/libraries/strerror/nrf_strerror.h \
@@ -87,6 +85,8 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/ble_cus.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
+ ../../../../../../components/boards/boards.h \
+ ../../../../../../components/boards/pca10040.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/pwm/app_pwm.h \

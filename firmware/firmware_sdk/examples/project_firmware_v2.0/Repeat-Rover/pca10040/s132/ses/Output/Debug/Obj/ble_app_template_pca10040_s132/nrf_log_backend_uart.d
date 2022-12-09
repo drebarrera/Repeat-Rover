@@ -34,6 +34,7 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_backend_uart.o: \
  ../../../../../../modules/nrfx/mdk/nrf52_name_change.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
+<<<<<<< Updated upstream
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_uart.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \
@@ -82,3 +83,6 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/nrf_log_backend_uart.o: \
  ../../../../../../modules/nrfx/drivers/include/nrfx_uart.h \
  ../../../../../../modules/nrfx/hal/nrf_uart.h \
  ../../../../../../components/libraries/util/app_error.h
+=======
+ ../../../../../../components/libraries/util/nrf_assert.h
+>>>>>>> Stashed changes

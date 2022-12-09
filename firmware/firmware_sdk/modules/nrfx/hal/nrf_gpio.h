@@ -42,6 +42,7 @@
 #define NRF_GPIO_H__
 
 #include <nrfx.h>
+#include "nrf_log.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -613,7 +614,7 @@ __STATIC_INLINE void nrf_gpio_pin_dir_set(uint32_t pin_number, nrf_gpio_pin_dir_
 __STATIC_INLINE void nrf_gpio_pin_set(uint32_t pin_number)
 {
     NRF_GPIO_Type * reg = nrf_gpio_pin_port_decode(&pin_number);
-
+ 
     nrf_gpio_port_out_set(reg, 1UL << pin_number);
 }
 

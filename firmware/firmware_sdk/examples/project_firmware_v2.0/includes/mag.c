@@ -49,7 +49,7 @@ int16_t twosCompToDec(uint16_t two_compliment_val)
 }
 
 /* Magnetometer Timer Interrupt Handler */
-int mag_timer_handler(void) {
+int mag_direction(void) {
   // Retreive magnetometer data and update magnetometer variables above.
   ret_code_t err_code; // a variable to hold error code value
   uint8_t get2[1] = {0x03}; //Address of data register
@@ -91,10 +91,10 @@ int mag_timer_handler(void) {
   MAG_X = X;
   MAG_Y = Y;
   MAG_Z = Z;
-  printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
+  //printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
   heading = 90 - (atan2(Y,X) * (180/M_PI));
   heading = heading + declination;  
-  printf("New Direction: %d \n", heading);
+  //printf("New Direction: %d \n", heading);
   return(heading);
 }
 

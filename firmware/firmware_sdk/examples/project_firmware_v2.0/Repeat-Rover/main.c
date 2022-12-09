@@ -821,7 +821,7 @@ static void advertising_start(bool erase_bonds)
 /**@brief Function for application main entry.
  */
 int main(void)
-{
+ {
 
     //BLE
     bool erase_bonds;
@@ -839,7 +839,6 @@ int main(void)
     advertising_init();
     conn_params_init();
     peer_manager_init();
-    
 
     // Start execution.
     NRF_LOG_INFO("Template example started.");
