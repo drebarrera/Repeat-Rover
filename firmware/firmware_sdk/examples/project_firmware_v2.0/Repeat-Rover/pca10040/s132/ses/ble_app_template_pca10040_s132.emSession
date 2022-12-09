@@ -2,6 +2,7 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
+  <BreakpointListItem trigger="" line="274" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="3" filename="../../../../../../modules/nrfx/drivers/src/nrfx_swi.c" useHWbreakpoint="false"/>
   <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
@@ -27,10 +28,13 @@
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_BLE_Services"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Drivers"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Libraries"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Log"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Segger_RTT"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_SoftDevice"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;Segger Startup Files"/>
  </Project>
  <Register1>
-  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ble_app_template_pca10040_s132_Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
+  <RegisterWindow visibleNodes="P0/OUT;P0/OUTSET;P0/OUTCLR;P0/IN;P0/DIR;P0/DIRSET;P0/DIRCLR;P0/LATCH;P0/DETECTMODE;P0/PIN_CNF[0];P0/PIN_CNF[1];P0/PIN_CNF[2];P0/PIN_CNF[3];P0/PIN_CNF[4];P0/PIN_CNF[5];P0/PIN_CNF[6];P0/PIN_CNF[7];P0/PIN_CNF[8];P0/PIN_CNF[9];P0/PIN_CNF[10];P0/PIN_CNF[11];P0/PIN_CNF[12];P0/PIN_CNF[13];P0/PIN_CNF[14];P0/PIN_CNF[15];P0/PIN_CNF[16];P0/PIN_CNF[17];P0/PIN_CNF[18];P0/PIN_CNF[19];P0/PIN_CNF[20];P0/PIN_CNF[21];P0/PIN_CNF[22];P0/PIN_CNF[23];P0/PIN_CNF[24];P0/PIN_CNF[25];P0/PIN_CNF[26];P0/PIN_CNF[27];P0/PIN_CNF[28];P0/PIN_CNF[29];P0/PIN_CNF[30];P0/PIN_CNF[31]" binaryNodes="" asciiNodes="" openNodes="P0;P0/IN;P0/PIN_CNF[4];P0/PIN_CNF[5];P0/PIN_CNF[6];P0/PIN_CNF[7];P0/PIN_CNF[8];P0/PIN_CNF[9]" name="ble_app_template_pca10040_s132_Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
  </Register1>
  <Register2>
   <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ble_app_template_pca10040_s132_Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -60,18 +64,26 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="823" useTextEdit="1" path="../../../main.c" left="0" top="822" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="62" useTextEdit="1" path="../../../../includes/ble_cus.c" left="0" top="47" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="53" useTextEdit="1" path="../../../../includes/peripherals.c" left="0" top="35" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="13" useTextEdit="1" path="../../../../includes/CommandMap.h" left="0" top="13" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="366" useTextEdit="1" path="../../../../includes/sd.c" left="0" selected="1" top="341" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="19" useTextEdit="1" path="../../../../includes/sd.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="111" useTextEdit="1" path="../../../../includes/motor.c" left="0" top="80" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="74" useTextEdit="1" path="../../../../includes/wss.c" left="0" top="64" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="1" useTextEdit="1" path="../../../../includes/wss.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="823" useTextEdit="1" path="../../../main.c" left="0" top="811" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="0" useTextEdit="1" path="../../../../includes/ble_cus.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="96" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/Repeat-Rover/main.c" path="../../../../includes/peripherals.c" left="0" top="90" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="32" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/wss.c" path="../../../../includes/CommandMap.h" left="0" top="14" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="252" useTextEdit="1" path="../../../../includes/sd.c" left="0" selected="1" top="265" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="9" useTextEdit="1" path="../../../../includes/sd.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="106" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/peripherals.c" path="../../../../includes/motor.c" left="0" top="88" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="5" useTextEdit="1" path="../../../../includes/motor.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="98" useTextEdit="1" path="../../../../includes/wss.c" left="0" top="93" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="40" y="11" useTextEdit="1" path="../../../../includes/wss.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="46" y="3" useTextEdit="1" path="../../../../includes/peripherals.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../includes/motor.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="98" useTextEdit="1" path="../../../../../../components/libraries/util/app_error_weak.c" left="0" top="79" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="32" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/wss.c" path="../../../../includes/CommandMap.c" left="0" top="57" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="652" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/motor.c" path="../../../../../../components/libraries/pwm/app_pwm.c" left="0" top="627" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="3177" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/components/softdevice/common/nrf_sdh.c" path="../config/sdk_config.h" left="0" top="3177" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="115" useTextEdit="1" path="../../../../includes/mag.c" left="0" top="99" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="5" useTextEdit="1" path="../../../../includes/mag.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="283" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/mag.c" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.h" left="0" top="258" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="38" y="117" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.c" left="0" top="92" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="221" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/integration/nrfx/legacy/nrf_drv_twi.c" path="../../../../../../modules/nrfx/drivers/include/nrfx_twim.h" left="0" top="207" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="270" useTextEdit="1" openedFrom="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/sd.c" path="../../../../../../external/fatfs/src/ff.h" left="0" top="254" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <EMStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/dreba/Documents/GitHub/Repeat-Rover/firmware/firmware_sdk/external/fatfs/src" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

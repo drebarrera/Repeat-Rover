@@ -71,6 +71,11 @@
       <file file_name="../../../../../../components/libraries/pwm/app_pwm.c" />
       <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_swi.c" />
       <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_twi.c" />
+      <file file_name="../../../../../../external/fatfs/port/diskio_blkdev.c" />
+      <file file_name="../../../../../../external/fatfs/src/ff.c" />
+      <file file_name="../../../../../../components/libraries/block_dev/sdc/nrf_block_dev_sdc.c" />
+      <file file_name="../../../../../../components/libraries/sdcard/app_sdcard.c" />
+      <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_spim.c" />
     </folder>
     <folder Name="Board Definition">
       <file file_name="../../../../../../components/boards/boards.c" />

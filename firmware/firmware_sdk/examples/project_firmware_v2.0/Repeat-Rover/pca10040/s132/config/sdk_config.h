@@ -2376,7 +2376,7 @@
 #endif
 
 #ifndef NRFX_SPI1_ENABLED
-#define NRFX_SPI1_ENABLED 0
+#define NRFX_SPI1_ENABLED 1
 #endif
 
 #ifndef NRFX_SPI2_ENABLED
@@ -3068,11 +3068,11 @@
 #endif
 
 #ifndef SPI0_ENABLED
-#define SPI0_ENABLED 1
+#define SPI0_ENABLED 0
 #endif
 
 #ifndef SPI0_USE_EASY_DMA
-#define SPI0_USE_EASY_DMA 1
+#define SPI0_USE_EASY_DMA 0
 #endif
 
 #ifndef SPI1_ENABLED
@@ -3308,7 +3308,7 @@
 #endif
 
 #ifndef APP_SDCARD_SPI_INSTANCE
-#define APP_SDCARD_SPI_INSTANCE 0
+#define APP_SDCARD_SPI_INSTANCE 1
 #endif
 
 #ifndef APP_SDCARD_FREQ_INIT

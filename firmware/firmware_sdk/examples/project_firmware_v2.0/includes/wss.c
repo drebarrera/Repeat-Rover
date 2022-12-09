@@ -33,6 +33,7 @@
 #define WSS_N_POLES 24
 #define WSS_ROVER_WIDTH 7.25
 #define WSS_ALLOWED_OFFSET 12 // Number of Poles Offset From Goal Allowed.
+#define LEARNING_RATE 0.1
 
 // Main Variables
 int MODE;
@@ -44,8 +45,6 @@ bool TERMINATE;
 // WSS Variables
 int WSS_COUNT_RIGHT;
 int WSS_COUNT_LEFT;
-int WSS_RIGHT_CONSTANT = 1;
-int WSS_LEFT_CONSTANT = 1;
 int WSS_DRIVE_MODE = -1;
 int REPEAT_MODE = 1; // Reverse
 int DIRECTION;
@@ -53,6 +52,13 @@ int DIRECTION;
 // WSS Goals
 int WSS_RIGHT_GOAL = -1;
 int WSS_LEFT_GOAL = -1;
+
+// Correction Variables
+float J1 = 1;
+float J2 = 2;
+int WSS_RIGHT_CONSTANT = 1;
+int WSS_LEFT_CONSTANT = 1;
+int LAST_MODIFIED = 0;
 
 void set_wss_goal() {
   WSS_DRIVE_MODE = MOVE;
@@ -88,25 +94,38 @@ void terminate_rover_motors() {
 }
 
 void correct(int side) {
-  
+  /*if ((J1 > 0.05 && J2 > 0.05) && (WSS_COUNT_RIGHT > 0 && WSS_COUNT_LEFT > 0)) {
+    if (LAST_MODIFIED == 0) {
+       WSS_RIGHT_CONSTANT ==  WSS_RIGHT_CONSTANT + (WSS_COUNT_LEFT - WSS_COUNT_RIGHT) * LEARNING_RATE;
+       LAST_MODIFIED = 1;
+       J1 = pow((WSS_COUNT_LEFT - WSS_COUNT_RIGHT), 2);
+    } else {
+       WSS_LEFT_CONSTANT ==  WSS_LEFT_CONSTANT + (WSS_COUNT_RIGHT - WSS_COUNT_LEFT) * LEARNING_RATE;
+       LAST_MODIFIED = 0;
+       J1 = pow((WSS_COUNT_RIGHT - WSS_COUNT_LEFT), 2);
+    }
+    char test[50];
+    NRF_LOG_INFO("J1 " NRF_LOG_FLOAT_MARKER " J2 " NRF_LOG_FLOAT_MARKER, NRF_LOG_FLOAT(J1), NRF_LOG_FLOAT(J2))
+   
+  }*/
 }
 
 // WSS HANDLERS
 void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_RIGHT++;
-  if (abs(DIRECTION - mag_direction()) == QUAN) //  WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET)
+  if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET) // (abs(DIRECTION - mag_direction()) == QUAN)
     terminate_rover_motors();
   correct(0);
-  NRF_LOG_INFO("R%d", DIRECTION - mag_direction());
+  NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT - mag_direction());
   return;
 }
 
 void wss_l_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   WSS_COUNT_LEFT++;
-  if (abs(DIRECTION - mag_direction()) == QUAN)//if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET)
+  if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET) // if (abs(DIRECTION - mag_direction()) == QUAN)
     terminate_rover_motors();
   correct(1);
-  NRF_LOG_INFO("L%d", DIRECTION - mag_direction());
+  NRF_LOG_INFO("L%d", WSS_COUNT_LEFT - mag_direction());
   return;
 }
 

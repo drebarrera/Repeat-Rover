@@ -28,6 +28,7 @@
 
 // Motor Literals
 #define MOTOR_SPEED_MAX 10 // Provide max motor speed here
+#define MOTOR_RIGHT_OFFSET_SPEED 2
 
 APP_PWM_INSTANCE(PWM1,1);                   // Create the instance "PWM1" using TIMER1.
 

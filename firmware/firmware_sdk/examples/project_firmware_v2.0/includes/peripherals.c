@@ -94,9 +94,9 @@ bool compare_strings(char * str1, char * str2, int length) {
 void mode_select(int val) {
   MODE = val;
   if (MODE == 0 || MODE == 2) {
-    // sd_file_clear(); // CLEAR FILE IN SD CARD
+    sd_write("TEST"); // CLEAR FILE IN SD CARD
   } else if (MODE == 1) {
-    // sd_read_parse(cmd_stack, &cmd_stack_length); // READ & PARSE FILE FROM SD CARD
+    //sd_read_parse(); // READ & PARSE FILE FROM SD CARD
   } else {
     MODE = 1;
     NRF_LOG_ERROR("[!!!] Mode should be between 0 and 2");

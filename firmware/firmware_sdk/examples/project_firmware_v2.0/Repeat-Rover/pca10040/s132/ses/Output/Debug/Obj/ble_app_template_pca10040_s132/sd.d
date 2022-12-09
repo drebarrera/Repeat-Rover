@@ -95,4 +95,5 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/sd.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
  ../../../../../../components/libraries/pwr_mgmt/nrf_pwr_mgmt.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section_iter.h \
- ../../../../../../components/libraries/experimental_section_vars/nrf_section.h
+ ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\CommandMap.h

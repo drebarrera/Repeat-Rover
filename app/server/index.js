@@ -9,8 +9,7 @@ const io = new Server(server);
 app.use(router);
 const PORT = 3000;
 app.set("port", PORT);
-//const noble = require('noble');
-noble.startScanning();
+const bluetooth = require('./bluetooth');
 
 server.listen(app.get("port"), function() {
     console.log("Server started on port " + app.get("port"));

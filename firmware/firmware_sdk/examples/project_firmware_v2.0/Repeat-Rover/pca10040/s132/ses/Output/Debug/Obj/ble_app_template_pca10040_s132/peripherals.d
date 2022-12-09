@@ -1,18 +1,18 @@
 Output/Debug/Obj/ble_app_template_pca10040_s132/peripherals.o: \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/peripherals.c \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/stdio.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/__SEGGER_RTL.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/__SEGGER_RTL_ConfDefaults.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/__SEGGER_RTL_Conf.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/__SEGGER_RTL_Arm_Conf.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/stdbool.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/stdint.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/string.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\peripherals.c \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdio.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/__config \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdbool.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdint.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/string.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52.h \
@@ -35,8 +35,8 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/peripherals.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s132/headers/nrf_error.h \
  ../../../../../../components/libraries/util/app_util.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stddef.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/stddef.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stddef.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
@@ -51,8 +51,8 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/peripherals.o: \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \
  ../../../../../../components/libraries/experimental_memobj/nrf_memobj.h \
- /Users/waewtasaw/Library/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdlib.h \
- /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.30/include/stdlib.h \
+ C:/Users/dreba/AppData/Local/SEGGER/SEGGER\ Embedded\ Studio/v3/packages/libraries/libcxx/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
  ../../../../../../components/softdevice/s132/headers/nrf_soc.h \
@@ -83,10 +83,10 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/peripherals.o: \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../components/boards/pca10040.h \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/sd.h \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/motor.h \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/wss.h \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/mag.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\sd.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\motor.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\wss.h \
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\mag.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT_Conf.h \
- /Users/waewtasaw/Desktop/ECE_477/v2_latest/Repeat-Rover/firmware/firmware_sdk/examples/project_firmware_v2.0/includes/CommandMap.h
+ C:\Users\dreba\Documents\GitHub\Repeat-Rover\firmware\firmware_sdk\examples\project_firmware_v2.0\includes\CommandMap.h

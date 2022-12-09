@@ -25,6 +25,7 @@
 #include "nrf_pwr_mgmt.h"
 #include "nrf_gpio.h"
 #include "boards.h"
+#include "CommandMap.h"
 
 
 // SD Card Literals
@@ -36,6 +37,13 @@
 #define SDC_MISO_PIN    17  ///< SDC serial data out (DO) pin.
 #define SDC_CS_PIN      20  ///< SDC chip select (CS) pin.
 
+static FIL file;
+static FATFS fs;
+static DIR dir;
+static FILINFO fno;
+FRESULT ff_result;
+TCHAR * filename = FILE_NAME;
+
 //SD card modules
 //Delete an existing file or directory
 //FRESULT open_append (FIL* fp, const char* path);
@@ -43,7 +51,7 @@
 // SD Card Initialize GPIO
 void sd_init(void) {
   // Initialize GPIO
-    
+  
 
 }
 
@@ -59,13 +67,8 @@ NRF_BLOCK_DEV_SDC_DEFINE(
 
 /* SD Card Read */
 char * sd_read(void) {
-    static FATFS fs;
-    static DIR dir;
-    static FILINFO fno;
-    static FIL file;
 
     uint32_t bytes_written;
-    FRESULT ff_result;
     DSTATUS disk_state = STA_NOINIT;
       // Initialize FATFS disk I/O interface by providing the block device.
     static diskio_blkdev_t drives[] =
@@ -171,13 +174,7 @@ char * sd_read(void) {
 bool sd_write(char * str) { 
   char * TEST_STRING = str;
 
-    static FATFS fs;
-    static DIR dir;
-    static FILINFO fno;
-    static FIL file;
-
     uint32_t bytes_written;
-    FRESULT ff_result;
     DSTATUS disk_state = STA_NOINIT;
       // Initialize FATFS disk I/O interface by providing the block device.
     static diskio_blkdev_t drives[] =
@@ -191,6 +188,7 @@ bool sd_write(char * str) {
     for (uint32_t retries = 3; retries && disk_state; --retries)
     {
         disk_state = disk_initialize(0);
+        NRF_LOG_INFO("TEST");
     }
     if (disk_state)
     {
@@ -272,16 +270,22 @@ bool sd_write(char * str) {
 }
 
 //Remove file
-void sd_file_clear(const char* Path) {
+void sd_file_clear() {
+  NRF_LOG_INFO("Mounting volume...");
+  ff_result = f_mount(&fs, FILE_NAME, 1);
+  if (ff_result)
+  {
+      NRF_LOG_INFO("Mount failed.");
+      return;
+  }
+  FRESULT res = f_unlink(FILE_NAME);
   
-  f_unlink(Path);
+  sd_write("");
 
 }
 
 
 void sd_read_parse() {
-
-  FRESULT ff_result;
 
   ff_result = f_open(&file, FILE_NAME,FA_READ);
 
@@ -317,11 +321,7 @@ void sd_read_parse() {
     int i = 0;
 
     for(int j = 0; j< sizeof(data); j++) {
-        if(data[j] == ' ') {
-            
-        }else if(data[j] == '\n'){
-            
-        }else{
+        if (data[j] != ' ' && data[j] != '\n') {
             mode[i] = data[j] - 48;
             first = (data[(j+1)] - 48) * 100;
             printf(" 1st: %d", first);
@@ -366,15 +366,13 @@ FRESULT open_append (
     return fr;
 }
 
-void sd_append_line(char str) {
+void sd_append_line(char * str) {
 
     FRESULT fr;
-    FATFS fs;
-    FIL fil;
 
     //append line to file
-    fr = open_append(&fil, FILE_NAME);
-    f_printf(&fil, "%s", str);
+    fr = open_append(&file, FILE_NAME);
+    f_printf(&file, "%s", str);
 
     if (fr != FR_OK) {
       printf("Something went wrong");

@@ -7,12 +7,12 @@ void sd_init(void);
 
 char * sd_read(void);
 
-void sd_file_clear(const char* Path);
+void sd_file_clear();
 
 bool sd_write(char * str);
 
 void sd_read_parse();
 
-void sd_append_line(char str)
+void sd_append_line(char * str);
 
 #endif
