@@ -79,7 +79,8 @@
     "scripts/",
     "src/",
     "typings/",
-    "do_prebuild.js"
+    "do_prebuild.js",
+    "../server/node_modules"
   ],
   "typings": "typings/index.d.ts"
 }

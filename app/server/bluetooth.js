@@ -1,79 +1,28 @@
-/* Copyright (c) 2010 - 2017, Nordic Semiconductor ASA
- *
- * All rights reserved.
- *
- * Use in source and binary forms, redistribution in binary form only, with
- * or without modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions in binary form, except as embedded into a Nordic
- *    Semiconductor ASA integrated circuit in a product or a software update for
- *    such product, must reproduce the above copyright notice, this list of
- *    conditions and the following disclaimer in the documentation and/or other
- *    materials provided with the distribution.
- *
- * 2. Neither the name of Nordic Semiconductor ASA nor the names of its
- *    contributors may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
- *
- * 3. This software, with or without modification, must only be used with a Nordic
- *    Semiconductor ASA integrated circuit.
- *
- * 4. Any software provided in binary form under this license must not be reverse
- *    engineered, decompiled, modified and/or disassembled.
- *
- * THIS SOFTWARE IS PROVIDED BY NORDIC SEMICONDUCTOR ASA "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL NORDIC SEMICONDUCTOR ASA OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
- * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-/** @example examples/heart_rate_monitor
- *
- * @brief Heart Rate Service Sample Application main file.
- *
- * This file contains the source code for a sample application using the Heart Rate service.
- * This service exposes heart rate data from a Heart Rate Sensor intended for fitness applications.
- * https://www.bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.service.heart_rate.xml
- */
-
-'use strict';
-
-const _ = require('underscore');
-
+const _ = require('underscore@^1.13.6');
 const api = require('../pc-ble-driver-js-2.8.2/index');
-const path = require('path');
 
 const adapterFactory = api.AdapterFactory.getInstance(undefined, { enablePolling: false });
 const serviceFactory = new api.ServiceFactory();
 
-const BLE_UUID_HEART_RATE_SERVICE = '180d'; /** < Heart Rate service UUID. */
-const BLE_UUID_HEART_RATE_MEASUREMENT_CHAR = '2a37'; /** < Heart Rate Measurement characteristic UUID. */
+const BLE_UUID_SERVICE = '180d'; /** < Heart Rate service UUID. */
+const BLE_UUID_CHAR = '2a37'; /** < Heart Rate Measurement characteristic UUID. */
 const BLE_UUID_CCCD = '2902'; /** < Client characteristic descriptor UUID. */
 
 /* State */
-let heartRateService;
-let heartRateMeasurementCharacteristic;
+let Service;
+let Characteristic;
 let cccdDescriptor;
-let heartRateInterval;
+let notificationsDisabled;
 
 /**
  * When notifications are disabled on the hrm characteristic's CCCD, stop generating and sending heart rates.
  * @returns {undefined}
  */
-function disableNotificationsOnHRM() {
-    if (heartRateInterval !== null) {
-        console.log('Disabling notifications on heart rate measurement characteristic...');
-
-        clearInterval(heartRateInterval);
-        heartRateInterval = null;
-    }
+function disableNotifications() {
+    console.log('Disabling notifications on heart rate measurement characteristic...');
+    notificationsDisabled = true;
 }
+
 
 /**
  * Function for initializing the Advertising functionality and starting advertising.
@@ -108,18 +57,18 @@ function advertisingStart(adapter) {
  * Function for sending the heart rate measurement over Bluetooth Low Energy.
  *
  * @param {Adapter} adapter Adapter being used.
- * @param {array} encodedHeartRate Data to be sent over Bluetooth Low Energy.
+ * @param {array} data Data to be sent over Bluetooth Low Energy.
  * @returns {Promise} Resolves if the data is successfully sent.
  *                    If an error occurs, rejects with the corresponding error.
  */
-function heartRateMeasurementSend(adapter, encodedHeartRate) {
+function tx_data(adapter, data) {
     return new Promise((resolve, reject) => {
-        console.log('Sending heart rate measurement over Bluetooth Low Energy...');
+        console.log('Sending data over Bluetooth Low Energy...');
 
-        adapter.writeCharacteristicValue(heartRateMeasurementCharacteristic.instanceId, encodedHeartRate, false,
+        adapter.writeCharacteristicValue(Characteristic.instanceId, data, false,
             err => {
                 if (err) {
-                    reject(Error(`Error writing heartRateMeasurementCharacteristic: ${err}.`));
+                    reject(Error(`Error writing Characteristic: ${err}.`));
                 }
             }, () => {
                 resolve();
@@ -128,16 +77,16 @@ function heartRateMeasurementSend(adapter, encodedHeartRate) {
 }
 
 /**
- * Function for generating and sending heart rate measurements when notifications are enabled on hrm characteristic.
+ * 
  *
- * Called whenever a descriptor's value is changed (CCCD of hrm characteristic in our example).
+ * Called whenever a descriptor's value is changed (CCCD of characteristic in our example).
  *
  * @param {Adapter} adapter Adapter being used.
  * @param {any} attribute Object from descriptorValueChanged event emitter.
  * @returns {undefined}
  */
 function onDescValueChanged(adapter, attribute) {
-    const descriptorHandle = adapter._getCCCDOfCharacteristic(heartRateMeasurementCharacteristic.instanceId).handle;
+    const descriptorHandle = adapter._getCCCDOfCharacteristic(Characteristic.instanceId).handle;
 
     if (descriptorHandle === cccdDescriptor.handle) {
         const descriptorValue = attribute.value[Object.keys(attribute.value)[0]];
@@ -157,37 +106,23 @@ function onDescValueChanged(adapter, attribute) {
         };
 
         if (isIndicationEnabled()) {
-            console.log('Warning: indications not supported on heart rate measurement characteristic.');
+            console.log('Warning: indications not supported on characteristic.');
         }
 
         if (isNotificationEnabled()) {
-            let heartRate = 65;
 
             if (heartRateInterval === null) {
-                console.log('Enabling notifications on heart rate measurement characteristic...');
+                console.log('Enabling notifications on characteristic...');
 
 
-                heartRateInterval = setInterval(() => {
-                    /**
-                     * Function for simulating a heart rate sensor reading.
-                     *
-                     * Note: Modifies the heart rate state.
-                     *
-                     * @returns {undefined}
-                     */
-                    const heartRateGenerate = () => {
-                        heartRate += 3;
-                        if (heartRate >= 190) {
-                            heartRate = 65;
-                        }
-                    };
+                /* vDATA GENERATION HEREv */
 
                     /**
                      * Function for encoding a heart rate Measurement.
-                     *
-                     * @returns {[flag, heartRate]} Array of encoded data.
+                     *v@
+                     * returns {[flag, heartRate]} Array of encoded data.
                      */
-                    const heartRateMeasurementEncode = () => [0, heartRate];
+                    /*const heartRateMeasurementEncode = () => [0, heartRate];
 
                     heartRateGenerate();
                     const encodedHeartRate = heartRateMeasurementEncode();
@@ -197,10 +132,10 @@ function onDescValueChanged(adapter, attribute) {
                         console.log(err);
                         process.exit(1);
                     });
-                }, 1000);
+                }, 1000);*/
             }
         } else {
-            disableNotificationsOnHRM();
+            disableNotifications();
         }
     }
 }
@@ -226,7 +161,7 @@ function addAdapterListener(adapter) {
     adapter.on('deviceDisconnected', device => {
         console.log(`Device ${device.address}/${device.addressType} disconnected.`);
 
-        disableNotificationsOnHRM();
+        disableNotifications();
         advertisingStart(adapter);
     });
 
@@ -287,7 +222,7 @@ function advertisementDataSet(adapter) {
         };
 
         const scanResponseData = {
-            completeListOf16BitServiceUuids: [BLE_UUID_HEART_RATE_SERVICE],
+            completeListOf16BitServiceUuids: [BLE_UUID_SERVICE],
         };
 
         adapter.setAdvertisingData(advertisingData, scanResponseData, err => {
@@ -306,9 +241,9 @@ function advertisementDataSet(adapter) {
  * @returns {undefined}
  */
 function characteristicsInit() {
-    heartRateMeasurementCharacteristic = serviceFactory.createCharacteristic(
-        heartRateService,
-        BLE_UUID_HEART_RATE_MEASUREMENT_CHAR,
+    Characteristic = serviceFactory.createCharacteristic(
+        Service,
+        BLE_UUID_CHAR,
         [0, 0],
         {
             broadcast: false,
@@ -326,7 +261,7 @@ function characteristicsInit() {
         });
 
     cccdDescriptor = serviceFactory.createDescriptor(
-        heartRateMeasurementCharacteristic,
+        Characteristic,
         BLE_UUID_CCCD,
         [0, 0],
         {
@@ -350,10 +285,10 @@ function servicesInit(adapter) {
     return new Promise((resolve, reject) => {
         console.log('Initializing the heart rate service and its characteristics/descriptors...');
 
-        heartRateService = serviceFactory.createService(BLE_UUID_HEART_RATE_SERVICE);
+        hService = serviceFactory.createService(BLE_UUID_SERVICE);
         characteristicsInit();
 
-        adapter.setServices([heartRateService], err => {
+        adapter.setServices([Service], err => {
             if (err) {
                 reject(Error(`Error initializing services: ${JSON.stringify(err, null, 1)}'.`));
                 return;

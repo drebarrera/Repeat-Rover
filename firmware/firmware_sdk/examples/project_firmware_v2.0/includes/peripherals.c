@@ -94,7 +94,7 @@ bool compare_strings(char * str1, char * str2, int length) {
 void mode_select(int val) {
   MODE = val;
   if (MODE == 0 || MODE == 2) {
-    sd_write("TEST"); // CLEAR FILE IN SD CARD
+    //sd_write("TEST"); // CLEAR FILE IN SD CARD
   } else if (MODE == 1) {
     //sd_read_parse(); // READ & PARSE FILE FROM SD CARD
   } else {
@@ -132,10 +132,10 @@ void bluetooth_rx(char * data, int data_length) {
       if (value <= 10 && value >= 0) {
         SPEED = value;
         MOVE = -1;
-        if (check_cmd_stack_top().command == 4) {
-          struct cmd new_cmd = pop_cmd_stack();
-          new_cmd.value = SPEED;
-          push_cmd(new_cmd);
+        if (check_cmd_stack_top()->command == 4) {
+          struct cmd * new_cmd = pop_cmd_stack();
+          new_cmd->value = SPEED;
+          push_cmd(*new_cmd);
         } else {
           push_cmd_values(4, SPEED);
         }
@@ -183,7 +183,7 @@ void bluetooth_rx(char * data, int data_length) {
         }
       } else if (compare_strings(command, "END", 3)) { 
         if (MODE == 0)
-          repeat_rover_back();
+          end_handler();
       } else {
         NRF_LOG_ERROR("[!!!] Unknown command.");
         return;
@@ -191,9 +191,10 @@ void bluetooth_rx(char * data, int data_length) {
 
       if (MOVE != -1 && MODE == 0) {
         drive(MODE, SPEED, MOVE, QUAN);
-        add_to_cmd_queue();
-      } else if (MOVE != -1 && MODE == 2) {
         add_to_cmd_stack();
+        NRF_LOG_INFO("TESTPOINT");
+      } else if (MOVE != -1 && MODE == 2) {
+        add_to_cmd_queue();
       }
     }
   }

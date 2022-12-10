@@ -46,8 +46,7 @@ ELSE => NULL */
 int counter = 0;
 
 void motor_gpio_clear(void) {
-  app_pwm_channel_duty_set(&PWM1, 0, 0);
-  app_pwm_channel_duty_set(&PWM1, 1, 0);
+  app_pwm_disable(&PWM1);
 
   //nrf_gpio_pin_clear(4);
   nrf_gpio_pin_clear(5);
@@ -69,8 +68,10 @@ void motor_init(void) {
   //IMPLEMENT PWM HERE
   ret_code_t err_code;
 
+  sd_clock_hfclk_request();
+
   // 2-channel PWM, 200Hz, output on DK LED pins. 
-  app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000, 4, 7); //enable pins 4 and 7
+  app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7); //enable pins 4 and 7
 
   // Switch the polarity of both channel. 
   pwm1_cfg.pin_polarity[1] = APP_PWM_POLARITY_ACTIVE_HIGH;
@@ -80,21 +81,31 @@ void motor_init(void) {
   err_code = app_pwm_init(&PWM1,&pwm1_cfg,pwm_ready_callback);
   APP_ERROR_CHECK(err_code);
 
-  app_pwm_enable(&PWM1);
-
   motor_gpio_clear();  
 }
 
 
 void pwm_ready_callback(uint32_t pwm_id)    // PWM callback function
 {
+
   return;
 }
 
 // SET PARAMETERS
-void set_motor_params(int SPEED, int MOVE, int QUANTIFIER) {
+void set_motor_params(int SPEED, int MOVE, bool REVERSE) {
   MOTOR_SPEED = SPEED;
-  MOTOR_DIRECTION = MOVE;
+  if (REVERSE) {
+    if (MOVE == 0) MOTOR_DIRECTION = 1;
+    if (MOVE == 1) MOTOR_DIRECTION = 0;
+    if (MOVE == 2) MOTOR_DIRECTION = 3;
+    if (MOVE == 3) MOTOR_DIRECTION = 2;
+  } else MOTOR_DIRECTION = MOVE;
+  return;
+}
+
+void adjust_motor_speed(int channel, float constant) {
+  int speed = MOTOR_SPEED * 100 * constant / MOTOR_SPEED_MAX;
+  app_pwm_channel_duty_set(&PWM1, channel, speed);
   return;
 }
 
@@ -103,8 +114,6 @@ bool motor_drive(void) {
   if (MOTOR_SPEED > MOTOR_SPEED_MAX) {
     return false;
   }
-
-  int speed = MOTOR_SPEED * 100 / MOTOR_SPEED_MAX;
   
   motor_gpio_clear();
   if (MOTOR_DIRECTION == 0) {
@@ -129,8 +138,11 @@ bool motor_drive(void) {
     nrf_gpio_pin_set(8);
   } 
 
-  app_pwm_channel_duty_set(&PWM1, 0, speed);
-  app_pwm_channel_duty_set(&PWM1, 1, speed);
+  app_pwm_enable(&PWM1);
+  //int speed = MOTOR_SPEED * 100 / MOTOR_SPEED_MAX;
+  app_pwm_channel_duty_set(&PWM1, 0, 50);
+  app_pwm_channel_duty_set(&PWM1, 1, 50);
 
+  
   return true;
 }

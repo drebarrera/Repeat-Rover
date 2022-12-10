@@ -31,23 +31,25 @@
 #define WSSL_GPIO 28 // Left
 #define WSS_CIRCUMFERENCE 22.451
 #define WSS_N_POLES 24
-#define WSS_ROVER_WIDTH 7.25
+#define WSS_ROVER_WIDTH 14.5
 #define WSS_ALLOWED_OFFSET 12 // Number of Poles Offset From Goal Allowed.
-#define LEARNING_RATE 0.1
+#define LEARNING_RATE 0.01
 
 // Main Variables
 int MODE;
 int MOVE;
 int SPEED;
 int QUAN;
-bool TERMINATE;
+bool TERMINATE = false;
+bool REVERSE = false;
 
 // WSS Variables
 int WSS_COUNT_RIGHT;
 int WSS_COUNT_LEFT;
 int WSS_DRIVE_MODE = -1;
-int REPEAT_MODE = 1; // Reverse
+int REPEAT_MODE = 0;
 int DIRECTION;
+bool BLOCK_INTERRUPT = true;
 
 // WSS Goals
 int WSS_RIGHT_GOAL = -1;
@@ -56,8 +58,8 @@ int WSS_LEFT_GOAL = -1;
 // Correction Variables
 float J1 = 1;
 float J2 = 2;
-int WSS_RIGHT_CONSTANT = 1;
-int WSS_LEFT_CONSTANT = 1;
+float WSS_RIGHT_CONSTANT = 1;
+float WSS_LEFT_CONSTANT = 1;
 int LAST_MODIFIED = 0;
 
 void set_wss_goal() {
@@ -77,15 +79,17 @@ void set_wss_goal() {
   NRF_LOG_INFO("%d",DIRECTION);
   nrf_drv_gpiote_in_event_enable(WSSR_GPIO, true);
   nrf_drv_gpiote_in_event_enable(WSSL_GPIO, true);
+  BLOCK_INTERRUPT = false;
   return;
 }
 
 void terminate_rover_motors() {
+  BLOCK_INTERRUPT = true;
   nrf_drv_gpiote_in_event_disable(WSSR_GPIO);
   nrf_drv_gpiote_in_event_disable(WSSL_GPIO);
   motor_gpio_clear();
-  if (MODE == 1 || MODE == 2) {
-    if (REPEAT_MODE == 1) repeat_rover_back();
+  if (!MODE && REPEAT_MODE || MODE == 1 || MODE == 2) {
+    if (REVERSE) repeat_rover_back();
     else repeat_rover_fwd();
   }
   DIRECTION = mag_direction();
@@ -94,17 +98,19 @@ void terminate_rover_motors() {
 }
 
 void correct(int side) {
-  /*if ((J1 > 0.05 && J2 > 0.05) && (WSS_COUNT_RIGHT > 0 && WSS_COUNT_LEFT > 0)) {
+  /*if ((J1 > 0.05 || J2 > 0.05) && (WSS_COUNT_RIGHT > 0 && WSS_COUNT_LEFT > 0)) {
     if (LAST_MODIFIED == 0) {
        WSS_RIGHT_CONSTANT ==  WSS_RIGHT_CONSTANT + (WSS_COUNT_LEFT - WSS_COUNT_RIGHT) * LEARNING_RATE;
        LAST_MODIFIED = 1;
+       adjust_motor_speed(0, WSS_RIGHT_CONSTANT);
        J1 = pow((WSS_COUNT_LEFT - WSS_COUNT_RIGHT), 2);
     } else {
        WSS_LEFT_CONSTANT ==  WSS_LEFT_CONSTANT + (WSS_COUNT_RIGHT - WSS_COUNT_LEFT) * LEARNING_RATE;
        LAST_MODIFIED = 0;
+       adjust_motor_speed(0, WSS_LEFT_CONSTANT);
        J1 = pow((WSS_COUNT_RIGHT - WSS_COUNT_LEFT), 2);
     }
-    char test[50];
+    NRF_LOG_INFO("%d", LAST_MODIFIED);
     NRF_LOG_INFO("J1 " NRF_LOG_FLOAT_MARKER " J2 " NRF_LOG_FLOAT_MARKER, NRF_LOG_FLOAT(J1), NRF_LOG_FLOAT(J2))
    
   }*/
@@ -112,21 +118,25 @@ void correct(int side) {
 
 // WSS HANDLERS
 void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-  WSS_COUNT_RIGHT++;
-  if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET) // (abs(DIRECTION - mag_direction()) == QUAN)
-    terminate_rover_motors();
-  correct(0);
-  NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT - mag_direction());
-  return;
+  if (!BLOCK_INTERRUPT) {
+    WSS_COUNT_RIGHT++;
+    if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET) // (abs(DIRECTION - mag_direction()) == QUAN)
+      terminate_rover_motors();
+    //correct(0);
+    //NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT - mag_direction());
+    return;
+  }
 }
 
 void wss_l_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-  WSS_COUNT_LEFT++;
-  if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET) // if (abs(DIRECTION - mag_direction()) == QUAN)
-    terminate_rover_motors();
-  correct(1);
-  NRF_LOG_INFO("L%d", WSS_COUNT_LEFT - mag_direction());
-  return;
+  if (!BLOCK_INTERRUPT) {
+    WSS_COUNT_LEFT++;
+    if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET) // if (abs(DIRECTION - mag_direction()) == QUAN)
+      terminate_rover_motors();
+    //correct(1);
+    //NRF_LOG_INFO("L%d", WSS_COUNT_LEFT - mag_direction());
+    return;
+  }
 }
 
 // Initialize WSS GPIO
@@ -146,47 +156,40 @@ void wss_init(void) {
 }
 
 void repeat_rover_fwd() {
-  if (cmd_stack_length > 0) {
-    REPEAT_MODE = 0;
-    struct cmd next_cmd = pop_cmd_stack();
-    MOVE = next_cmd.command;
-    QUAN = next_cmd.value;
-    drive_rover_motors();
-    int command;
-    int value = next_cmd.value;
-    switch (next_cmd.command) {
-      case 0: command = 1;
-      case 1: command = 0;
-      case 2: command = 3;
-      case 3: command = 2;
+  if (command_queue_len()) {
+    REVERSE = false;
+    NRF_LOG_INFO("FWD, %d", REVERSE);
+    REPEAT_MODE = 1;
+    struct cmd * next_cmd = dequeue_cmd_queue();
+    if (next_cmd->command == 4) SPEED = next_cmd->value;
+    else {
+      MOVE = next_cmd->command;
+      QUAN = next_cmd->value;
+      drive_rover_motors();
     }
-    enqueue_cmd_values(command, value);
+    push_cmd_values(next_cmd->command, next_cmd->value);
   } else {
     repeat_rover_back();
   }
 }
 
 void repeat_rover_back() {
-  if (cmd_queue_length > 0) {
+  if (command_stack_len()) {
+    REVERSE = true;
+    NRF_LOG_INFO("REV, %d", REVERSE);
     REPEAT_MODE = 1;
-    struct cmd next_cmd = dequeue_cmd_queue();
-    if (next_cmd.command == 4) SPEED = next_cmd.value;
+    struct cmd * next_cmd = pop_cmd_stack();
+    if (next_cmd->command == 4) SPEED = next_cmd->value;
     else {
-      MOVE = next_cmd.command;
-      QUAN = next_cmd.value;
+      MOVE = next_cmd->command;
+      QUAN = next_cmd->value;
       drive_rover_motors();
-      int command;
-      int value = next_cmd.value;
-      switch (next_cmd.command) {
-        case 0: command = 1;
-        case 1: command = 0;
-        case 2: command = 3;
-        case 3: command = 2;
-      }
-      push_cmd_values(command, value);
     }
+    enqueue_cmd_values(next_cmd->command, next_cmd->value);
   } else if (!TERMINATE) {
     repeat_rover_fwd();
+  } else {
+    TERMINATE = false;
   }
 }
 
@@ -196,15 +199,20 @@ void drive(int MD, int S, int M, int Q) {
   SPEED = S;
   QUAN = Q;
   drive_rover_motors();
+
 }
 
 void drive_rover_motors() {
-  set_motor_params(SPEED, MOVE, QUAN);
+  set_motor_params(SPEED, MOVE, REVERSE);
   set_wss_goal();
   motor_drive();
   return;
 }
 
-void terminate(bool T) {
-  TERMINATE = T;
+void end_handler() {
+  if (REPEAT_MODE) {
+    TERMINATE = true;
+  } else {
+    repeat_rover_back();
+  }
 }

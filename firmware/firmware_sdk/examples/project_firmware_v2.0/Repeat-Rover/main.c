@@ -822,7 +822,6 @@ static void advertising_start(bool erase_bonds)
  */
 int main(void)
  {
-
     //BLE
     bool erase_bonds;
 
@@ -831,6 +830,8 @@ int main(void)
     timers_init();
     peripherals_init();
     buttons_leds_init(&erase_bonds);
+    ///NRF_LOG_INIT("TEST");
+    //run();
     power_management_init();
     ble_stack_init();
     gap_params_init();

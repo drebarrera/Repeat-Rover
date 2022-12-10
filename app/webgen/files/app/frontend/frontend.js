@@ -1,8 +1,8 @@
-const bounds = [[0.0, 0.0], [8.0, 0.0], [8.0, 8.0], [5.0, 5.0], [0.0, 5.0]];
-const obstacles = [[[1.0, 1.0], [2.0, 1.0], [2.0, 2.0], [1.0, 2.0]], [[3.0, 3.0], [4.0, 3.0], [4.0, 4.0], [3.0, 4.0]]];
-const grid = [1, 0.5];
-var path = [[5.0, 0.5], [5.0, 4.5], [0.5, 4.5], [0.5, 0.5]];
-var speed = {'0': 1, '2': 5};
+const bounds = [[0.0, 0.0], [1.0, 1.0]];
+const obstacles = [];
+const grid = ['1', '0.5'];
+var path = [];
+var speed = {0: 1};
 const PORT = 3000;
 const socket = io.connect('http://localhost:' + PORT.toString());
 

@@ -1,3 +1,4 @@
+//const _ = require('underscore@^1.13.6');
 const express = require('express');
 const path = require("path");
 const router = express.Router();
@@ -9,7 +10,8 @@ const io = new Server(server);
 app.use(router);
 const PORT = 3000;
 app.set("port", PORT);
-const bluetooth = require('./bluetooth');
+//
+//require('./bluetooth');
 
 server.listen(app.get("port"), function() {
     console.log("Server started on port " + app.get("port"));
@@ -30,3 +32,5 @@ io.on("connection", function(socket) {
         console.log('socket', data.test);
     });
 });
+
+// - BLUETOOTH ----------------------------

@@ -11,6 +11,6 @@ void wss_init(void);
 
 void drive(int MD, int S, int M, int Q);
 
-void terminate(bool T);
+void end_handler();
 
 #endif
