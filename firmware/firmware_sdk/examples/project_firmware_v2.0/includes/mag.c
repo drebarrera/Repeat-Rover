@@ -29,8 +29,8 @@ int MAG_Z;
 //int minY = 0;
 //int maxX = 0;
 //int maxY = 0;
-int offset_x = 637;
-int offset_y = -316;
+int offset_x = 28;
+int offset_y = -171;
 uint8_t address = 0x1E; // address of the sensor
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 
@@ -92,7 +92,13 @@ int mag_direction(void) {
   MAG_Y = Y;
   MAG_Z = Z;
   //printf("X: %d, Y: %d, Z: %d\n", X, Y, Z); //Debug
-  heading = 90 - (atan2(Y,X) * (180/M_PI));
+  heading = (atan2(Y,X) * (180/M_PI));
+  if(heading  <= 0) {
+    heading += 360;
+  }
+  if(heading > 360) {
+    heading -= 360;
+  }
   heading = heading + declination;  
   //printf("New Direction: %d \n", heading);
   return(heading);
