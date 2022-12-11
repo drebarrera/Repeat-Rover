@@ -71,7 +71,7 @@ void motor_init(void) {
   sd_clock_hfclk_request();
 
   // 2-channel PWM, 200Hz, output on DK LED pins. 
-  app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(5000L, 4, 7); //enable pins 4 and 7
+  app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_2CH(1000L, 4, 7); //enable pins 4 and 7
 
   // Switch the polarity of both channel. 
   pwm1_cfg.pin_polarity[1] = APP_PWM_POLARITY_ACTIVE_HIGH;
@@ -140,7 +140,7 @@ bool motor_drive(void) {
 
   app_pwm_enable(&PWM1);
   //int speed = MOTOR_SPEED * 100 / MOTOR_SPEED_MAX;
-  app_pwm_channel_duty_set(&PWM1, 0, 50);
+  app_pwm_channel_duty_set(&PWM1, 0, 63);
   app_pwm_channel_duty_set(&PWM1, 1, 50);
 
   
