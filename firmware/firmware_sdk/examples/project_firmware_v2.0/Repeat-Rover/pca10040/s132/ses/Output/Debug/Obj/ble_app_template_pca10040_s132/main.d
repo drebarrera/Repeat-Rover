@@ -122,4 +122,5 @@ Output/Debug/Obj/ble_app_template_pca10040_s132/main.o: \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 6.34a/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
- ../../../../includes/ble_cus.h ../../../../includes/peripherals.h
+ ../../../../includes/ble_cus.h ../../../../includes/peripherals.h \
+ ../../../../includes/sd.h

@@ -45,12 +45,12 @@ static int MOVE = -1;
 static int QUAN = -1;
 
 // SPEED => {MIN: 0, MAX: 10}
-static int SPEED = 5;
+static int SPEED = 6;
 
 void peripherals_init() {
   wss_init();
   magnetometer_init();
-  //sd_init();
+  sd_init();
   motor_init();
 }
 
@@ -94,9 +94,10 @@ bool compare_strings(char * str1, char * str2, int length) {
 void mode_select(int val) {
   MODE = val;
   if (MODE == 0 || MODE == 2) {
-    //sd_write("TEST"); // CLEAR FILE IN SD CARD
+    //sd_clear(); // CLEAR FILE IN SD CARD
   } else if (MODE == 1) {
     //sd_read_parse(); // READ & PARSE FILE FROM SD CARD
+    repeat_rover_fwd();
   } else {
     MODE = 1;
     NRF_LOG_ERROR("[!!!] Mode should be between 0 and 2");
@@ -107,16 +108,10 @@ void mode_select(int val) {
 
 void add_to_cmd_stack() {
   int index = push_cmd_values(MOVE, QUAN);
-  char line[5];
-  sprintf(line, "%d%d\n", MOVE, QUAN);
-  //sd_append_line(line);
 }
 
 void add_to_cmd_queue() {
   int index = enqueue_cmd_values(MOVE, QUAN);
-  char line[5];
-  sprintf(line, "%d%d\n", MOVE, QUAN);
-  //sd_append_line(line);
 }
 
 void bluetooth_rx(char * data, int data_length) {
@@ -181,10 +176,12 @@ void bluetooth_rx(char * data, int data_length) {
           NRF_LOG_ERROR("[!!!] Rotation should be an integer between 0 and 999");
           return;
         }
-      } else if (compare_strings(command, "END", 3)) { 
+      } else if (compare_strings(command, "RUN", 3)) { 
         if (MODE == 0)
-          end_handler();
-      } else {
+          repeat_rover_back();
+      } else if (compare_strings(command, "END", 3)) {
+          end_handler(); 
+      }else {
         NRF_LOG_ERROR("[!!!] Unknown command.");
         return;
       }
@@ -192,7 +189,9 @@ void bluetooth_rx(char * data, int data_length) {
       if (MOVE != -1 && MODE == 0) {
         drive(MODE, SPEED, MOVE, QUAN);
         add_to_cmd_stack();
-        NRF_LOG_INFO("TESTPOINT");
+        char line[5];
+        sprintf(line, "%d%d\n", MOVE, QUAN);
+        //sd_append(line);
       } else if (MOVE != -1 && MODE == 2) {
         add_to_cmd_queue();
       }

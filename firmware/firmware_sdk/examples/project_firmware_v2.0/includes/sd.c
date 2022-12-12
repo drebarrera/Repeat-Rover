@@ -32,7 +32,7 @@
 
 
 // SD Card Literals
-#define FILE_NAME   "TEST.TXT"
+#define FILE_NAME   "RROV.TXT"
 #define BUFFER_SIZE 500
 #define TEST_STRING "TEST"
 
@@ -91,12 +91,14 @@ void sd_init()
     NRF_LOG_INFO("Capacity: %d MB", capacity);
 
     NRF_LOG_INFO("Mounting volume...");
+    
     ff_result = f_mount(&fs, "", 1);
+    /*NRF_LOG_INFO("HI");
     if (ff_result)
     {
         NRF_LOG_INFO("Mount failed.");
         return;
-    }
+    }*/
     return;
 }
 
@@ -139,24 +141,33 @@ int write_to_sd(FIL file, bool append) {
     NRF_LOG_INFO("Writing to file " FILE_NAME "...");
     if (append) {
       ff_result = f_open(&file, FILE_NAME, FA_OPEN_APPEND | FA_WRITE);
+      if (ff_result != FR_OK)
+      {
+          NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".");
+          return;
+      }
+
+      bytes_written = f_printf(&file, "%s", buffer);
     } else {
       ff_result = f_open(&file, FILE_NAME, FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
-    }
-    if (ff_result != FR_OK)
-    {
-        NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".");
-        return;
-    }
 
-    ff_result = f_write(&file, buffer, sizeof(buffer) - 1, (UINT *) &bytes_written);
-    if (ff_result != FR_OK)
-    {
-        NRF_LOG_INFO("Write failed\r\n.");
+      if (ff_result != FR_OK)
+      {
+          NRF_LOG_INFO("Unable to open or create file: " FILE_NAME ".");
+          return;
+      }
+
+      ff_result = f_write(&file, buffer, sizeof(buffer) - 1, (UINT *) &bytes_written);
+      if (ff_result != FR_OK)
+      {
+          NRF_LOG_INFO("Write failed\r\n.");
+      }
+      else
+      {
+          NRF_LOG_INFO("%d bytes written.", bytes_written);
+      }
     }
-    else
-    {
-        NRF_LOG_INFO("%d bytes written.", bytes_written);
-    }
+    
 
     (void) f_close(&file);
 
@@ -169,7 +180,8 @@ void clear_buffer() {
   }
 }
 
-int sd_clear(FIL file) {
+int sd_clear() {
+  static FIL file;
   clear_buffer();
   ff_result = f_open(&file, FILE_NAME, FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
   (void) f_close(&file);
@@ -212,15 +224,59 @@ int sd_read(FIL file) {
     return ByteRead;
 }
 
-void sd_write(FIL file, char * str) {
+void sd_read_parse() {
+    static FIL file;
+    sd_read(file);
+    char command_buffer[4];
+    char value_str[3];
+    int line_length = 0;
+    int value;
+    int command;
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+      if (buffer[i] == '\n') {
+        command = command_buffer[0] - 48;
+        strncpy(value_str, &command_buffer[1], 3);
+        value = atoi(value_str);
+        push_cmd_values(command, value);
+        for (int j = 0; j < 4; j++)
+          command_buffer[j] = 0;
+        line_length = 0;
+      } else if (buffer[i] != '\r') {
+        char c = buffer[i];
+        command_buffer[line_length] = c;
+        line_length++;
+      }
+    }
+    push_cmd_values(0,1);
+    return;
+}
+
+void sd_write(char * str) {
+  static FIL file;
   strcpy(&buffer, str);
   write_to_sd(file, false); 
 }
 
-void sd_append(FIL file, char * str) {
-  int original_length = sd_read(file);
-  strcpy(&buffer[original_length], str);
+void sd_append(char * str) {
+  //int original_length = sd_read(file);
+  static FIL file;
+  strcpy(&buffer, str);
   write_to_sd(file, true);
+}
+
+void sd_clear_init() {
+  sd_init();
+  sd_clear();
+}
+
+void sd_append_init(char * str) {
+  sd_init();
+  sd_append(str);
+}
+
+void sd_read_parse_init() {
+  sd_init();
+  sd_read_parse();
 }
 
 /**
@@ -234,13 +290,13 @@ int run(void)
     //NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     NRF_LOG_INFO("FATFS example started.");
-    static FIL file;
-    sd_init();
-    sd_clear(file);
-    sd_append(file, "hello world!\r\n");
-    sd_append(file, "test!\r\n");
-    sd_append(file, "hello world!\r\n");
-    sd_read(file);
+    
+    //sd_init();
+    sd_clear_init();
+    sd_append_init("0215\n");
+    sd_append_init("110\n");
+    sd_append_init("390\n");
+    sd_read_parse_init();
     //NRF_LOG_INFO("READING INITIAL");
     //sd_read();
     //sd_clear();

@@ -46,6 +46,7 @@
 
 #include "nrf_gpio.h"
 #include "boards.h"
+#include "sd.h"
 
 #define DEVICE_NAME                     "RRover"                       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME               "RepeatRover"                   /**< Manufacturer. Will be passed to Device Information Service. */
@@ -829,10 +830,13 @@ int main(void)
     log_init();
     timers_init();
     peripherals_init();
+    NRF_LOG_INFO("TEST");
     buttons_leds_init(&erase_bonds);
-    ///NRF_LOG_INIT("TEST");
-    //run();
+    //wss_init();
+    //drive(0, 5, 0, 100);
     power_management_init();
+    //run();
+    //run();
     ble_stack_init();
     gap_params_init();
     gatt_init();

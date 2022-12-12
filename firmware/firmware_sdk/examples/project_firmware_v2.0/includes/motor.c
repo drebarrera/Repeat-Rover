@@ -104,7 +104,7 @@ void set_motor_params(int SPEED, int MOVE, bool REVERSE) {
 }
 
 void adjust_motor_speed(int channel, float constant) {
-  int speed = MOTOR_SPEED * 100 * constant / MOTOR_SPEED_MAX;
+  int speed = MOTOR_SPEED * 83 * constant / MOTOR_SPEED_MAX;
   app_pwm_channel_duty_set(&PWM1, channel, speed);
   return;
 }
@@ -139,9 +139,9 @@ bool motor_drive(void) {
   } 
 
   app_pwm_enable(&PWM1);
-  //int speed = MOTOR_SPEED * 100 / MOTOR_SPEED_MAX;
-  app_pwm_channel_duty_set(&PWM1, 0, 63);
-  app_pwm_channel_duty_set(&PWM1, 1, 50);
+  int speed = MOTOR_SPEED * 83 / MOTOR_SPEED_MAX;
+  app_pwm_channel_duty_set(&PWM1, 0, speed);
+  app_pwm_channel_duty_set(&PWM1, 1, speed);
 
   
   return true;

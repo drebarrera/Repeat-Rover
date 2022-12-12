@@ -13,4 +13,6 @@ void drive(int MD, int S, int M, int Q);
 
 void end_handler();
 
+void wss_enable();
+
 #endif

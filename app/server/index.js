@@ -1,4 +1,4 @@
-//const _ = require('underscore@^1.13.6');
+const _ = require('underscore@^1.13.6');
 const express = require('express');
 const path = require("path");
 const router = express.Router();

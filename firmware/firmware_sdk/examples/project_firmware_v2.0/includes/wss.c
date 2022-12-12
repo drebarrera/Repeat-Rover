@@ -22,18 +22,23 @@
 #include "motor.h"
 #include "mag.h"
 #include "nrf_drv_gpiote.h"
+#include "app_timer.h"
+#include "nrf_drv_clock.h"
 #include "CommandMap.h"
 
 #define PI 3.14159265358979323846
 
+APP_TIMER_DEF(timer_l);
+APP_TIMER_DEF(timer_r);
+
 // WSS Literals
 #define WSSR_GPIO 26 // Right
-#define WSSL_GPIO 28 // Left
+#define WSSL_GPIO 29 // Left
 #define WSS_CIRCUMFERENCE 22.451
 #define WSS_N_POLES 24
 #define WSS_ROVER_WIDTH 14.5
 #define WSS_ALLOWED_OFFSET 12 // Number of Poles Offset From Goal Allowed.
-#define LEARNING_RATE 0.01
+#define LEARNING_RATE 0.05
 
 // Main Variables
 int MODE;
@@ -56,11 +61,8 @@ int WSS_RIGHT_GOAL = -1;
 int WSS_LEFT_GOAL = -1;
 
 // Correction Variables
-float J1 = 1;
-float J2 = 2;
 float WSS_RIGHT_CONSTANT = 1;
 float WSS_LEFT_CONSTANT = 1;
-int LAST_MODIFIED = 0;
 
 void set_wss_goal() {
   WSS_DRIVE_MODE = MOVE;
@@ -98,22 +100,20 @@ void terminate_rover_motors() {
 }
 
 void correct(int side) {
-  /*if ((J1 > 0.05 || J2 > 0.05) && (WSS_COUNT_RIGHT > 0 && WSS_COUNT_LEFT > 0)) {
-    if (LAST_MODIFIED == 0) {
-       WSS_RIGHT_CONSTANT ==  WSS_RIGHT_CONSTANT + (WSS_COUNT_LEFT - WSS_COUNT_RIGHT) * LEARNING_RATE;
-       LAST_MODIFIED = 1;
-       adjust_motor_speed(0, WSS_RIGHT_CONSTANT);
-       J1 = pow((WSS_COUNT_LEFT - WSS_COUNT_RIGHT), 2);
-    } else {
-       WSS_LEFT_CONSTANT ==  WSS_LEFT_CONSTANT + (WSS_COUNT_RIGHT - WSS_COUNT_LEFT) * LEARNING_RATE;
-       LAST_MODIFIED = 0;
-       adjust_motor_speed(0, WSS_LEFT_CONSTANT);
-       J1 = pow((WSS_COUNT_RIGHT - WSS_COUNT_LEFT), 2);
-    }
-    NRF_LOG_INFO("%d", LAST_MODIFIED);
-    NRF_LOG_INFO("J1 " NRF_LOG_FLOAT_MARKER " J2 " NRF_LOG_FLOAT_MARKER, NRF_LOG_FLOAT(J1), NRF_LOG_FLOAT(J2))
-   
-  }*/
+  if (!side && WSS_COUNT_LEFT < WSS_COUNT_RIGHT && WSS_LEFT_CONSTANT < 1.2) {
+    WSS_LEFT_CONSTANT = WSS_LEFT_CONSTANT + LEARNING_RATE;
+    adjust_motor_speed(1, WSS_LEFT_CONSTANT);
+  } else if (!side && WSS_COUNT_LEFT > WSS_COUNT_RIGHT && WSS_LEFT_CONSTANT > 0.8) {
+    WSS_LEFT_CONSTANT = WSS_LEFT_CONSTANT - LEARNING_RATE;
+    adjust_motor_speed(1, WSS_LEFT_CONSTANT);
+  } else if (side && WSS_COUNT_RIGHT < WSS_COUNT_LEFT && WSS_RIGHT_CONSTANT < 1.2) {
+    WSS_RIGHT_CONSTANT = WSS_RIGHT_CONSTANT + LEARNING_RATE;
+    adjust_motor_speed(0, WSS_RIGHT_CONSTANT);
+  } else if (side && WSS_COUNT_RIGHT > WSS_COUNT_LEFT && WSS_RIGHT_CONSTANT > 0.8) {
+    WSS_RIGHT_CONSTANT = WSS_RIGHT_CONSTANT - LEARNING_RATE;
+    adjust_motor_speed(0, WSS_RIGHT_CONSTANT);
+  }
+  return;
 }
 
 // WSS HANDLERS
@@ -123,7 +123,8 @@ void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
     if (WSS_COUNT_RIGHT >= WSS_RIGHT_GOAL && (WSS_LEFT_GOAL - WSS_COUNT_LEFT) < WSS_ALLOWED_OFFSET) // (abs(DIRECTION - mag_direction()) == QUAN)
       terminate_rover_motors();
     //correct(0);
-    //NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT - mag_direction());
+    NRF_LOG_INFO("R%d", WSS_COUNT_RIGHT);
+    NRF_LOG_INFO("M%d", mag_direction() - DIRECTION);
     return;
   }
 }
@@ -131,12 +132,27 @@ void wss_r_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
 void wss_l_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   if (!BLOCK_INTERRUPT) {
     WSS_COUNT_LEFT++;
-    if (WSS_COUNT_LEFT >= WSS_RIGHT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET) // if (abs(DIRECTION - mag_direction()) == QUAN)
+    if (WSS_COUNT_LEFT >= WSS_LEFT_GOAL && (WSS_RIGHT_GOAL - WSS_COUNT_RIGHT) < WSS_ALLOWED_OFFSET) // if (abs(DIRECTION - mag_direction()) == QUAN)
       terminate_rover_motors();
     //correct(1);
-    //NRF_LOG_INFO("L%d", WSS_COUNT_LEFT - mag_direction());
+    NRF_LOG_INFO("L%d", WSS_COUNT_LEFT);
+    NRF_LOG_INFO("M%d", mag_direction() - DIRECTION);
     return;
   }
+}
+
+static void set_r_timer(void * p_context)
+{
+    ret_code_t err_code;
+    err_code = app_timer_start(timer_r, APP_TIMER_TICKS(10), NULL);
+    APP_ERROR_CHECK(err_code);
+}
+
+static void set_l_timer(void * p_context)
+{
+    ret_code_t err_code;
+    err_code = app_timer_start(timer_l, APP_TIMER_TICKS(10), NULL);
+    APP_ERROR_CHECK(err_code);
 }
 
 // Initialize WSS GPIO
@@ -148,17 +164,28 @@ void wss_init(void) {
   nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_LOTOHI(true);
   in_config.pull = NRF_GPIO_PIN_PULLUP;
 
-  err_code = nrf_drv_gpiote_in_init(WSSR_GPIO, &in_config, wss_r_handler);
+  err_code = nrf_drv_gpiote_in_init(WSSR_GPIO, &in_config, set_r_timer);
   APP_ERROR_CHECK(err_code);
   
-  err_code = nrf_drv_gpiote_in_init(WSSL_GPIO, &in_config, wss_l_handler);
+  err_code = nrf_drv_gpiote_in_init(WSSL_GPIO, &in_config, set_l_timer);
+  APP_ERROR_CHECK(err_code);
+
+  err_code = nrf_drv_clock_init();
+  APP_ERROR_CHECK(err_code);
+  nrf_drv_clock_lfclk_request(NULL);
+
+  app_timer_init();
+
+  err_code = app_timer_create(&timer_l, APP_TIMER_MODE_SINGLE_SHOT, wss_l_handler);
+  APP_ERROR_CHECK(err_code);
+
+  err_code = app_timer_create(&timer_r, APP_TIMER_MODE_SINGLE_SHOT, wss_r_handler);
   APP_ERROR_CHECK(err_code);
 }
 
 void repeat_rover_fwd() {
   if (command_queue_len()) {
     REVERSE = false;
-    NRF_LOG_INFO("FWD, %d", REVERSE);
     REPEAT_MODE = 1;
     struct cmd * next_cmd = dequeue_cmd_queue();
     if (next_cmd->command == 4) SPEED = next_cmd->value;
@@ -176,16 +203,15 @@ void repeat_rover_fwd() {
 void repeat_rover_back() {
   if (command_stack_len()) {
     REVERSE = true;
-    NRF_LOG_INFO("REV, %d", REVERSE);
     REPEAT_MODE = 1;
     struct cmd * next_cmd = pop_cmd_stack();
+    enqueue_cmd_values(next_cmd->command, next_cmd->value);
     if (next_cmd->command == 4) SPEED = next_cmd->value;
     else {
       MOVE = next_cmd->command;
       QUAN = next_cmd->value;
       drive_rover_motors();
     }
-    enqueue_cmd_values(next_cmd->command, next_cmd->value);
   } else if (!TERMINATE) {
     repeat_rover_fwd();
   } else {
@@ -210,9 +236,11 @@ void drive_rover_motors() {
 }
 
 void end_handler() {
-  if (REPEAT_MODE) {
-    TERMINATE = true;
-  } else {
-    repeat_rover_back();
-  }
+  TERMINATE = true;
+}
+
+void wss_enable(){
+  nrf_drv_gpiote_in_event_enable(WSSR_GPIO, true);
+  nrf_drv_gpiote_in_event_enable(WSSL_GPIO, true);
+  BLOCK_INTERRUPT = 0;
 }
