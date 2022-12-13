@@ -90,15 +90,18 @@ void sd_init()
     uint32_t capacity = m_block_dev_sdc.block_dev.p_ops->geometry(&m_block_dev_sdc.block_dev)->blk_count / blocks_per_mb;
     NRF_LOG_INFO("Capacity: %d MB", capacity);
 
+    //sd_mount();
+}
+
+void sd_mount() {
     NRF_LOG_INFO("Mounting volume...");
     
     ff_result = f_mount(&fs, "", 1);
-    /*NRF_LOG_INFO("HI");
     if (ff_result)
     {
         NRF_LOG_INFO("Mount failed.");
         return;
-    }*/
+    }
     return;
 }
 
@@ -180,8 +183,7 @@ void clear_buffer() {
   }
 }
 
-int sd_clear() {
-  static FIL file;
+void sd_clear(FIL file) {
   clear_buffer();
   ff_result = f_open(&file, FILE_NAME, FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
   (void) f_close(&file);
@@ -224,8 +226,7 @@ int sd_read(FIL file) {
     return ByteRead;
 }
 
-void sd_read_parse() {
-    static FIL file;
+void sd_read_parse(FIL file) {
     sd_read(file);
     char command_buffer[4];
     char value_str[3];
@@ -251,32 +252,35 @@ void sd_read_parse() {
     return;
 }
 
-void sd_write(char * str) {
-  static FIL file;
+void sd_write(FIL file, char * str) {
   strcpy(&buffer, str);
   write_to_sd(file, false); 
 }
 
-void sd_append(char * str) {
-  //int original_length = sd_read(file);
-  static FIL file;
+void sd_append(FIL file, char * str) {
   strcpy(&buffer, str);
   write_to_sd(file, true);
 }
 
 void sd_clear_init() {
-  sd_init();
-  sd_clear();
+  static FIL file;
+  //sd_mount();
+  sd_clear(file);
+  //f_mount(0, "", 0);
 }
 
 void sd_append_init(char * str) {
-  sd_init();
-  sd_append(str);
+  static FIL file;
+  //sd_mount();
+  sd_append(file, str);
+  //f_mount(0, "", 0);
 }
 
 void sd_read_parse_init() {
-  sd_init();
-  sd_read_parse();
+  static FIL file;
+  //sd_mount();
+  sd_read_parse(file);
+  //f_mount(0, "", 0);
 }
 
 /**

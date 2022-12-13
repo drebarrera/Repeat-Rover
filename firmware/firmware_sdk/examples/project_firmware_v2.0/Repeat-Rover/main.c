@@ -835,6 +835,8 @@ int main(void)
     //wss_init();
     //drive(0, 5, 0, 100);
     power_management_init();
+    sd_mount();
+    NRF_LOG_INFO("HI");
     //run();
     //run();
     ble_stack_init();

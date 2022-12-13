@@ -3,19 +3,17 @@
  
 #include <stdbool.h>
 
-/*void sd_init(void);
+void sd_init(void);
 
-char * sd_read(void);
+void sd_mount();
 
-void sd_file_clear();
+void sd_clear_init();
 
-bool sd_write(char * str);
+//void sd_write(FIL file, char * str);
 
-void sd_read_parse();
+void sd_read_parse_init();
 
-void sd_append_line(char * str);*/
-
-void sd_init();
+void sd_append_init(char * str);
 
 int run();
 

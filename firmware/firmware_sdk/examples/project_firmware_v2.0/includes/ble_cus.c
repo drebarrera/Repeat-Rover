@@ -51,7 +51,7 @@ static void on_write(ble_cus_t * p_cus, ble_evt_t const * p_ble_evt)
 {
     ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
     int data_handle = (int) (*p_evt_write).handle;
-
+    
     if (data_handle == 16){
 
       int data_length = (int) (*p_evt_write).len;

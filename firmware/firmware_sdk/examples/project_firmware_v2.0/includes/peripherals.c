@@ -94,9 +94,10 @@ bool compare_strings(char * str1, char * str2, int length) {
 void mode_select(int val) {
   MODE = val;
   if (MODE == 0 || MODE == 2) {
-    //sd_clear(); // CLEAR FILE IN SD CARD
+    //run();
+    sd_clear_init(); // CLEAR FILE IN SD CARD
   } else if (MODE == 1) {
-    //sd_read_parse(); // READ & PARSE FILE FROM SD CARD
+    sd_read_parse_init(); // READ & PARSE FILE FROM SD CARD
     repeat_rover_fwd();
   } else {
     MODE = 1;
@@ -118,7 +119,6 @@ void bluetooth_rx(char * data, int data_length) {
   char command[COMMAND_STEM_SIZE];
   int value;
   decode(data, data_length, &command, &value);
-
   if (compare_strings(command, "MOD", 3)) {
     mode_select(value);
   } else {
@@ -191,7 +191,7 @@ void bluetooth_rx(char * data, int data_length) {
         add_to_cmd_stack();
         char line[5];
         sprintf(line, "%d%d\n", MOVE, QUAN);
-        //sd_append(line);
+        sd_append_init(line);
       } else if (MOVE != -1 && MODE == 2) {
         add_to_cmd_queue();
       }
